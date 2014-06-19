@@ -13,6 +13,7 @@
 
 class Block :public cocos2d::Sprite
 {
+public:
     bool init() override;
     CREATE_FUNC(Block);
 };
