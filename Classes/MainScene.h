@@ -17,6 +17,11 @@ typedef cocos2d::Map<std::string, Entity *> EntityMap;
 class MainScene :public cocos2d::Layer
 {
 public:
+    
+    MainScene();
+    
+    virtual ~MainScene();
+    
     static cocos2d::Scene* createScene();
     bool init() override;
 
@@ -34,15 +39,30 @@ public:
     Entity* getEntityAt(int x, int y);
 
     /** 画面上の特定位置にあるブロックを取り出します
-     *   何もなかった場合はnullptrを返します
-     *   @param position 画面上の絶対座標
-     *   @return その位置にあるEntity、またはnullptr
+     *  何もなかった場合はnullptrを返します
+     *  @param position 画面上の絶対座標
+     *  @return その位置にあるEntity、またはnullptr
      */
     Entity* getEntityAt(cocos2d::Vec2 position);
+    
+    /** ブロックをグリッド上の指定した位置に動かします
+     *  @param entity0 動かすブロック
+     *  @param entityPosition 動かすグリッド上の座標
+     *  @return 動かせたかどうか
+     */
+    bool moveEntity(Entity* entity0, cocos2d::Vec2 entityPosition);
+    
+    /** 2つのEntityを取り替えます
+     *  @param entity0 1つめのEnitiy
+     *  @param entity1 2つめのEntity
+     *  @return 取り替えられたかどうか
+     */
+    bool swapEntities(Entity* entity0, Entity* entity1);
     
     CREATE_FUNC(MainScene);
     CC_SYNTHESIZE(cocos2d::Node*, _stage, Stage);
     CC_SYNTHESIZE(EntityMap, _entitys, Entitys);
+    CC_SYNTHESIZE_RETAIN(Entity *, _currentEntity, CurrentEntity);
 };
 
 #endif /* defined(__KawazCrash__MainScene__) */

@@ -35,6 +35,12 @@ public:
     */
     void setEntityPosition(cocos2d::Vec2 position);
     
+    /** ブロックのキーを取り出します
+     *  キーはグリッド上の位置を,で繋いだものです
+     *  @return キー
+     */
+    std::string getKey();
+    
     CC_SYNTHESIZE_READONLY(cocos2d::Vec2, _entityPosition, EntityPosition);
     CC_SYNTHESIZE(Color, _entityColor, EntityColor);
     CREATE_FUNC(Entity);

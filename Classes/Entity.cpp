@@ -32,3 +32,8 @@ void Entity::setEntityPosition(Vec2 position)
     this->setPosition(Vec2(Entity::getSize() * position.x, Entity::getSize() * position.y));
 }
 
+std::string Entity::getKey()
+{
+    auto key = StringUtils::format("%d,%d", static_cast<int>(_entityPosition.x), static_cast<int>(_entityPosition.y));
+    return key;
+}
