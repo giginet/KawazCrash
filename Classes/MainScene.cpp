@@ -32,10 +32,9 @@ bool MainScene::init()
     for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
         for (int y = 0; y < VERTICAL_COUNT; ++y) {
             auto block = Block::create();
-            block->setPosition(Vec2(Block::size * x, Block::size * y));
+            block->setBlockPosition(Vec2(x, y));
             _stage->addChild(block);
-            auto key = StringUtils::format("%d,%d", x, y);
-            _blocks.insert(key, block);
+            this->addBlock(block);
         }
     }
     auto winSize = Director::getInstance()->getWinSize();
@@ -44,4 +43,17 @@ bool MainScene::init()
     this->addChild(_stage);
     
     return true;
+}
+
+Block* MainScene::getBlockAt(cocos2d::Vec2 position)
+{
+    auto key = StringUtils::format("%d-%d", static_cast<int>(position.x), static_cast<int>(position.y));
+    return _blocks.at(key);
+}
+
+void MainScene::addBlock(Block *block)
+{
+    auto position = block->getBlockPosition();
+    auto key = StringUtils::format("%d-%d", static_cast<int>(position.x), static_cast<int>(position.y));
+    _blocks.insert(key, block);
 }

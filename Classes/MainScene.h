@@ -19,6 +19,19 @@ class MainScene :public cocos2d::Layer
 public:
     static cocos2d::Scene* createScene();
     bool init() override;
+
+    /** 指定したブロックを追加します
+     *  @param 追加するblock
+     */
+    void addBlock(Block *block);
+    
+    /** グリッド上の特定位置にあるブロックを取り出します
+    *   何もなかった場合はnullptrを返します
+    *   @param position グリッド上の位置
+    *   @return その位置にあるBlock、またはnullptr
+    */
+    Block* getBlockAt(cocos2d::Vec2 position);
+    
     CREATE_FUNC(MainScene);
     CC_SYNTHESIZE(cocos2d::Node*, _stage, Stage);
     CC_SYNTHESIZE(BlockMap, _blocks, Blocks);
