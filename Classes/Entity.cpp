@@ -10,6 +10,11 @@
 
 USING_NS_CC;
 
+Entity::~Entity()
+{
+    CC_SAFE_RELEASE_NULL(_debugLabel);
+}
+
 bool Entity::init()
 {
     
@@ -21,6 +26,10 @@ bool Entity::init()
                                                  Entity::getSize()))) {
         return false;
     }
+    auto label = Label::createWithSystemFont("", "Helvetica", 10);
+    this->addChild(label);
+    this->setDebugLabel(label);
+    label->setPosition(Vec2(Entity::getSize() / 2.0, Entity::getSize() / 2.0));
     
     return true;
 }
@@ -30,6 +39,7 @@ void Entity::setEntityPosition(Vec2 position)
     CCASSERT(floor(position.x) == position.x || floor(position.y) == position.y, "position must contains integers");
     _entityPosition = position;
     this->setPosition(Vec2(Entity::getSize() * position.x, Entity::getSize() * position.y));
+    _debugLabel->setString(this->getKey());
 }
 
 std::string Entity::getKey()

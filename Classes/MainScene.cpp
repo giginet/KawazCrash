@@ -55,9 +55,6 @@ bool MainScene::init()
     listener->onTouchBegan = [this](Touch* touch, Event* event) {
         auto position = touch->getLocation();
         auto entity = this->getEntityAt(position);
-        if (entity) {
-            log("%f, %f", entity->getEntityPosition().x, entity->getEntityPosition().y);
-        }
         this->setCurrentEntity(entity);
         return true;
     };
@@ -67,6 +64,18 @@ bool MainScene::init()
             auto cp = _currentEntity->getEntityPosition();
             auto np = nextEntity->getEntityPosition();
             if (cp.y == np.y && cp.x + 1 == np.x) { // 右方向
+                this->swapEntities(_currentEntity, nextEntity);
+                this->setCurrentEntity(nullptr);
+            }
+            if (cp.y == np.y && cp.x - 1 == np.x) { // 左方向
+                this->swapEntities(_currentEntity, nextEntity);
+                this->setCurrentEntity(nullptr);
+            }
+            if (cp.x == np.x && cp.y + 1 == np.y) { // 上方向
+                this->swapEntities(_currentEntity, nextEntity);
+                this->setCurrentEntity(nullptr);
+            }
+            if (cp.x == np.x && cp.y - 1 == np.y) { // 下方向
                 this->swapEntities(_currentEntity, nextEntity);
                 this->setCurrentEntity(nullptr);
             }
@@ -86,8 +95,12 @@ bool MainScene::init()
 
 Entity* MainScene::getEntityAt(int x, int y)
 {
-    auto key = StringUtils::format("%d,%d", x, y);
-    return _entitys.at(key);
+    for (auto entity : _entitys) {
+        if (entity->getEntityPosition().x == x && entity->getEntityPosition().y == y) {
+            return entity;
+        }
+    }
+    return nullptr;
 }
 
 Entity* MainScene::getEntityAt(cocos2d::Vec2 position)
@@ -100,19 +113,12 @@ Entity* MainScene::getEntityAt(cocos2d::Vec2 position)
 
 void MainScene::addEntity(Entity *entity)
 {
-    auto position = entity->getEntityPosition();
-    auto key = entity->getKey();
-    _entitys.insert(key, entity);
+    _entitys.pushBack(entity);
 }
 
 bool MainScene::moveEntity(Entity *entity, cocos2d::Vec2 entityPosition)
 {
-    if (this->getEntityAt(entityPosition.x, entityPosition.y)) {
-        return false;
-    }
-    _entitys.erase(entity->getKey());
     entity->setEntityPosition(entityPosition);
-    _entitys.insert(entity->getKey(), entity);
     return true;
 }
 

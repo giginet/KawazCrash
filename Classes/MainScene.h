@@ -12,7 +12,7 @@
 #include "cocos2d.h"
 #include "Entity.h"
 
-typedef cocos2d::Map<std::string, Entity *> EntityMap;
+typedef cocos2d::Vector<Entity *> EntityVector;
 
 class MainScene :public cocos2d::Layer
 {
@@ -61,7 +61,7 @@ public:
     
     CREATE_FUNC(MainScene);
     CC_SYNTHESIZE(cocos2d::Node*, _stage, Stage);
-    CC_SYNTHESIZE(EntityMap, _entitys, Entitys);
+    CC_SYNTHESIZE(EntityVector, _entitys, Entitys);
     CC_SYNTHESIZE_RETAIN(Entity *, _currentEntity, CurrentEntity);
 };
 
