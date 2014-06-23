@@ -27,9 +27,17 @@ public:
     
     /** グリッド上の特定位置にあるブロックを取り出します
     *   何もなかった場合はnullptrを返します
-    *   @param position グリッド上の位置
+    *   @param x x座標
+    *   @param y y座標
     *   @return その位置にあるBlock、またはnullptr
     */
+    Block* getBlockAt(int x, int y);
+
+    /** 画面上の特定位置にあるブロックを取り出します
+     *   何もなかった場合はnullptrを返します
+     *   @param position 画面上の絶対座標
+     *   @return その位置にあるBlock、またはnullptr
+     */
     Block* getBlockAt(cocos2d::Vec2 position);
     
     CREATE_FUNC(MainScene);

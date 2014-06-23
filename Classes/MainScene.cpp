@@ -42,18 +42,39 @@ bool MainScene::init()
     _stage->setPosition(Vec2(leftMargin / 2 + Block::size / 2.0, 30));
     this->addChild(_stage);
     
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->onTouchBegan = [this](Touch* touch, Event* event) {
+        auto position = touch->getLocation();
+        auto block = this->getBlockAt(position);
+        if (block) {
+            block->runAction(Sequence::create(ScaleTo::create(0.5, 0.5), ScaleTo::create(0.5, 1.0), NULL));
+        }
+        return true;
+    };
+    listener->onTouchEnded = [](Touch* touch, Event* event) {
+    };
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+    
     return true;
+}
+
+Block* MainScene::getBlockAt(int x, int y)
+{
+    auto key = StringUtils::format("%d,%d", x, y);
+    return _blocks.at(key);
 }
 
 Block* MainScene::getBlockAt(cocos2d::Vec2 position)
 {
-    auto key = StringUtils::format("%d-%d", static_cast<int>(position.x), static_cast<int>(position.y));
-    return _blocks.at(key);
+    auto stagePoint = _stage->convertToNodeSpace(position);
+    auto x = floor((stagePoint.x + Block::size / 2.0) / Block::size);
+    auto y = floor((stagePoint.y + Block::size / 2.0) / Block::size);
+    return this->getBlockAt(x, y);
 }
 
 void MainScene::addBlock(Block *block)
 {
     auto position = block->getBlockPosition();
-    auto key = StringUtils::format("%d-%d", static_cast<int>(position.x), static_cast<int>(position.y));
+    auto key = StringUtils::format("%d,%d", static_cast<int>(position.x), static_cast<int>(position.y));
     _blocks.insert(key, block);
 }
