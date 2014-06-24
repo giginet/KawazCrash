@@ -79,6 +79,8 @@ private:
     
     void checkVanishEntities(Entity* entity);
     
+    cocos2d::Vector<Entity*> spawnEntities();
+    
     CREATE_FUNC(MainScene);
     CC_SYNTHESIZE(cocos2d::Node*, _stage, Stage);
     CC_SYNTHESIZE(EntityVector, _entities, Entitys);

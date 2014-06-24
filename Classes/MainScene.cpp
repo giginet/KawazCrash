@@ -11,8 +11,8 @@
 
 USING_NS_CC;
 
-const int HORIZONTAL_COUNT = 9;
-const int VERTICAL_COUNT = 12;
+const int HORIZONTAL_COUNT = 6;
+const int VERTICAL_COUNT = 8;
 
 MainScene::MainScene() : _currentEntity(nullptr)
 {
@@ -42,7 +42,6 @@ bool MainScene::init()
         for (int y = 0; y < VERTICAL_COUNT; ++y) {
             auto entity = Entity::create();
             entity->setEntityPosition(Vec2(x, y));
-            _stage->addChild(entity);
             this->addEntity(entity);
         }
     }
@@ -99,6 +98,7 @@ void MainScene::update(float dt)
     for (auto entity : _entities) {
         this->checkFall(entity);
     }
+    this->spawnEntities();
 }
 
 Entity* MainScene::getEntityAt(int x, int y)
@@ -122,6 +122,7 @@ Entity* MainScene::getEntityAt(cocos2d::Vec2 position)
 void MainScene::addEntity(Entity *entity)
 {
     _entities.pushBack(entity);
+    _stage->addChild(entity);
 }
 
 bool MainScene::moveEntity(Entity *entity, cocos2d::Vec2 entityPosition)
@@ -233,4 +234,20 @@ void MainScene::checkFall(Entity *entity)
         }),
                                            NULL));
     }
+}
+
+cocos2d::Vector<Entity *> MainScene::spawnEntities()
+{
+    cocos2d::Vector<Entity *> entities;
+    auto y = VERTICAL_COUNT - 1;
+    for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
+        auto entity = this->getEntityAt(x, y);
+        if (!entity) {
+            auto entity = Entity::create();
+            entity->setEntityPosition(Vec2(x, y));
+            this->addEntity(entity);
+            entities.pushBack(entity);
+        }
+    }
+    return std::move(entities);
 }
