@@ -133,6 +133,9 @@ bool MainScene::swapEntities(Entity *entity0, Entity *entity1)
                                         CallFuncN::create([=](Node *node) {
         auto entity = dynamic_cast<Entity *>(node);
         this->moveEntity(entity, currentPosition1);
+        EntityVector v;
+        v = this->checkNeighborEntitied(entity, v);
+        log("neightbor = %d", (int)v.size());
     }), NULL));
     entity1->runAction(Sequence::create(MoveTo::create(duration, entity0->getPosition()),
                                         CallFuncN::create([=](Node *node) {
@@ -141,4 +144,30 @@ bool MainScene::swapEntities(Entity *entity0, Entity *entity1)
     }),
                                         NULL));
     return true;
+}
+
+EntityVector MainScene::checkNeighborEntitied(Entity *entity, EntityVector checked) {
+    if (checked.contains(entity)) {
+        return checked;
+    }
+    checked.pushBack(entity);
+    auto position = entity->getEntityPosition();
+    auto up = this->getEntityAt(position.x, position.y + 1);
+    auto down = this->getEntityAt(position.x, position.y - 1);
+    auto left = this->getEntityAt(position.x - 1, position.y);
+    auto right = this->getEntityAt(position.x + 1, position.y);
+    
+    if (up && up->getEntityColor() == entity->getEntityColor()) {
+        checked = this->checkNeighborEntitied(up, checked);
+    }
+    if (down && down->getEntityColor() == entity->getEntityColor()) {
+        checked = this->checkNeighborEntitied(down, checked);
+    }
+    if (left && left->getEntityColor() == entity->getEntityColor()) {
+        checked = this->checkNeighborEntitied(left, checked);
+    }
+    if (right && right->getEntityColor() == entity->getEntityColor()) {
+        checked = this->checkNeighborEntitied(right, checked);
+    }
+    return std::move(checked);
 }

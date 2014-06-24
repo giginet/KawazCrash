@@ -59,6 +59,8 @@ public:
      */
     bool swapEntities(Entity* entity0, Entity* entity1);
     
+    EntityVector checkNeighborEntitied(Entity* entity, EntityVector checked);
+    
     CREATE_FUNC(MainScene);
     CC_SYNTHESIZE(cocos2d::Node*, _stage, Stage);
     CC_SYNTHESIZE(EntityVector, _entitys, Entitys);
