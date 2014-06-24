@@ -89,8 +89,16 @@ bool MainScene::init()
         this->setCurrentEntity(nullptr);
     };
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+    this->scheduleUpdate();
     
     return true;
+}
+
+void MainScene::update(float dt)
+{
+    for (auto entity : _entities) {
+        this->checkFall(entity);
+    }
 }
 
 Entity* MainScene::getEntityAt(int x, int y)
@@ -133,6 +141,12 @@ bool MainScene::swapEntities(Entity *entity0, Entity *entity1)
                                         CallFuncN::create([=](Node *node) {
         auto entity = dynamic_cast<Entity *>(node);
         this->moveEntity(entity, currentPosition1);
+        this->checkVanishEntities(entity);
+    }), NULL));
+    entity1->runAction(Sequence::create(MoveTo::create(duration, entity0->getPosition()),
+                                        CallFuncN::create([=](Node *node) {
+        auto entity = dynamic_cast<Entity *>(node);
+        this->moveEntity(entity, currentPosition0);
         EntityVector v;
         auto entities = this->checkNeighborEntitied(entity, v);
         if (entities.size() >= 4) {
@@ -140,14 +154,20 @@ bool MainScene::swapEntities(Entity *entity0, Entity *entity1)
                 this->deleteEntity(entity);
             }
         }
-    }), NULL));
-    entity1->runAction(Sequence::create(MoveTo::create(duration, entity0->getPosition()),
-                                        CallFuncN::create([=](Node *node) {
-        auto entity = dynamic_cast<Entity *>(node);
-        this->moveEntity(entity, currentPosition0);
     }),
                                         NULL));
     return true;
+}
+
+void MainScene::checkVanishEntities(Entity *entity)
+{
+    EntityVector v;
+    auto entities = this->checkNeighborEntitied(entity, v);
+    if (entities.size() >= 4) {
+        for (auto entity : entities) {
+            this->deleteEntity(entity);
+        }
+    }
 }
 
 void MainScene::deleteEntity(Entity *entity)
@@ -158,6 +178,8 @@ void MainScene::deleteEntity(Entity *entity)
         _entities.eraseObject(entity);
     }),
                                        RemoveSelf::create(),
+                                       CallFunc::create([this] {
+    }),
                                        NULL));
 }
 
@@ -185,4 +207,30 @@ EntityVector MainScene::checkNeighborEntitied(Entity *entity, EntityVector check
         checked = this->checkNeighborEntitied(right, checked);
     }
     return std::move(checked);
+}
+
+void MainScene::checkFall(Entity *entity)
+{
+    auto position = entity->getEntityPosition();
+    if (position.y == 0) {
+        return;
+    }
+    if (entity->getIsFalling()) {
+        return;
+    }
+    auto downPosition = Vec2(position.x, position.y - 1);
+    auto down = this->getEntityAt(position.x, position.y - 1);
+    if (down == nullptr) {
+        auto duration = 0.05;
+        entity->setIsFalling(true);
+        entity->runAction(Sequence::create(MoveBy::create(duration, Vec2(0, -Entity::getSize())),
+                                           CallFuncN::create([this, downPosition] (Node *node) {
+            auto entity = dynamic_cast<Entity *>(node);
+            this->moveEntity(entity, downPosition);
+            entity->setIsFalling(false);
+            this->checkVanishEntities(entity);
+            this->checkFall(entity);
+        }),
+                                           NULL));
+    }
 }

@@ -23,6 +23,9 @@ public:
     virtual ~MainScene();
     
     static cocos2d::Scene* createScene();
+    
+    void update(float dt) override;
+    
 private:
     bool init() override;
 
@@ -71,6 +74,10 @@ private:
      *  @return 自身を含む隣接したEntityが含まれたVector
      */
     EntityVector checkNeighborEntitied(Entity* entity, EntityVector checked);
+    
+    void checkFall(Entity *entity);
+    
+    void checkVanishEntities(Entity* entity);
     
     CREATE_FUNC(MainScene);
     CC_SYNTHESIZE(cocos2d::Node*, _stage, Stage);

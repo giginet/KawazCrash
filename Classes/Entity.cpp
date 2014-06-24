@@ -7,6 +7,7 @@
 //
 
 #include "Entity.h"
+#include <random>
 
 USING_NS_CC;
 
@@ -17,8 +18,10 @@ Entity::~Entity()
 
 bool Entity::init()
 {
-    
-    auto color = rand() % 5;
+    std::random_device rdev;
+    auto engine = std::mt19937(rdev());
+    auto dist = std::uniform_int_distribution<>(0, 4);
+    auto color = dist(engine);
     _entityColor = static_cast<Entity::Color>(color);
     if (!Sprite::initWithFile("blocks.png", Rect(Entity::getSize() * color,
                                                  0,
