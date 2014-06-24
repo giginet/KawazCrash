@@ -23,6 +23,7 @@ public:
     virtual ~MainScene();
     
     static cocos2d::Scene* createScene();
+private:
     bool init() override;
 
     /** 指定したブロックを追加します
@@ -59,11 +60,21 @@ public:
      */
     bool swapEntities(Entity* entity0, Entity* entity1);
     
+    /** 渡されたEntityを消去します
+     *  @param entity 消すEntity
+     */
+    void deleteEntity(Entity* entity);
+    
+    /** 渡されたEntityと隣接するEntityを全て取り出します
+     *  @param entity 開始するEntity
+     *  @param checked すでに調査済みのEntityの一覧。ここから調査する場合は空のVectorを渡してください
+     *  @return 自身を含む隣接したEntityが含まれたVector
+     */
     EntityVector checkNeighborEntitied(Entity* entity, EntityVector checked);
     
     CREATE_FUNC(MainScene);
     CC_SYNTHESIZE(cocos2d::Node*, _stage, Stage);
-    CC_SYNTHESIZE(EntityVector, _entitys, Entitys);
+    CC_SYNTHESIZE(EntityVector, _entities, Entitys);
     CC_SYNTHESIZE_RETAIN(Entity *, _currentEntity, CurrentEntity);
 };
 

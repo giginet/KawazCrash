@@ -95,7 +95,7 @@ bool MainScene::init()
 
 Entity* MainScene::getEntityAt(int x, int y)
 {
-    for (auto entity : _entitys) {
+    for (auto entity : _entities) {
         if (entity->getEntityPosition().x == x && entity->getEntityPosition().y == y) {
             return entity;
         }
@@ -113,7 +113,7 @@ Entity* MainScene::getEntityAt(cocos2d::Vec2 position)
 
 void MainScene::addEntity(Entity *entity)
 {
-    _entitys.pushBack(entity);
+    _entities.pushBack(entity);
 }
 
 bool MainScene::moveEntity(Entity *entity, cocos2d::Vec2 entityPosition)
@@ -134,8 +134,12 @@ bool MainScene::swapEntities(Entity *entity0, Entity *entity1)
         auto entity = dynamic_cast<Entity *>(node);
         this->moveEntity(entity, currentPosition1);
         EntityVector v;
-        v = this->checkNeighborEntitied(entity, v);
-        log("neightbor = %d", (int)v.size());
+        auto entities = this->checkNeighborEntitied(entity, v);
+        if (entities.size() >= 4) {
+            for (auto entity : entities) {
+                this->deleteEntity(entity);
+            }
+        }
     }), NULL));
     entity1->runAction(Sequence::create(MoveTo::create(duration, entity0->getPosition()),
                                         CallFuncN::create([=](Node *node) {
@@ -144,6 +148,17 @@ bool MainScene::swapEntities(Entity *entity0, Entity *entity1)
     }),
                                         NULL));
     return true;
+}
+
+void MainScene::deleteEntity(Entity *entity)
+{
+    entity->runAction(Sequence::create(FadeOut::create(0.5f),
+                                       CallFuncN::create([this](Node* node) {
+        auto entity = dynamic_cast<Entity *>(node);
+        _entities.eraseObject(entity);
+    }),
+                                       RemoveSelf::create(),
+                                       NULL));
 }
 
 EntityVector MainScene::checkNeighborEntitied(Entity *entity, EntityVector checked) {
