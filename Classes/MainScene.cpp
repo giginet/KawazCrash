@@ -47,7 +47,7 @@ bool MainScene::init()
     }
     auto winSize = Director::getInstance()->getWinSize();
     auto leftMargin = winSize.width - Entity::getSize() * HORIZONTAL_COUNT;
-    _stage->setPosition(Vec2(leftMargin / 2 + Entity::getSize() / 2.0, 30));
+    _stage->setPosition(Vec2(leftMargin / 2 + Entity::getSize() / 2.0, 50));
     this->addChild(_stage);
     
     auto listener = EventListenerTouchOneByOne::create();
