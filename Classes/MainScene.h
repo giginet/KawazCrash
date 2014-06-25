@@ -68,16 +68,17 @@ private:
      */
     void deleteEntity(Entity* entity);
     
+    
     /** 渡されたEntityと隣接するEntityを全て取り出します
      *  @param entity 開始するEntity
      *  @param checked すでに調査済みのEntityの一覧。ここから調査する場合は空のVectorを渡してください
      *  @return 自身を含む隣接したEntityが含まれたVector
      */
-    EntityVector checkNeighborEntitied(Entity* entity, EntityVector checked);
+    EntityVector checkNeighborEntities(Entity* entity, EntityVector checked);
     
     void checkFall(Entity *entity);
     
-    void checkVanishEntities(Entity* entity);
+    bool checkVanishEntities(Entity* entity);
     
     cocos2d::Vector<Entity*> spawnEntities();
     

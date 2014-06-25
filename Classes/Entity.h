@@ -43,6 +43,8 @@ public:
      */
     std::string getKey();
     
+    void adjustPosition();
+    
     CC_SYNTHESIZE(bool, _isFalling, IsFalling);
     CC_SYNTHESIZE_READONLY(cocos2d::Vec2, _entityPosition, EntityPosition);
     CC_SYNTHESIZE(Color, _entityColor, EntityColor);

@@ -123,11 +123,13 @@ void MainScene::addEntity(Entity *entity)
 {
     _entities.pushBack(entity);
     _stage->addChild(entity);
+    entity->adjustPosition();
 }
 
 bool MainScene::moveEntity(Entity *entity, cocos2d::Vec2 entityPosition)
 {
     entity->setEntityPosition(entityPosition);
+    entity->adjustPosition();
     return true;
 }
 
@@ -135,40 +137,70 @@ bool MainScene::swapEntities(Entity *entity0, Entity *entity1)
 {
     const auto duration = 0.2;
     
+    auto position0 = entity0->getPosition();
+    auto position1 = entity1->getPosition();
+    
     auto currentPosition0 = entity0->getEntityPosition();
     auto currentPosition1 = entity1->getEntityPosition();
+
+    // 要リファクタリング
+    // 予め動かしておいて
+    entity1->setEntityPosition(currentPosition0);
+    entity0->setEntityPosition(currentPosition1);
     
-    entity0->runAction(Sequence::create(MoveTo::create(duration, entity1->getPosition()),
+    
+    EntityVector v0;
+    EntityVector v1;
+    auto entities0 = this->checkNeighborEntities(entity0, v0);
+    auto entities1 = this->checkNeighborEntities(entity1, v1);
+    
+    bool isVanish = entities0.size() >= 4 || entities1.size() >= 4;
+    if (!isVanish) { // 消えなかったら戻す
+        entity1->setEntityPosition(currentPosition1);
+        entity0->setEntityPosition(currentPosition0);
+    }
+    
+    entity0->runAction(Sequence::create(MoveTo::create(duration, position1),
                                         CallFuncN::create([=](Node *node) {
         auto entity = dynamic_cast<Entity *>(node);
-        this->moveEntity(entity, currentPosition1);
-        this->checkVanishEntities(entity);
-    }), NULL));
-    entity1->runAction(Sequence::create(MoveTo::create(duration, entity0->getPosition()),
-                                        CallFuncN::create([=](Node *node) {
-        auto entity = dynamic_cast<Entity *>(node);
-        this->moveEntity(entity, currentPosition0);
-        EntityVector v;
-        auto entities = this->checkNeighborEntitied(entity, v);
-        if (entities.size() >= 4) {
-            for (auto entity : entities) {
-                this->deleteEntity(entity);
+        if (isVanish) {
+            this->moveEntity(entity, currentPosition1);
+            for (auto vanishEntity : entities0) {
+                this->deleteEntity(vanishEntity);
             }
+        } else {
+            // 元に戻す
+            entity->runAction(MoveTo::create(duration / 2.0, position0));
+        }
+    }), NULL));
+    entity1->runAction(Sequence::create(MoveTo::create(duration, position0),
+                                        CallFuncN::create([=](Node *node) {
+        auto entity = dynamic_cast<Entity *>(node);
+        if (isVanish) {
+            this->moveEntity(entity, currentPosition0);
+            for (auto vanishEntity : entities0) {
+                this->deleteEntity(vanishEntity);
+            }
+        } else {
+            // 元に戻す
+            entity->runAction(MoveTo::create(duration / 2.0, position1));
         }
     }),
                                         NULL));
     return true;
 }
 
-void MainScene::checkVanishEntities(Entity *entity)
+bool MainScene::checkVanishEntities(Entity *entity)
 {
     EntityVector v;
-    auto entities = this->checkNeighborEntitied(entity, v);
+    auto entities = this->checkNeighborEntities(entity, v);
     if (entities.size() >= 4) {
         for (auto entity : entities) {
             this->deleteEntity(entity);
         }
+        return true;
     }
+    return false;
 }
 
 void MainScene::deleteEntity(Entity *entity)
@@ -184,7 +216,7 @@ void MainScene::deleteEntity(Entity *entity)
                                        NULL));
 }
 
-EntityVector MainScene::checkNeighborEntitied(Entity *entity, EntityVector checked) {
+EntityVector MainScene::checkNeighborEntities(Entity *entity, EntityVector checked) {
     if (checked.contains(entity)) {
         return checked;
     }
@@ -196,16 +228,16 @@ EntityVector MainScene::checkNeighborEntitied(Entity *entity, EntityVector check
     auto right = this->getEntityAt(position.x + 1, position.y);
     
     if (up && up->getEntityColor() == entity->getEntityColor()) {
-        checked = this->checkNeighborEntitied(up, checked);
+        checked = this->checkNeighborEntities(up, checked);
     }
     if (down && down->getEntityColor() == entity->getEntityColor()) {
-        checked = this->checkNeighborEntitied(down, checked);
+        checked = this->checkNeighborEntities(down, checked);
     }
     if (left && left->getEntityColor() == entity->getEntityColor()) {
-        checked = this->checkNeighborEntitied(left, checked);
+        checked = this->checkNeighborEntities(left, checked);
     }
     if (right && right->getEntityColor() == entity->getEntityColor()) {
-        checked = this->checkNeighborEntitied(right, checked);
+        checked = this->checkNeighborEntities(right, checked);
     }
     return std::move(checked);
 }
@@ -247,6 +279,7 @@ cocos2d::Vector<Entity *> MainScene::spawnEntities()
             entity->setEntityPosition(Vec2(x, y));
             this->addEntity(entity);
             entities.pushBack(entity);
+            this->checkVanishEntities(entity);
         }
     }
     return std::move(entities);
