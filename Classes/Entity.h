@@ -17,6 +17,7 @@ class Entity :public cocos2d::Sprite
 {
 public:
     
+    Entity();
     virtual ~Entity();
 
     enum class Color {
@@ -27,6 +28,14 @@ public:
         LIGHTBLUE,
         BLUE,
         PINK
+    };
+    
+    enum class State {
+        NORMAL,
+        APPEARING,
+        FALLING,
+        SWAPPING,
+        DISAPEARING
     };
 
     static int getSize() {
@@ -47,9 +56,14 @@ public:
     
     void adjustPosition();
     
-    CC_SYNTHESIZE(bool, _isFalling, IsFalling);
+    bool isNormal() {
+        return _state == State::NORMAL;
+    }
+    
+    
+    CC_SYNTHESIZE(State, _state, State);
     CC_SYNTHESIZE_READONLY(cocos2d::Vec2, _entityPosition, EntityPosition);
-    CC_SYNTHESIZE(Color, _entityColor, EntityColor);
+    CC_SYNTHESIZE_READONLY(Color, _entityColor, EntityColor);
     CC_SYNTHESIZE_RETAIN(cocos2d::Label *, _debugLabel, DebugLabel);
     CREATE_FUNC(Entity);
 };

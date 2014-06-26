@@ -8,6 +8,7 @@
 
 #include "MainScene.h"
 #include "Entity.h"
+#include <algorithm>
 
 USING_NS_CC;
 
@@ -61,26 +62,27 @@ bool MainScene::init()
     listener->onTouchMoved = [this](Touch* touch, Event* event) {
         auto nextEntity = this->getEntityAt(touch->getLocation());
         if (_currentEntity != nullptr && nextEntity != nullptr && _currentEntity != nextEntity) {
-            auto cp = _currentEntity->getEntityPosition();
-            auto np = nextEntity->getEntityPosition();
-            if (cp.y == np.y && cp.x + 1 == np.x) { // 右方向
-                this->swapEntities(_currentEntity, nextEntity);
-                this->setCurrentEntity(nullptr);
+            if (_currentEntity->isNormal() && nextEntity->isNormal()) {
+                auto cp = _currentEntity->getEntityPosition();
+                auto np = nextEntity->getEntityPosition();
+                if (cp.y == np.y && cp.x + 1 == np.x) { // 右方向
+                    this->swapEntities(_currentEntity, nextEntity);
+                    this->setCurrentEntity(nullptr);
+                }
+                if (cp.y == np.y && cp.x - 1 == np.x) { // 左方向
+                    this->swapEntities(_currentEntity, nextEntity);
+                    this->setCurrentEntity(nullptr);
+                }
+                if (cp.x == np.x && cp.y + 1 == np.y) { // 上方向
+                    this->swapEntities(_currentEntity, nextEntity);
+                    this->setCurrentEntity(nullptr);
+                }
+                if (cp.x == np.x && cp.y - 1 == np.y) { // 下方向
+                    this->swapEntities(_currentEntity, nextEntity);
+                    this->setCurrentEntity(nullptr);
+                }
             }
-            if (cp.y == np.y && cp.x - 1 == np.x) { // 左方向
-                this->swapEntities(_currentEntity, nextEntity);
-                this->setCurrentEntity(nullptr);
-            }
-            if (cp.x == np.x && cp.y + 1 == np.y) { // 上方向
-                this->swapEntities(_currentEntity, nextEntity);
-                this->setCurrentEntity(nullptr);
-            }
-            if (cp.x == np.x && cp.y - 1 == np.y) { // 下方向
-                this->swapEntities(_currentEntity, nextEntity);
-                this->setCurrentEntity(nullptr);
-            }
-        }
-        
+        }        
     };
     listener->onTouchEnded = [this](Touch* touch, Event* event) {
         this->setCurrentEntity(nullptr);
@@ -149,13 +151,18 @@ bool MainScene::swapEntities(Entity *entity0, Entity *entity1)
     entity1->setEntityPosition(currentPosition0);
     entity0->setEntityPosition(currentPosition1);
     
-    
     EntityVector v0;
     EntityVector v1;
     auto entities0 = this->checkNeighborEntities(entity0, v0);
     auto entities1 = this->checkNeighborEntities(entity1, v1);
     
     bool isVanish = entities0.size() >= VANISH_COUNT || entities1.size() >= VANISH_COUNT;
+    
+    entity0->setState(Entity::State::SWAPPING);
+    entity1->setState(Entity::State::SWAPPING);
+    
+    // 酷い実装だからあとで直す！！！！！
+    
     if (!isVanish) { // 消えなかったら戻す
         entity1->setEntityPosition(currentPosition1);
         entity0->setEntityPosition(currentPosition0);
@@ -166,10 +173,15 @@ bool MainScene::swapEntities(Entity *entity0, Entity *entity1)
         auto entity = dynamic_cast<Entity *>(node);
         if (isVanish) {
             this->moveEntity(entity, currentPosition1);
+            entity->setState(Entity::State::NORMAL);
             this->checkField();
         } else {
             // 元に戻す
-            entity->runAction(MoveTo::create(duration / 2.0, position0));
+            entity->runAction(Sequence::create(MoveTo::create(duration / 2.0, position0),
+                                               CallFuncN::create([] (Node *node) {
+                auto entity = dynamic_cast<Entity *>(node);
+                entity->setState(Entity::State::NORMAL);
+            }), NULL));
         }
     }), NULL));
     entity1->runAction(Sequence::create(MoveTo::create(duration, position0),
@@ -177,10 +189,15 @@ bool MainScene::swapEntities(Entity *entity0, Entity *entity1)
         auto entity = dynamic_cast<Entity *>(node);
         if (isVanish) {
             this->moveEntity(entity, currentPosition0);
+            entity->setState(Entity::State::NORMAL);
             this->checkField();
         } else {
             // 元に戻す
-            entity->runAction(MoveTo::create(duration / 2.0, position1));
+            entity->runAction(Sequence::create(MoveTo::create(duration / 2.0, position1),
+                                               CallFuncN::create([] (Node *node) {
+                auto entity = dynamic_cast<Entity *>(node);
+                entity->setState(Entity::State::NORMAL);
+            }), NULL));
         }
     }),
                                         NULL));
@@ -191,7 +208,8 @@ bool MainScene::checkVanishEntities(Entity *entity)
 {
     EntityVector v;
     auto entities = this->checkNeighborEntities(entity, v);
-    if (entities.size() >= VANISH_COUNT) {
+    bool canVanish = std::all_of(entities.begin(), entities.end(), [](Entity *entity) { return entity->isNormal(); });
+    if (entities.size() >= VANISH_COUNT && canVanish) {
         for (auto entity : entities) {
             this->deleteEntity(entity);
         }
@@ -203,6 +221,7 @@ bool MainScene::checkVanishEntities(Entity *entity)
 void MainScene::deleteEntity(Entity *entity)
 {
     if (!entity) return;
+    entity->setState(Entity::State::DISAPEARING);
     entity->runAction(Sequence::create(FadeOut::create(0.5f),
                                        CallFuncN::create([this](Node* node) {
         auto entity = dynamic_cast<Entity *>(node);
@@ -246,19 +265,19 @@ void MainScene::checkFall(Entity *entity)
     if (position.y == 0) {
         return;
     }
-    if (entity->getIsFalling()) {
+    if (entity->getState() != Entity::State::NORMAL) {
         return;
     }
     auto downPosition = Vec2(position.x, position.y - 1);
     auto down = this->getEntityAt(position.x, position.y - 1);
     if (down == nullptr) {
         auto duration = 0.05;
-        entity->setIsFalling(true);
+        entity->setState(Entity::State::FALLING);
         entity->runAction(Sequence::create(MoveBy::create(duration, Vec2(0, -Entity::getSize())),
                                            CallFuncN::create([this, downPosition] (Node *node) {
             auto entity = dynamic_cast<Entity *>(node);
             this->moveEntity(entity, downPosition);
-            entity->setIsFalling(false);
+            entity->setState(Entity::State::NORMAL);
             this->checkField();
             this->checkFall(entity);
         }),
@@ -291,7 +310,7 @@ bool MainScene::canVanishNext(Entity *entity)
     auto skews = std::vector<Vec2> {Vec2(1, 1), Vec2(1, -1), Vec2(-1, 1), Vec2(-1, -1)};
     auto allDirections = std::vector<Vec2> {Vec2(0, 2), Vec2(2, 0), Vec2(0, -2), Vec2(-2, 0), Vec2(1, 1), Vec2(1, -1), Vec2(-1, 1), Vec2(-1, -1)};
     auto currentVector = entity->getEntityPosition();
-    int i = 0;
+    
     if (entities.size() >= VANISH_COUNT) {
         // 4以上は存在しないはずだけどtrue
         return true;
@@ -310,7 +329,7 @@ bool MainScene::canVanishNext(Entity *entity)
                             auto e1 = this->getEntityAt((nextVector + sv1).x, (nextVector + sv1).y);
                             if (e0 && e1 && e0 == e1 && !entities.contains(e0) && !entities.contains(e1)) {
                                 // 斜めに共通のentityがあれば消せるはず！
-                                //return true;
+                                return true;
                             }
                         }
                     }
@@ -331,11 +350,7 @@ void MainScene::checkField()
             if (entity && !checked.contains(entity)) {
                 EntityVector v;
                 v = this->checkNeighborEntities(entity, v);
-                if (v.size() >= VANISH_COUNT) {
-                    for (auto e : v) {
-                        this->deleteEntity(e);
-                    }
-                }
+                this->checkVanishEntities(entity);
                 checked.pushBack(v);
             }
         }

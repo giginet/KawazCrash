@@ -11,6 +11,10 @@
 
 USING_NS_CC;
 
+Entity::Entity() : _state(State::NORMAL), _debugLabel(nullptr)
+{
+}
+
 Entity::~Entity()
 {
     CC_SAFE_RELEASE_NULL(_debugLabel);
