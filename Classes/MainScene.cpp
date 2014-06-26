@@ -82,7 +82,7 @@ bool MainScene::init()
                     this->setCurrentEntity(nullptr);
                 }
             }
-        }        
+        }
     };
     listener->onTouchEnded = [this](Touch* touch, Event* event) {
         this->setCurrentEntity(nullptr);
@@ -102,6 +102,7 @@ void MainScene::update(float dt)
         this->checkFall(entity);
     }
     this->spawnEntities();
+    this->checkField();
 }
 
 Entity* MainScene::getEntityAt(int x, int y)
@@ -265,7 +266,7 @@ void MainScene::checkFall(Entity *entity)
     if (position.y == 0) {
         return;
     }
-    if (entity->getState() != Entity::State::NORMAL) {
+    if (!entity->isNormal()) {
         return;
     }
     auto downPosition = Vec2(position.x, position.y - 1);
@@ -314,23 +315,26 @@ bool MainScene::canVanishNext(Entity *entity)
     if (entities.size() >= VANISH_COUNT) {
         // 4以上は存在しないはずだけどtrue
         return true;
-    } else if (entities.size() == 3 || entities.size() == 2) {
+    } else if (entities.size() == 3) {
         for (auto vector : allDirections) {
             auto nextVector = entity->getEntityPosition() + vector;
             auto nextEntity = this->getEntityAt(nextVector.x, nextVector.y);
             if (nextEntity && entity && nextEntity->getEntityColor() == entity->getEntityColor() && !entities.contains(nextEntity)) {
-                if (entities.size() == 3) {
-                    // 同じ色、かつ塊に含まれていなかったら次のターン必ず消せる！
-                    return true;
-                } else if (std::find(vectors.begin(), vectors.end(), vector) != vectors.end()) {
-                    for (auto sv0 : skews) {
-                        for (auto sv1 : skews) {
-                            auto e0 = this->getEntityAt((currentVector + sv0).x, (currentVector + sv0).y);
-                            auto e1 = this->getEntityAt((nextVector + sv1).x, (nextVector + sv1).y);
-                            if (e0 && e1 && e0 == e1 && !entities.contains(e0) && !entities.contains(e1)) {
-                                // 斜めに共通のentityがあれば消せるはず！
-                                return true;
-                            }
+                return true;
+            }
+        }
+    } else if (entities.size() == 2) {
+        for (auto vector : vectors) {
+            auto nextVector = entity->getEntityPosition() + vector;
+            auto nextEntity = this->getEntityAt(nextVector.x, nextVector.y);
+            if (nextEntity && entity && nextEntity->getEntityColor() == entity->getEntityColor() && !entities.contains(nextEntity)) {
+                for (auto sv0 : skews) {
+                    for (auto sv1 : skews) {
+                        auto e0 = this->getEntityAt((currentVector + sv0).x, (currentVector + sv0).y);
+                        auto e1 = this->getEntityAt((nextVector + sv1).x, (nextVector + sv1).y);
+                        if (e0 && e1 && e0->getEntityColor() == entity->getEntityColor() && e0 == e1 && !entities.contains(e0) && !entities.contains(e1)) {
+                            // 斜めに共通のentityがあれば消せるはず！
+                            return true;
                         }
                     }
                 }
@@ -342,39 +346,44 @@ bool MainScene::canVanishNext(Entity *entity)
 
 void MainScene::checkField()
 {
-    // 既に揃ってるのを消す
-    EntityVector checked;
-    for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
-        for (int y = 0; y < VERTICAL_COUNT; ++y) {
-            auto entity = this->getEntityAt(x, y);
-            if (entity && !checked.contains(entity)) {
-                EntityVector v;
-                v = this->checkNeighborEntities(entity, v);
-                this->checkVanishEntities(entity);
-                checked.pushBack(v);
+    if (this->isAllNormal()) {
+        // 既に揃ってるのを消す
+        EntityVector checked;
+        for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
+            for (int y = 0; y < VERTICAL_COUNT; ++y) {
+                auto entity = this->getEntityAt(x, y);
+                if (entity && !checked.contains(entity)) {
+                    EntityVector v;
+                    v = this->checkNeighborEntities(entity, v);
+                    this->checkVanishEntities(entity);
+                    checked.pushBack(v);
+                }
+            }
+        }
+        
+        // 次にどれも消えなさそうだったらランダムに2列消す
+        bool flag = false;
+        for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
+            for (int y = 0; y < VERTICAL_COUNT; ++y) {
+                auto entity = this->getEntityAt(x, y);
+                if (!flag && entity && this->canVanishNext(entity)) {
+                    // どれか消えそうなら探索を打ち切る
+                    flag = true;
+                }
+            }
+        }
+        if (!flag && _entities.size() == HORIZONTAL_COUNT * VERTICAL_COUNT) {
+            auto baseX = rand() % HORIZONTAL_COUNT;
+            auto otherX = (rand() % (HORIZONTAL_COUNT - 1) + baseX) % HORIZONTAL_COUNT;
+            for (int y = 0; y < VERTICAL_COUNT; ++y) {
+                this->deleteEntity(this->getEntityAt(baseX, y));
+                this->deleteEntity(this->getEntityAt(otherX, y));
             }
         }
     }
-    this->spawnEntities();
-    
-    // 次にどれも消えなさそうだったらランダムに2列消す
-    bool flag = false;
-    for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
-        for (int y = 0; y < VERTICAL_COUNT; ++y) {
-            auto entity = this->getEntityAt(x, y);
-            if (!flag && entity && this->canVanishNext(entity)) {
-                // どれか消えそうなら探索を打ち切る
-                flag = true;
-            }
-        }
-    }
-    if (!flag) {
-        log("Can't Delete");
-        auto baseX = rand() % HORIZONTAL_COUNT;
-        auto otherX = (rand() % (HORIZONTAL_COUNT - 1) + baseX) % HORIZONTAL_COUNT;
-        for (int y = 0; y < VERTICAL_COUNT; ++y) {
-            this->deleteEntity(this->getEntityAt(baseX, y));
-            this->deleteEntity(this->getEntityAt(otherX, y));
-        }
-    }
+}
+
+bool MainScene::isAllNormal()
+{
+    return std::all_of(_entities.begin(), _entities.end(), [](Entity* entity) { return entity->isNormal(); });
 }
