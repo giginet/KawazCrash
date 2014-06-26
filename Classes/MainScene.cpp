@@ -202,6 +202,7 @@ bool MainScene::checkVanishEntities(Entity *entity)
 
 void MainScene::deleteEntity(Entity *entity)
 {
+    if (!entity) return;
     entity->runAction(Sequence::create(FadeOut::create(0.5f),
                                        CallFuncN::create([this](Node* node) {
         auto entity = dynamic_cast<Entity *>(node);
@@ -290,7 +291,7 @@ bool MainScene::canVanishNext(Entity *entity)
     auto skews = std::vector<Vec2> {Vec2(1, 1), Vec2(1, -1), Vec2(-1, 1), Vec2(-1, -1)};
     auto allDirections = std::vector<Vec2> {Vec2(0, 2), Vec2(2, 0), Vec2(0, -2), Vec2(-2, 0), Vec2(1, 1), Vec2(1, -1), Vec2(-1, 1), Vec2(-1, -1)};
     auto currentVector = entity->getEntityPosition();
-    
+    int i = 0;
     if (entities.size() >= VANISH_COUNT) {
         // 4以上は存在しないはずだけどtrue
         return true;
@@ -298,18 +299,18 @@ bool MainScene::canVanishNext(Entity *entity)
         for (auto vector : allDirections) {
             auto nextVector = entity->getEntityPosition() + vector;
             auto nextEntity = this->getEntityAt(nextVector.x, nextVector.y);
-            if (nextEntity && nextEntity->getEntityColor() == entity->getEntityColor() && !entities.contains(nextEntity)) {
+            if (nextEntity && entity && nextEntity->getEntityColor() == entity->getEntityColor() && !entities.contains(nextEntity)) {
                 if (entities.size() == 3) {
                     // 同じ色、かつ塊に含まれていなかったら次のターン必ず消せる！
                     return true;
-                } else {
+                } else if (std::find(vectors.begin(), vectors.end(), vector) != vectors.end()) {
                     for (auto sv0 : skews) {
                         for (auto sv1 : skews) {
                             auto e0 = this->getEntityAt((currentVector + sv0).x, (currentVector + sv0).y);
                             auto e1 = this->getEntityAt((nextVector + sv1).x, (nextVector + sv1).y);
-                            if (e0 && e1 && e0 == e1) {
+                            if (e0 && e1 && e0 == e1 && !entities.contains(e0) && !entities.contains(e1)) {
                                 // 斜めに共通のentityがあれば消せるはず！
-                                return true;
+                                //return true;
                             }
                         }
                     }

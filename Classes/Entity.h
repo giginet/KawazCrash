@@ -11,7 +11,7 @@
 
 #include "cocos2d.h"
 
-const int ENTITY_SIZE = 33;
+const int ENTITY_SIZE = 36;
 
 class Entity :public cocos2d::Sprite
 {
@@ -20,11 +20,13 @@ public:
     virtual ~Entity();
 
     enum class Color {
+        BROWN,
         RED,
         YELLOW,
         GREEN,
         LIGHTBLUE,
-        BLUE
+        BLUE,
+        PINK
     };
 
     static int getSize() {
