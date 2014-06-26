@@ -82,6 +82,14 @@ private:
     
     cocos2d::Vector<Entity*> spawnEntities();
     
+    /** 次のターンに渡されたブロックが消去可能かを判定します
+     *  @param Entity* entity
+     *  @return 消去可能かどうか
+     */
+    bool canVanishNext(Entity *entity);
+    
+    void checkField();
+    
     CREATE_FUNC(MainScene);
     CC_SYNTHESIZE(cocos2d::Node*, _stage, Stage);
     CC_SYNTHESIZE(EntityVector, _entities, Entitys);
