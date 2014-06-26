@@ -20,7 +20,7 @@ bool Entity::init()
 {
     std::random_device rdev;
     auto engine = std::mt19937(rdev());
-    auto dist = std::uniform_int_distribution<>(0, 4);
+    auto dist = std::uniform_int_distribution<>(0, 6);
     auto color = dist(engine);
     _entityColor = static_cast<Entity::Color>(color);
     if (!Sprite::initWithFile("blocks.png", Rect(Entity::getSize() * color,
