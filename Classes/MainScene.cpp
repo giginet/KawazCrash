@@ -13,6 +13,7 @@ USING_NS_CC;
 
 const int HORIZONTAL_COUNT = 6;
 const int VERTICAL_COUNT = 8;
+const int VANISH_COUNT = 4;
 
 MainScene::MainScene() : _currentEntity(nullptr)
 {
@@ -142,7 +143,7 @@ bool MainScene::swapEntities(Entity *entity0, Entity *entity1)
     
     auto currentPosition0 = entity0->getEntityPosition();
     auto currentPosition1 = entity1->getEntityPosition();
-
+    
     // 要リファクタリング
     // 予め動かしておいて
     entity1->setEntityPosition(currentPosition0);
@@ -154,7 +155,7 @@ bool MainScene::swapEntities(Entity *entity0, Entity *entity1)
     auto entities0 = this->checkNeighborEntities(entity0, v0);
     auto entities1 = this->checkNeighborEntities(entity1, v1);
     
-    bool isVanish = entities0.size() >= 4 || entities1.size() >= 4;
+    bool isVanish = entities0.size() >= VANISH_COUNT || entities1.size() >= VANISH_COUNT;
     if (!isVanish) { // 消えなかったら戻す
         entity1->setEntityPosition(currentPosition1);
         entity0->setEntityPosition(currentPosition0);
@@ -165,9 +166,7 @@ bool MainScene::swapEntities(Entity *entity0, Entity *entity1)
         auto entity = dynamic_cast<Entity *>(node);
         if (isVanish) {
             this->moveEntity(entity, currentPosition1);
-            for (auto vanishEntity : entities0) {
-                this->deleteEntity(vanishEntity);
-            }
+            this->checkField();
         } else {
             // 元に戻す
             entity->runAction(MoveTo::create(duration / 2.0, position0));
@@ -178,9 +177,7 @@ bool MainScene::swapEntities(Entity *entity0, Entity *entity1)
         auto entity = dynamic_cast<Entity *>(node);
         if (isVanish) {
             this->moveEntity(entity, currentPosition0);
-            for (auto vanishEntity : entities0) {
-                this->deleteEntity(vanishEntity);
-            }
+            this->checkField();
         } else {
             // 元に戻す
             entity->runAction(MoveTo::create(duration / 2.0, position1));
@@ -194,7 +191,7 @@ bool MainScene::checkVanishEntities(Entity *entity)
 {
     EntityVector v;
     auto entities = this->checkNeighborEntities(entity, v);
-    if (entities.size() >= 4) {
+    if (entities.size() >= VANISH_COUNT) {
         for (auto entity : entities) {
             this->deleteEntity(entity);
         }
@@ -261,7 +258,7 @@ void MainScene::checkFall(Entity *entity)
             auto entity = dynamic_cast<Entity *>(node);
             this->moveEntity(entity, downPosition);
             entity->setIsFalling(false);
-            this->checkVanishEntities(entity);
+            this->checkField();
             this->checkFall(entity);
         }),
                                            NULL));
@@ -283,4 +280,85 @@ cocos2d::Vector<Entity *> MainScene::spawnEntities()
         }
     }
     return std::move(entities);
+}
+
+bool MainScene::canVanishNext(Entity *entity)
+{
+    EntityVector entities;
+    entities = this->checkNeighborEntities(entity, entities);
+    auto vectors = std::vector<Vec2> {Vec2(0, 2), Vec2(2, 0), Vec2(0, -2), Vec2(-2, 0)};
+    auto skews = std::vector<Vec2> {Vec2(1, 1), Vec2(1, -1), Vec2(-1, 1), Vec2(-1, -1)};
+    auto allDirections = std::vector<Vec2> {Vec2(0, 2), Vec2(2, 0), Vec2(0, -2), Vec2(-2, 0), Vec2(1, 1), Vec2(1, -1), Vec2(-1, 1), Vec2(-1, -1)};
+    auto currentVector = entity->getEntityPosition();
+    
+    if (entities.size() >= VANISH_COUNT) {
+        // 4以上は存在しないはずだけどtrue
+        return true;
+    } else if (entities.size() == 3 || entities.size() == 2) {
+        for (auto vector : allDirections) {
+            auto nextVector = entity->getEntityPosition() + vector;
+            auto nextEntity = this->getEntityAt(nextVector.x, nextVector.y);
+            if (nextEntity && nextEntity->getEntityColor() == entity->getEntityColor() && !entities.contains(nextEntity)) {
+                if (entities.size() == 3) {
+                    // 同じ色、かつ塊に含まれていなかったら次のターン必ず消せる！
+                    return true;
+                } else {
+                    for (auto sv0 : skews) {
+                        for (auto sv1 : skews) {
+                            auto e0 = this->getEntityAt((currentVector + sv0).x, (currentVector + sv0).y);
+                            auto e1 = this->getEntityAt((nextVector + sv1).x, (nextVector + sv1).y);
+                            if (e0 && e1 && e0 == e1) {
+                                // 斜めに共通のentityがあれば消せるはず！
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+void MainScene::checkField()
+{
+    // 既に揃ってるのを消す
+    EntityVector checked;
+    for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
+        for (int y = 0; y < VERTICAL_COUNT; ++y) {
+            auto entity = this->getEntityAt(x, y);
+            if (entity && !checked.contains(entity)) {
+                EntityVector v;
+                v = this->checkNeighborEntities(entity, v);
+                if (v.size() >= VANISH_COUNT) {
+                    for (auto e : v) {
+                        this->deleteEntity(e);
+                    }
+                }
+                checked.pushBack(v);
+            }
+        }
+    }
+    this->spawnEntities();
+    
+    // 次にどれも消えなさそうだったらランダムに2列消す
+    bool flag = false;
+    for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
+        for (int y = 0; y < VERTICAL_COUNT; ++y) {
+            auto entity = this->getEntityAt(x, y);
+            if (!flag && entity && this->canVanishNext(entity)) {
+                // どれか消えそうなら探索を打ち切る
+                flag = true;
+            }
+        }
+    }
+    if (!flag) {
+        log("Can't Delete");
+        auto baseX = rand() % HORIZONTAL_COUNT;
+        auto otherX = (rand() % (HORIZONTAL_COUNT - 1) + baseX) % HORIZONTAL_COUNT;
+        for (int y = 0; y < VERTICAL_COUNT; ++y) {
+            this->deleteEntity(this->getEntityAt(baseX, y));
+            this->deleteEntity(this->getEntityAt(otherX, y));
+        }
+    }
 }
