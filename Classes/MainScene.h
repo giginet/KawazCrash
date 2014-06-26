@@ -90,6 +90,11 @@ private:
     
     void checkField();
     
+    /** 全てのEntityがNormal状態かどうか
+     *  @return Normal状態かどうか
+     */
+    bool isAllNormal();
+    
     CREATE_FUNC(MainScene);
     CC_SYNTHESIZE(cocos2d::Node*, _stage, Stage);
     CC_SYNTHESIZE(EntityVector, _entities, Entitys);
