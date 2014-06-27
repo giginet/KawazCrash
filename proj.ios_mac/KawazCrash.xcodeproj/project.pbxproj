@@ -13,6 +13,16 @@
 		072319AB19531B7300B0103D /* MainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 072319A619531B7300B0103D /* MainScene.cpp */; };
 		072319B41953238500B0103D /* images in Resources */ = {isa = PBXBuildFile; fileRef = 072319B31953238500B0103D /* images */; };
 		072319B51953238500B0103D /* images in Resources */ = {isa = PBXBuildFile; fileRef = 072319B31953238500B0103D /* images */; };
+		07254955195D05740099BCFE /* libcri_atom_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548C7195D05740099BCFE /* libcri_atom_ios.a */; };
+		07254956195D05740099BCFE /* libcri_atom_iosD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548C8195D05740099BCFE /* libcri_atom_iosD.a */; };
+		07254957195D05740099BCFE /* libcri_base_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548C9195D05740099BCFE /* libcri_base_ios.a */; };
+		07254958195D05740099BCFE /* libcri_base_iosD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548CA195D05740099BCFE /* libcri_base_iosD.a */; };
+		07254959195D05740099BCFE /* libcri_file_system_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548CB195D05740099BCFE /* libcri_file_system_ios.a */; };
+		0725495A195D05740099BCFE /* libcri_file_system_iosD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548CC195D05740099BCFE /* libcri_file_system_iosD.a */; };
+		0725495B195D05740099BCFE /* libcri_file_system_net_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548CD195D05740099BCFE /* libcri_file_system_net_ios.a */; };
+		0725495C195D05740099BCFE /* libcri_file_system_net_iosD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548CE195D05740099BCFE /* libcri_file_system_net_iosD.a */; };
+		07254A07195D20050099BCFE /* adx2 in Resources */ = {isa = PBXBuildFile; fileRef = 07254A06195D20050099BCFE /* adx2 */; };
+		07254A08195D20050099BCFE /* adx2 in Resources */ = {isa = PBXBuildFile; fileRef = 07254A06195D20050099BCFE /* adx2 */; };
 		1AC6FB1F180E996B004C840B /* libbox2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAFF180E9839004C840B /* libbox2d Mac.a */; };
 		1AC6FB20180E996B004C840B /* libchipmunk Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAFD180E9839004C840B /* libchipmunk Mac.a */; };
 		1AC6FB21180E996B004C840B /* libcocos2dx Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2dx Mac.a */; };
@@ -224,6 +234,25 @@
 		072319A619531B7300B0103D /* MainScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MainScene.cpp; path = ../Classes/MainScene.cpp; sourceTree = "<group>"; };
 		072319A719531B7300B0103D /* MainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainScene.h; path = ../Classes/MainScene.h; sourceTree = "<group>"; };
 		072319B31953238500B0103D /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
+		072548A9195D05740099BCFE /* cri_adx2le.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cri_adx2le.h; sourceTree = "<group>"; };
+		072548AA195D05740099BCFE /* cri_le_atom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cri_le_atom.h; sourceTree = "<group>"; };
+		072548AB195D05740099BCFE /* cri_le_atom_asr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cri_le_atom_asr.h; sourceTree = "<group>"; };
+		072548AC195D05740099BCFE /* cri_le_atom_ex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cri_le_atom_ex.h; sourceTree = "<group>"; };
+		072548AD195D05740099BCFE /* cri_le_atom_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cri_le_atom_ios.h; sourceTree = "<group>"; };
+		072548AE195D05740099BCFE /* cri_le_error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cri_le_error.h; sourceTree = "<group>"; };
+		072548AF195D05740099BCFE /* cri_le_file_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cri_le_file_system.h; sourceTree = "<group>"; };
+		072548B0195D05740099BCFE /* cri_le_xpt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cri_le_xpt.h; sourceTree = "<group>"; };
+		072548C7195D05740099BCFE /* libcri_atom_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcri_atom_ios.a; sourceTree = "<group>"; };
+		072548C8195D05740099BCFE /* libcri_atom_iosD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcri_atom_iosD.a; sourceTree = "<group>"; };
+		072548C9195D05740099BCFE /* libcri_base_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcri_base_ios.a; sourceTree = "<group>"; };
+		072548CA195D05740099BCFE /* libcri_base_iosD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcri_base_iosD.a; sourceTree = "<group>"; };
+		072548CB195D05740099BCFE /* libcri_file_system_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcri_file_system_ios.a; sourceTree = "<group>"; };
+		072548CC195D05740099BCFE /* libcri_file_system_iosD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcri_file_system_iosD.a; sourceTree = "<group>"; };
+		072548CD195D05740099BCFE /* libcri_file_system_net_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcri_file_system_net_ios.a; sourceTree = "<group>"; };
+		072548CE195D05740099BCFE /* libcri_file_system_net_iosD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcri_file_system_net_iosD.a; sourceTree = "<group>"; };
+		07254A06195D20050099BCFE /* adx2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = adx2; sourceTree = "<group>"; };
+		07254A09195D20610099BCFE /* CueSheet_0.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CueSheet_0.h; path = ../Classes/CueSheet_0.h; sourceTree = "<group>"; };
+		07254A0A195D20610099BCFE /* test_acf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = test_acf.h; path = ../Classes/test_acf.h; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = ../Classes/AppDelegate.cpp; sourceTree = "<group>"; };
@@ -282,17 +311,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				1AC6FB2E180E99EB004C840B /* libbox2d iOS.a in Frameworks */,
+				0725495A195D05740099BCFE /* libcri_file_system_iosD.a in Frameworks */,
+				07254956195D05740099BCFE /* libcri_atom_iosD.a in Frameworks */,
 				1AC6FB2F180E99EB004C840B /* libchipmunk iOS.a in Frameworks */,
 				1AC6FB30180E99EB004C840B /* libcocos2dx iOS.a in Frameworks */,
+				07254959195D05740099BCFE /* libcri_file_system_ios.a in Frameworks */,
 				1AC6FB31180E99EB004C840B /* libcocos2dx-extensions iOS.a in Frameworks */,
 				1AC6FB32180E99EB004C840B /* libCocosDenshion iOS.a in Frameworks */,
+				07254957195D05740099BCFE /* libcri_base_ios.a in Frameworks */,
 				D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */,
+				0725495B195D05740099BCFE /* libcri_file_system_net_ios.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */,
 				BF1712471292920000B8313A /* libz.dylib in Frameworks */,
+				0725495C195D05740099BCFE /* libcri_file_system_net_iosD.a in Frameworks */,
 				BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */,
+				07254958195D05740099BCFE /* libcri_base_iosD.a in Frameworks */,
+				07254955195D05740099BCFE /* libcri_atom_ios.a in Frameworks */,
 				D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */,
 				D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */,
 				D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */,
@@ -325,6 +362,70 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07254898195D05670099BCFE /* adx2 */ = {
+			isa = PBXGroup;
+			children = (
+				07254899195D05740099BCFE /* cocos2dx */,
+			);
+			name = adx2;
+			sourceTree = "<group>";
+		};
+		07254899195D05740099BCFE /* cocos2dx */ = {
+			isa = PBXGroup;
+			children = (
+				0725489D195D05740099BCFE /* include */,
+				072548BB195D05740099BCFE /* libs */,
+			);
+			name = cocos2dx;
+			path = ../adx2/cocos2dx;
+			sourceTree = "<group>";
+		};
+		0725489D195D05740099BCFE /* include */ = {
+			isa = PBXGroup;
+			children = (
+				072548A8195D05740099BCFE /* ios */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		072548A8195D05740099BCFE /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				072548A9195D05740099BCFE /* cri_adx2le.h */,
+				072548AA195D05740099BCFE /* cri_le_atom.h */,
+				072548AB195D05740099BCFE /* cri_le_atom_asr.h */,
+				072548AC195D05740099BCFE /* cri_le_atom_ex.h */,
+				072548AD195D05740099BCFE /* cri_le_atom_ios.h */,
+				072548AE195D05740099BCFE /* cri_le_error.h */,
+				072548AF195D05740099BCFE /* cri_le_file_system.h */,
+				072548B0195D05740099BCFE /* cri_le_xpt.h */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
+		072548BB195D05740099BCFE /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				072548C6195D05740099BCFE /* ios */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		072548C6195D05740099BCFE /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				072548C7195D05740099BCFE /* libcri_atom_ios.a */,
+				072548C8195D05740099BCFE /* libcri_atom_iosD.a */,
+				072548C9195D05740099BCFE /* libcri_base_ios.a */,
+				072548CA195D05740099BCFE /* libcri_base_iosD.a */,
+				072548CB195D05740099BCFE /* libcri_file_system_ios.a */,
+				072548CC195D05740099BCFE /* libcri_file_system_iosD.a */,
+				072548CD195D05740099BCFE /* libcri_file_system_net_ios.a */,
+				072548CE195D05740099BCFE /* libcri_file_system_net_iosD.a */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
 		080E96DDFE201D6D7F000001 /* ios */ = {
 			isa = PBXGroup;
 			children = (
@@ -343,6 +444,8 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				07254A09195D20610099BCFE /* CueSheet_0.h */,
+				07254A0A195D20610099BCFE /* test_acf.h */,
 				1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */,
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
 				072319A419531B7300B0103D /* Entity.cpp */,
@@ -383,6 +486,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				07254898195D05670099BCFE /* adx2 */,
 				1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */,
 				15AA9C4015B7EC450033D6C2 /* Classes */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -468,6 +572,7 @@
 				1AFAF8B916D35E4900DB1158 /* CloseNormal.png */,
 				1AFAF8BA16D35E4900DB1158 /* CloseSelected.png */,
 				1AFAF8BB16D35E4900DB1158 /* HelloWorld.png */,
+				07254A06195D20050099BCFE /* adx2 */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -644,6 +749,7 @@
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				1AFAF8BC16D35E4900DB1158 /* CloseNormal.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
+				07254A07195D20050099BCFE /* adx2 in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				1AFAF8BD16D35E4900DB1158 /* CloseSelected.png in Resources */,
@@ -665,6 +771,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				072319B51953238500B0103D /* images in Resources */,
+				07254A08195D20050099BCFE /* adx2 in Resources */,
 				5087E75317EB910900C73F5D /* CloseNormal.png in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				5087E75417EB910900C73F5D /* CloseSelected.png in Resources */,
@@ -780,7 +887,11 @@
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/giginet/Desktop/KawazCrash/adx2/cocos2dx/libs/android/armeabi-v7a",
+					/Users/giginet/Desktop/KawazCrash/adx2/cocos2dx/libs/ios,
+					/Users/giginet/Desktop/KawazCrash/adx2/cocos2dx/libs/pc/x86,
+				);
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -811,7 +922,11 @@
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/giginet/Desktop/KawazCrash/adx2/cocos2dx/libs/android/armeabi-v7a",
+					/Users/giginet/Desktop/KawazCrash/adx2/cocos2dx/libs/ios,
+					/Users/giginet/Desktop/KawazCrash/adx2/cocos2dx/libs/pc/x86,
+				);
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

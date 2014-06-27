@@ -10,6 +10,8 @@
 #define __KawazCrash__MainScene__
 
 #include "cocos2d.h"
+#include "cri_adx2le.h"
+
 #include "Entity.h"
 
 typedef cocos2d::Vector<Entity *> EntityVector;
@@ -25,6 +27,8 @@ public:
     static cocos2d::Scene* createScene();
     
     void update(float dt) override;
+    
+    void onEnterTransitionDidFinish() override;
     
 private:
     bool init() override;

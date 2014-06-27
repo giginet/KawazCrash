@@ -1,0 +1,3 @@
+[submodule "adx2"]
+	path = adx2
+	url = git@gitlab.kawaz.org:giginet/adx2-for-cocos2d-x.git
