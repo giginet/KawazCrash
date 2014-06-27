@@ -13,6 +13,7 @@
 #include "cri_adx2le.h"
 
 #include "Entity.h"
+#include "ADX2Manager.h"
 
 typedef cocos2d::Vector<Entity *> EntityVector;
 
@@ -103,6 +104,7 @@ private:
     CC_SYNTHESIZE(cocos2d::Node*, _stage, Stage);
     CC_SYNTHESIZE(EntityVector, _entities, Entitys);
     CC_SYNTHESIZE_RETAIN(Entity *, _currentEntity, CurrentEntity);
+    CC_SYNTHESIZE_RETAIN(ADX2::Cue *, _cue, Cue);
 };
 
 #endif /* defined(__KawazCrash__MainScene__) */
