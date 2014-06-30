@@ -150,7 +150,7 @@ void MainScene::update(float dt)
     // クッキーの生成
     this->spawnCookies();
     
-    // 
+    //
     this->updateField();
 }
 
@@ -283,7 +283,7 @@ void MainScene::deleteCookie(Cookie *cookie)
 
 CookieVector MainScene::checkNeighborCookies(Cookie *cookie, CookieVector checked) {
     if (checked.contains(cookie)) {
-        return checked;
+        return std::move(checked);
     }
     checked.pushBack(cookie);
     auto position = cookie->getCookiePosition();
@@ -310,23 +310,29 @@ CookieVector MainScene::checkNeighborCookies(Cookie *cookie, CookieVector checke
 bool MainScene::fallCookie(Cookie *cookie)
 {
     auto position = cookie->getCookiePosition();
+    // すでに一番下にあったとき、落ちない
     if (position.y == 0) {
         return false;
     }
+    // クッキーがNORMAL状態じゃなかったとき、落ちない
     if (!cookie->isNormal()) {
         return false;
     }
     auto downPosition = Vec2(position.x, position.y - 1);
+    // 1つ下のクッキーを取り出す
     auto down = this->getCookieAt(position.x, position.y - 1);
+    // 1つ下がなかったとき、落ちる
     if (down == nullptr) {
         auto duration = 0.05;
         cookie->setState(Cookie::State::FALLING);
         cookie->runAction(Sequence::create(MoveBy::create(duration, Vec2(0, -Cookie::getSize())),
                                            CallFuncN::create([this, downPosition] (Node *node) {
+            // 落下アニメーション終了語
             auto cookie = dynamic_cast<Cookie *>(node);
+            // クッキーを動かす
             this->moveCookie(cookie, downPosition);
             cookie->setState(Cookie::State::NORMAL);
-            this->updateField();
+            // さらに落ちないか再度落下判定を行う
             this->fallCookie(cookie);
         }),
                                            NULL));
@@ -338,15 +344,16 @@ bool MainScene::fallCookie(Cookie *cookie)
 cocos2d::Vector<Cookie *> MainScene::spawnCookies()
 {
     cocos2d::Vector<Cookie *> cookies;
+    // 一番上の座標を取り出す
     auto y = VERTICAL_COUNT - 1;
+    // 一番上の行を全てチェック
     for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
         auto cookie = this->getCookieAt(x, y);
-        if (!cookie) {
+        if (!cookie) { // もしクッキーがなければ
+            // クッキーを追加する
             auto cookie = Cookie::create();
             cookie->setCookiePosition(Vec2(x, y));
             this->addCookie(cookie);
-            cookies.pushBack(cookie);
-            this->vanishCookies(cookie);
         }
     }
     return std::move(cookies);
@@ -356,7 +363,6 @@ bool MainScene::canVanishNext(Cookie *cookie)
 {
     CookieVector cookies;
     cookies = this->checkNeighborCookies(cookie, cookies);
-    auto vectors = std::vector<Vec2> {Vec2(0, 2), Vec2(2, 0), Vec2(0, -2), Vec2(-2, 0)};
     auto skews = std::vector<Vec2> {Vec2(1, 1), Vec2(1, -1), Vec2(-1, 1), Vec2(-1, -1)};
     auto allDirections = std::vector<Vec2> {Vec2(0, 2), Vec2(2, 0), Vec2(0, -2), Vec2(-2, 0), Vec2(1, 1), Vec2(1, -1), Vec2(-1, 1), Vec2(-1, -1)};
     auto currentVector = cookie->getCookiePosition();
@@ -373,7 +379,7 @@ bool MainScene::canVanishNext(Cookie *cookie)
             }
         }
     } else if (cookies.size() == 2) {
-        for (auto vector : vectors) {
+        for (auto vector : allDirections) {
             auto nextVector = cookie->getCookiePosition() + vector;
             auto nextCookie = this->getCookieAt(nextVector.x, nextVector.y);
             if (nextCookie && cookie && nextCookie->getCookieColor() == cookie->getCookieColor() && !cookies.contains(nextCookie)) {
@@ -411,24 +417,23 @@ void MainScene::updateField()
         }
         
         // 次にどれも消えなさそうだったらランダムに2列消す
-        bool flag = false;
         for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
             for (int y = 0; y < VERTICAL_COUNT; ++y) {
                 auto cookie = this->getCookieAt(x, y);
-                if (!flag && cookie && this->canVanishNext(cookie)) {
+                if (cookie && this->canVanishNext(cookie)) {
                     // どれか消えそうなら探索を打ち切る
-                    flag = true;
+                    return;
                 }
             }
         }
-        if (!flag && _cookies.size() == HORIZONTAL_COUNT * VERTICAL_COUNT) {
-            auto baseX = rand() % HORIZONTAL_COUNT;
-            auto otherX = (rand() % (HORIZONTAL_COUNT - 1) + baseX) % HORIZONTAL_COUNT;
-            for (int y = 0; y < VERTICAL_COUNT; ++y) {
-                this->deleteCookie(this->getCookieAt(baseX, y));
-                this->deleteCookie(this->getCookieAt(otherX, y));
-            }
+        // もしどれも消えなかったとき、ランダムに2列を選んで消去する
+        auto baseX = rand() % HORIZONTAL_COUNT;
+        auto otherX = (rand() % (HORIZONTAL_COUNT - 1) + baseX) % HORIZONTAL_COUNT;
+        for (int y = 0; y < VERTICAL_COUNT; ++y) {
+            this->deleteCookie(this->getCookieAt(baseX, y));
+            this->deleteCookie(this->getCookieAt(otherX, y));
         }
+        
     }
 }
 
