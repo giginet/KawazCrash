@@ -10,9 +10,9 @@
 #define __KawazCrash__MainScene__
 
 #include "cocos2d.h"
-#include "Entity.h"
+#include "Cookie.h"
 
-typedef cocos2d::Vector<Entity *> EntityVector;
+typedef cocos2d::Vector<Cookie *> CookieVector;
 
 class MainScene :public cocos2d::Layer
 {
@@ -30,75 +30,75 @@ private:
     bool init() override;
 
     /** 指定したブロックを追加します
-     *  @param 追加するEntity
+     *  @param 追加するCookie
      */
-    void addEntity(Entity *entity);
+    void addCookie(Cookie *cookie);
     
     /** グリッド上の特定位置にあるブロックを取り出します
     *   何もなかった場合はnullptrを返します
     *   @param x x座標
     *   @param y y座標
-    *   @return その位置にあるEntity、またはnullptr
+    *   @return その位置にあるCookie、またはnullptr
     */
-    Entity* getEntityAt(int x, int y);
+    Cookie* getCookieAt(int x, int y);
 
     /** 画面上の特定位置にあるブロックを取り出します
      *  何もなかった場合はnullptrを返します
      *  @param position 画面上の絶対座標
-     *  @return その位置にあるEntity、またはnullptr
+     *  @return その位置にあるCookie、またはnullptr
      */
-    Entity* getEntityAt(cocos2d::Vec2 position);
+    Cookie* getCookieAt(cocos2d::Vec2 position);
     
     /** ブロックをグリッド上の指定した位置に動かします
-     *  @param entity0 動かすブロック
-     *  @param entityPosition 動かすグリッド上の座標
+     *  @param cookie0 動かすブロック
+     *  @param cookiePosition 動かすグリッド上の座標
      *  @return 動かせたかどうか
      */
-    bool moveEntity(Entity* entity0, cocos2d::Vec2 entityPosition);
+    bool moveCookie(Cookie* cookie0, cocos2d::Vec2 cookiePosition);
     
-    /** 2つのEntityを取り替えます
-     *  @param entity0 1つめのEnitiy
-     *  @param entity1 2つめのEntity
+    /** 2つのCookieを取り替えます
+     *  @param cookie0 1つめのEnitiy
+     *  @param cookie1 2つめのCookie
      *  @return 取り替えられたかどうか
      */
-    bool swapEntities(Entity* entity0, Entity* entity1);
+    bool swapEntities(Cookie* cookie0, Cookie* cookie1);
     
-    /** 渡されたEntityを消去します
-     *  @param entity 消すEntity
+    /** 渡されたCookieを消去します
+     *  @param cookie 消すCookie
      */
-    void deleteEntity(Entity* entity);
+    void deleteCookie(Cookie* cookie);
     
     
-    /** 渡されたEntityと隣接するEntityを全て取り出します
-     *  @param entity 開始するEntity
-     *  @param checked すでに調査済みのEntityの一覧。ここから調査する場合は空のVectorを渡してください
-     *  @return 自身を含む隣接したEntityが含まれたVector
+    /** 渡されたCookieと隣接するCookieを全て取り出します
+     *  @param cookie 開始するCookie
+     *  @param checked すでに調査済みのCookieの一覧。ここから調査する場合は空のVectorを渡してください
+     *  @return 自身を含む隣接したCookieが含まれたVector
      */
-    EntityVector checkNeighborEntities(Entity* entity, EntityVector checked);
+    CookieVector checkNeighborEntities(Cookie* cookie, CookieVector checked);
     
-    void checkFall(Entity *entity);
+    void checkFall(Cookie *cookie);
     
-    bool checkVanishEntities(Entity* entity);
+    bool checkVanishEntities(Cookie* cookie);
     
-    cocos2d::Vector<Entity*> spawnEntities();
+    cocos2d::Vector<Cookie*> spawnEntities();
     
     /** 次のターンに渡されたブロックが消去可能かを判定します
-     *  @param Entity* entity
+     *  @param Cookie* cookie
      *  @return 消去可能かどうか
      */
-    bool canVanishNext(Entity *entity);
+    bool canVanishNext(Cookie *cookie);
     
     void checkField();
     
-    /** 全てのEntityがNormal状態かどうか
+    /** 全てのCookieがNormal状態かどうか
      *  @return Normal状態かどうか
      */
     bool isAllNormal();
     
     CREATE_FUNC(MainScene);
     CC_SYNTHESIZE(cocos2d::Node*, _stage, Stage);
-    CC_SYNTHESIZE(EntityVector, _entities, Entitys);
-    CC_SYNTHESIZE_RETAIN(Entity *, _currentEntity, CurrentEntity);
+    CC_SYNTHESIZE(CookieVector, _cookies, Cookies);
+    CC_SYNTHESIZE_RETAIN(Cookie *, _currentCookie, CurrentCookie);
 };
 
 #endif /* defined(__KawazCrash__MainScene__) */

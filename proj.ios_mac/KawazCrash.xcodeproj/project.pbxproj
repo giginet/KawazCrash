@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		072319A819531B7300B0103D /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 072319A419531B7300B0103D /* Entity.cpp */; };
-		072319A919531B7300B0103D /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 072319A419531B7300B0103D /* Entity.cpp */; };
+		072319A819531B7300B0103D /* Cookie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 072319A419531B7300B0103D /* Cookie.cpp */; };
+		072319A919531B7300B0103D /* Cookie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 072319A419531B7300B0103D /* Cookie.cpp */; };
 		072319AA19531B7300B0103D /* MainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 072319A619531B7300B0103D /* MainScene.cpp */; };
 		072319AB19531B7300B0103D /* MainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 072319A619531B7300B0103D /* MainScene.cpp */; };
 		072319B41953238500B0103D /* images in Resources */ = {isa = PBXBuildFile; fileRef = 072319B31953238500B0103D /* images */; };
@@ -219,8 +219,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		072319A419531B7300B0103D /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Entity.cpp; path = ../Classes/Entity.cpp; sourceTree = "<group>"; };
-		072319A519531B7300B0103D /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Entity.h; path = ../Classes/Entity.h; sourceTree = "<group>"; };
+		072319A419531B7300B0103D /* Cookie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Cookie.cpp; path = ../Classes/Cookie.cpp; sourceTree = "<group>"; };
+		072319A519531B7300B0103D /* Cookie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cookie.h; path = ../Classes/Cookie.h; sourceTree = "<group>"; };
 		072319A619531B7300B0103D /* MainScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MainScene.cpp; path = ../Classes/MainScene.cpp; sourceTree = "<group>"; };
 		072319A719531B7300B0103D /* MainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainScene.h; path = ../Classes/MainScene.h; sourceTree = "<group>"; };
 		072319B31953238500B0103D /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
@@ -345,8 +345,8 @@
 			children = (
 				1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */,
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
-				072319A419531B7300B0103D /* Entity.cpp */,
-				072319A519531B7300B0103D /* Entity.h */,
+				072319A419531B7300B0103D /* Cookie.cpp */,
+				072319A519531B7300B0103D /* Cookie.h */,
 				072319A619531B7300B0103D /* MainScene.cpp */,
 				072319A719531B7300B0103D /* MainScene.h */,
 			);
@@ -682,7 +682,7 @@
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
-				072319A819531B7300B0103D /* Entity.cpp in Sources */,
+				072319A819531B7300B0103D /* Cookie.cpp in Sources */,
 				072319AA19531B7300B0103D /* MainScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 			);
@@ -694,7 +694,7 @@
 			files = (
 				5087E75717EB910900C73F5D /* AppDelegate.cpp in Sources */,
 				072319AB19531B7300B0103D /* MainScene.cpp in Sources */,
-				072319A919531B7300B0103D /* Entity.cpp in Sources */,
+				072319A919531B7300B0103D /* Cookie.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

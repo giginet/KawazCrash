@@ -7,7 +7,7 @@
 //
 
 #include "MainScene.h"
-#include "Entity.h"
+#include "Cookie.h"
 #include <algorithm>
 
 USING_NS_CC;
@@ -16,13 +16,13 @@ const int HORIZONTAL_COUNT = 6;
 const int VERTICAL_COUNT = 8;
 const int VANISH_COUNT = 4;
 
-MainScene::MainScene() : _currentEntity(nullptr)
+MainScene::MainScene() : _currentCookie(nullptr)
 {
 }
 
 MainScene::~MainScene()
 {
-    CC_SAFE_RELEASE_NULL(_currentEntity);
+    CC_SAFE_RELEASE_NULL(_currentCookie);
 }
 
 Scene* MainScene::createScene()
@@ -42,53 +42,53 @@ bool MainScene::init()
     this->setStage(Node::create());
     for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
         for (int y = 0; y < VERTICAL_COUNT; ++y) {
-            auto entity = Entity::create();
-            entity->setEntityPosition(Vec2(x, y));
-            this->addEntity(entity);
+            auto cookie = Cookie::create();
+            cookie->setCookiePosition(Vec2(x, y));
+            this->addCookie(cookie);
         }
     }
     auto winSize = Director::getInstance()->getWinSize();
-    auto leftMargin = winSize.width - Entity::getSize() * HORIZONTAL_COUNT;
-    _stage->setPosition(Vec2(leftMargin / 2 + Entity::getSize() / 2.0, 50));
+    auto leftMargin = winSize.width - Cookie::getSize() * HORIZONTAL_COUNT;
+    _stage->setPosition(Vec2(leftMargin / 2 + Cookie::getSize() / 2.0, 50));
     this->addChild(_stage);
     
     auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = [this](Touch* touch, Event* event) {
         auto position = touch->getLocation();
-        auto entity = this->getEntityAt(position);
-        this->setCurrentEntity(entity);
+        auto cookie = this->getCookieAt(position);
+        this->setCurrentCookie(cookie);
         return true;
     };
     listener->onTouchMoved = [this](Touch* touch, Event* event) {
-        auto nextEntity = this->getEntityAt(touch->getLocation());
-        if (_currentEntity != nullptr && nextEntity != nullptr && _currentEntity != nextEntity) {
-            if (_currentEntity->isNormal() && nextEntity->isNormal()) {
-                auto cp = _currentEntity->getEntityPosition();
-                auto np = nextEntity->getEntityPosition();
+        auto nextCookie = this->getCookieAt(touch->getLocation());
+        if (_currentCookie != nullptr && nextCookie != nullptr && _currentCookie != nextCookie) {
+            if (_currentCookie->isNormal() && nextCookie->isNormal()) {
+                auto cp = _currentCookie->getCookiePosition();
+                auto np = nextCookie->getCookiePosition();
                 if (cp.y == np.y && cp.x + 1 == np.x) { // 右方向
-                    this->swapEntities(_currentEntity, nextEntity);
-                    this->setCurrentEntity(nullptr);
+                    this->swapEntities(_currentCookie, nextCookie);
+                    this->setCurrentCookie(nullptr);
                 }
                 if (cp.y == np.y && cp.x - 1 == np.x) { // 左方向
-                    this->swapEntities(_currentEntity, nextEntity);
-                    this->setCurrentEntity(nullptr);
+                    this->swapEntities(_currentCookie, nextCookie);
+                    this->setCurrentCookie(nullptr);
                 }
                 if (cp.x == np.x && cp.y + 1 == np.y) { // 上方向
-                    this->swapEntities(_currentEntity, nextEntity);
-                    this->setCurrentEntity(nullptr);
+                    this->swapEntities(_currentCookie, nextCookie);
+                    this->setCurrentCookie(nullptr);
                 }
                 if (cp.x == np.x && cp.y - 1 == np.y) { // 下方向
-                    this->swapEntities(_currentEntity, nextEntity);
-                    this->setCurrentEntity(nullptr);
+                    this->swapEntities(_currentCookie, nextCookie);
+                    this->setCurrentCookie(nullptr);
                 }
             }
         }
     };
     listener->onTouchEnded = [this](Touch* touch, Event* event) {
-        this->setCurrentEntity(nullptr);
+        this->setCurrentCookie(nullptr);
     };
     listener->onTouchCancelled = [this](Touch* touch, Event* event) {
-        this->setCurrentEntity(nullptr);
+        this->setCurrentCookie(nullptr);
     };
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
     this->scheduleUpdate();
@@ -98,106 +98,106 @@ bool MainScene::init()
 
 void MainScene::update(float dt)
 {
-    for (auto entity : _entities) {
-        this->checkFall(entity);
+    for (auto cookie : _cookies) {
+        this->checkFall(cookie);
     }
     this->spawnEntities();
     this->checkField();
 }
 
-Entity* MainScene::getEntityAt(int x, int y)
+Cookie* MainScene::getCookieAt(int x, int y)
 {
-    for (auto entity : _entities) {
-        if (entity->getEntityPosition().x == x && entity->getEntityPosition().y == y) {
-            return entity;
+    for (auto cookie : _cookies) {
+        if (cookie->getCookiePosition().x == x && cookie->getCookiePosition().y == y) {
+            return cookie;
         }
     }
     return nullptr;
 }
 
-Entity* MainScene::getEntityAt(cocos2d::Vec2 position)
+Cookie* MainScene::getCookieAt(cocos2d::Vec2 position)
 {
     auto stagePoint = _stage->convertToNodeSpace(position);
-    auto x = floor((stagePoint.x + Entity::getSize() / 2.0) / Entity::getSize());
-    auto y = floor((stagePoint.y + Entity::getSize() / 2.0) / Entity::getSize());
-    return this->getEntityAt(x, y);
+    auto x = floor((stagePoint.x + Cookie::getSize() / 2.0) / Cookie::getSize());
+    auto y = floor((stagePoint.y + Cookie::getSize() / 2.0) / Cookie::getSize());
+    return this->getCookieAt(x, y);
 }
 
-void MainScene::addEntity(Entity *entity)
+void MainScene::addCookie(Cookie *cookie)
 {
-    _entities.pushBack(entity);
-    _stage->addChild(entity);
-    entity->adjustPosition();
+    _cookies.pushBack(cookie);
+    _stage->addChild(cookie);
+    cookie->adjustPosition();
 }
 
-bool MainScene::moveEntity(Entity *entity, cocos2d::Vec2 entityPosition)
+bool MainScene::moveCookie(Cookie *cookie, cocos2d::Vec2 cookiePosition)
 {
-    entity->setEntityPosition(entityPosition);
-    entity->adjustPosition();
+    cookie->setCookiePosition(cookiePosition);
+    cookie->adjustPosition();
     return true;
 }
 
-bool MainScene::swapEntities(Entity *entity0, Entity *entity1)
+bool MainScene::swapEntities(Cookie *cookie0, Cookie *cookie1)
 {
     const auto duration = 0.2;
     
-    auto position0 = entity0->getPosition();
-    auto position1 = entity1->getPosition();
+    auto position0 = cookie0->getPosition();
+    auto position1 = cookie1->getPosition();
     
-    auto currentPosition0 = entity0->getEntityPosition();
-    auto currentPosition1 = entity1->getEntityPosition();
+    auto currentPosition0 = cookie0->getCookiePosition();
+    auto currentPosition1 = cookie1->getCookiePosition();
     
     // 要リファクタリング
     // 予め動かしておいて
-    entity1->setEntityPosition(currentPosition0);
-    entity0->setEntityPosition(currentPosition1);
+    cookie1->setCookiePosition(currentPosition0);
+    cookie0->setCookiePosition(currentPosition1);
     
-    EntityVector v0;
-    EntityVector v1;
-    auto entities0 = this->checkNeighborEntities(entity0, v0);
-    auto entities1 = this->checkNeighborEntities(entity1, v1);
+    CookieVector v0;
+    CookieVector v1;
+    auto cookies0 = this->checkNeighborEntities(cookie0, v0);
+    auto cookies1 = this->checkNeighborEntities(cookie1, v1);
     
-    bool isVanish = entities0.size() >= VANISH_COUNT || entities1.size() >= VANISH_COUNT;
+    bool isVanish = cookies0.size() >= VANISH_COUNT || cookies1.size() >= VANISH_COUNT;
     
-    entity0->setState(Entity::State::SWAPPING);
-    entity1->setState(Entity::State::SWAPPING);
+    cookie0->setState(Cookie::State::SWAPPING);
+    cookie1->setState(Cookie::State::SWAPPING);
     
     // 酷い実装だからあとで直す！！！！！
     
     if (!isVanish) { // 消えなかったら戻す
-        entity1->setEntityPosition(currentPosition1);
-        entity0->setEntityPosition(currentPosition0);
+        cookie1->setCookiePosition(currentPosition1);
+        cookie0->setCookiePosition(currentPosition0);
     }
     
-    entity0->runAction(Sequence::create(MoveTo::create(duration, position1),
+    cookie0->runAction(Sequence::create(MoveTo::create(duration, position1),
                                         CallFuncN::create([=](Node *node) {
-        auto entity = dynamic_cast<Entity *>(node);
+        auto cookie = dynamic_cast<Cookie *>(node);
         if (isVanish) {
-            this->moveEntity(entity, currentPosition1);
-            entity->setState(Entity::State::NORMAL);
+            this->moveCookie(cookie, currentPosition1);
+            cookie->setState(Cookie::State::NORMAL);
             this->checkField();
         } else {
             // 元に戻す
-            entity->runAction(Sequence::create(MoveTo::create(duration / 2.0, position0),
+            cookie->runAction(Sequence::create(MoveTo::create(duration / 2.0, position0),
                                                CallFuncN::create([] (Node *node) {
-                auto entity = dynamic_cast<Entity *>(node);
-                entity->setState(Entity::State::NORMAL);
+                auto cookie = dynamic_cast<Cookie *>(node);
+                cookie->setState(Cookie::State::NORMAL);
             }), NULL));
         }
     }), NULL));
-    entity1->runAction(Sequence::create(MoveTo::create(duration, position0),
+    cookie1->runAction(Sequence::create(MoveTo::create(duration, position0),
                                         CallFuncN::create([=](Node *node) {
-        auto entity = dynamic_cast<Entity *>(node);
+        auto cookie = dynamic_cast<Cookie *>(node);
         if (isVanish) {
-            this->moveEntity(entity, currentPosition0);
-            entity->setState(Entity::State::NORMAL);
+            this->moveCookie(cookie, currentPosition0);
+            cookie->setState(Cookie::State::NORMAL);
             this->checkField();
         } else {
             // 元に戻す
-            entity->runAction(Sequence::create(MoveTo::create(duration / 2.0, position1),
+            cookie->runAction(Sequence::create(MoveTo::create(duration / 2.0, position1),
                                                CallFuncN::create([] (Node *node) {
-                auto entity = dynamic_cast<Entity *>(node);
-                entity->setState(Entity::State::NORMAL);
+                auto cookie = dynamic_cast<Cookie *>(node);
+                cookie->setState(Cookie::State::NORMAL);
             }), NULL));
         }
     }),
@@ -205,28 +205,28 @@ bool MainScene::swapEntities(Entity *entity0, Entity *entity1)
     return true;
 }
 
-bool MainScene::checkVanishEntities(Entity *entity)
+bool MainScene::checkVanishEntities(Cookie *cookie)
 {
-    EntityVector v;
-    auto entities = this->checkNeighborEntities(entity, v);
-    bool canVanish = std::all_of(entities.begin(), entities.end(), [](Entity *entity) { return entity->isNormal(); });
-    if (entities.size() >= VANISH_COUNT && canVanish) {
-        for (auto entity : entities) {
-            this->deleteEntity(entity);
+    CookieVector v;
+    auto cookies = this->checkNeighborEntities(cookie, v);
+    bool canVanish = std::all_of(cookies.begin(), cookies.end(), [](Cookie *cookie) { return cookie->isNormal(); });
+    if (cookies.size() >= VANISH_COUNT && canVanish) {
+        for (auto cookie : cookies) {
+            this->deleteCookie(cookie);
         }
         return true;
     }
     return false;
 }
 
-void MainScene::deleteEntity(Entity *entity)
+void MainScene::deleteCookie(Cookie *cookie)
 {
-    if (!entity) return;
-    entity->setState(Entity::State::DISAPEARING);
-    entity->runAction(Sequence::create(FadeOut::create(0.5f),
+    if (!cookie) return;
+    cookie->setState(Cookie::State::DISAPEARING);
+    cookie->runAction(Sequence::create(FadeOut::create(0.5f),
                                        CallFuncN::create([this](Node* node) {
-        auto entity = dynamic_cast<Entity *>(node);
-        _entities.eraseObject(entity);
+        auto cookie = dynamic_cast<Cookie *>(node);
+        _cookies.eraseObject(cookie);
     }),
                                        RemoveSelf::create(),
                                        CallFunc::create([this] {
@@ -234,106 +234,106 @@ void MainScene::deleteEntity(Entity *entity)
                                        NULL));
 }
 
-EntityVector MainScene::checkNeighborEntities(Entity *entity, EntityVector checked) {
-    if (checked.contains(entity)) {
+CookieVector MainScene::checkNeighborEntities(Cookie *cookie, CookieVector checked) {
+    if (checked.contains(cookie)) {
         return checked;
     }
-    checked.pushBack(entity);
-    auto position = entity->getEntityPosition();
-    auto up = this->getEntityAt(position.x, position.y + 1);
-    auto down = this->getEntityAt(position.x, position.y - 1);
-    auto left = this->getEntityAt(position.x - 1, position.y);
-    auto right = this->getEntityAt(position.x + 1, position.y);
+    checked.pushBack(cookie);
+    auto position = cookie->getCookiePosition();
+    auto up = this->getCookieAt(position.x, position.y + 1);
+    auto down = this->getCookieAt(position.x, position.y - 1);
+    auto left = this->getCookieAt(position.x - 1, position.y);
+    auto right = this->getCookieAt(position.x + 1, position.y);
     
-    if (up && up->getEntityColor() == entity->getEntityColor()) {
+    if (up && up->getCookieColor() == cookie->getCookieColor()) {
         checked = this->checkNeighborEntities(up, checked);
     }
-    if (down && down->getEntityColor() == entity->getEntityColor()) {
+    if (down && down->getCookieColor() == cookie->getCookieColor()) {
         checked = this->checkNeighborEntities(down, checked);
     }
-    if (left && left->getEntityColor() == entity->getEntityColor()) {
+    if (left && left->getCookieColor() == cookie->getCookieColor()) {
         checked = this->checkNeighborEntities(left, checked);
     }
-    if (right && right->getEntityColor() == entity->getEntityColor()) {
+    if (right && right->getCookieColor() == cookie->getCookieColor()) {
         checked = this->checkNeighborEntities(right, checked);
     }
     return std::move(checked);
 }
 
-void MainScene::checkFall(Entity *entity)
+void MainScene::checkFall(Cookie *cookie)
 {
-    auto position = entity->getEntityPosition();
+    auto position = cookie->getCookiePosition();
     if (position.y == 0) {
         return;
     }
-    if (!entity->isNormal()) {
+    if (!cookie->isNormal()) {
         return;
     }
     auto downPosition = Vec2(position.x, position.y - 1);
-    auto down = this->getEntityAt(position.x, position.y - 1);
+    auto down = this->getCookieAt(position.x, position.y - 1);
     if (down == nullptr) {
         auto duration = 0.05;
-        entity->setState(Entity::State::FALLING);
-        entity->runAction(Sequence::create(MoveBy::create(duration, Vec2(0, -Entity::getSize())),
+        cookie->setState(Cookie::State::FALLING);
+        cookie->runAction(Sequence::create(MoveBy::create(duration, Vec2(0, -Cookie::getSize())),
                                            CallFuncN::create([this, downPosition] (Node *node) {
-            auto entity = dynamic_cast<Entity *>(node);
-            this->moveEntity(entity, downPosition);
-            entity->setState(Entity::State::NORMAL);
+            auto cookie = dynamic_cast<Cookie *>(node);
+            this->moveCookie(cookie, downPosition);
+            cookie->setState(Cookie::State::NORMAL);
             this->checkField();
-            this->checkFall(entity);
+            this->checkFall(cookie);
         }),
                                            NULL));
     }
 }
 
-cocos2d::Vector<Entity *> MainScene::spawnEntities()
+cocos2d::Vector<Cookie *> MainScene::spawnEntities()
 {
-    cocos2d::Vector<Entity *> entities;
+    cocos2d::Vector<Cookie *> cookies;
     auto y = VERTICAL_COUNT - 1;
     for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
-        auto entity = this->getEntityAt(x, y);
-        if (!entity) {
-            auto entity = Entity::create();
-            entity->setEntityPosition(Vec2(x, y));
-            this->addEntity(entity);
-            entities.pushBack(entity);
-            this->checkVanishEntities(entity);
+        auto cookie = this->getCookieAt(x, y);
+        if (!cookie) {
+            auto cookie = Cookie::create();
+            cookie->setCookiePosition(Vec2(x, y));
+            this->addCookie(cookie);
+            cookies.pushBack(cookie);
+            this->checkVanishEntities(cookie);
         }
     }
-    return std::move(entities);
+    return std::move(cookies);
 }
 
-bool MainScene::canVanishNext(Entity *entity)
+bool MainScene::canVanishNext(Cookie *cookie)
 {
-    EntityVector entities;
-    entities = this->checkNeighborEntities(entity, entities);
+    CookieVector cookies;
+    cookies = this->checkNeighborEntities(cookie, cookies);
     auto vectors = std::vector<Vec2> {Vec2(0, 2), Vec2(2, 0), Vec2(0, -2), Vec2(-2, 0)};
     auto skews = std::vector<Vec2> {Vec2(1, 1), Vec2(1, -1), Vec2(-1, 1), Vec2(-1, -1)};
     auto allDirections = std::vector<Vec2> {Vec2(0, 2), Vec2(2, 0), Vec2(0, -2), Vec2(-2, 0), Vec2(1, 1), Vec2(1, -1), Vec2(-1, 1), Vec2(-1, -1)};
-    auto currentVector = entity->getEntityPosition();
+    auto currentVector = cookie->getCookiePosition();
     
-    if (entities.size() >= VANISH_COUNT) {
+    if (cookies.size() >= VANISH_COUNT) {
         // 4以上は存在しないはずだけどtrue
         return true;
-    } else if (entities.size() == 3) {
+    } else if (cookies.size() == 3) {
         for (auto vector : allDirections) {
-            auto nextVector = entity->getEntityPosition() + vector;
-            auto nextEntity = this->getEntityAt(nextVector.x, nextVector.y);
-            if (nextEntity && entity && nextEntity->getEntityColor() == entity->getEntityColor() && !entities.contains(nextEntity)) {
+            auto nextVector = cookie->getCookiePosition() + vector;
+            auto nextCookie = this->getCookieAt(nextVector.x, nextVector.y);
+            if (nextCookie && cookie && nextCookie->getCookieColor() == cookie->getCookieColor() && !cookies.contains(nextCookie)) {
                 return true;
             }
         }
-    } else if (entities.size() == 2) {
+    } else if (cookies.size() == 2) {
         for (auto vector : vectors) {
-            auto nextVector = entity->getEntityPosition() + vector;
-            auto nextEntity = this->getEntityAt(nextVector.x, nextVector.y);
-            if (nextEntity && entity && nextEntity->getEntityColor() == entity->getEntityColor() && !entities.contains(nextEntity)) {
+            auto nextVector = cookie->getCookiePosition() + vector;
+            auto nextCookie = this->getCookieAt(nextVector.x, nextVector.y);
+            if (nextCookie && cookie && nextCookie->getCookieColor() == cookie->getCookieColor() && !cookies.contains(nextCookie)) {
                 for (auto sv0 : skews) {
                     for (auto sv1 : skews) {
-                        auto e0 = this->getEntityAt((currentVector + sv0).x, (currentVector + sv0).y);
-                        auto e1 = this->getEntityAt((nextVector + sv1).x, (nextVector + sv1).y);
-                        if (e0 && e1 && e0->getEntityColor() == entity->getEntityColor() && e0 == e1 && !entities.contains(e0) && !entities.contains(e1)) {
-                            // 斜めに共通のentityがあれば消せるはず！
+                        auto e0 = this->getCookieAt((currentVector + sv0).x, (currentVector + sv0).y);
+                        auto e1 = this->getCookieAt((nextVector + sv1).x, (nextVector + sv1).y);
+                        if (e0 && e1 && e0->getCookieColor() == cookie->getCookieColor() && e0 == e1 && !cookies.contains(e0) && !cookies.contains(e1)) {
+                            // 斜めに共通のcookieがあれば消せるはず！
                             return true;
                         }
                     }
@@ -348,14 +348,14 @@ void MainScene::checkField()
 {
     if (this->isAllNormal()) {
         // 既に揃ってるのを消す
-        EntityVector checked;
+        CookieVector checked;
         for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
             for (int y = 0; y < VERTICAL_COUNT; ++y) {
-                auto entity = this->getEntityAt(x, y);
-                if (entity && !checked.contains(entity)) {
-                    EntityVector v;
-                    v = this->checkNeighborEntities(entity, v);
-                    this->checkVanishEntities(entity);
+                auto cookie = this->getCookieAt(x, y);
+                if (cookie && !checked.contains(cookie)) {
+                    CookieVector v;
+                    v = this->checkNeighborEntities(cookie, v);
+                    this->checkVanishEntities(cookie);
                     checked.pushBack(v);
                 }
             }
@@ -365,19 +365,19 @@ void MainScene::checkField()
         bool flag = false;
         for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
             for (int y = 0; y < VERTICAL_COUNT; ++y) {
-                auto entity = this->getEntityAt(x, y);
-                if (!flag && entity && this->canVanishNext(entity)) {
+                auto cookie = this->getCookieAt(x, y);
+                if (!flag && cookie && this->canVanishNext(cookie)) {
                     // どれか消えそうなら探索を打ち切る
                     flag = true;
                 }
             }
         }
-        if (!flag && _entities.size() == HORIZONTAL_COUNT * VERTICAL_COUNT) {
+        if (!flag && _cookies.size() == HORIZONTAL_COUNT * VERTICAL_COUNT) {
             auto baseX = rand() % HORIZONTAL_COUNT;
             auto otherX = (rand() % (HORIZONTAL_COUNT - 1) + baseX) % HORIZONTAL_COUNT;
             for (int y = 0; y < VERTICAL_COUNT; ++y) {
-                this->deleteEntity(this->getEntityAt(baseX, y));
-                this->deleteEntity(this->getEntityAt(otherX, y));
+                this->deleteCookie(this->getCookieAt(baseX, y));
+                this->deleteCookie(this->getCookieAt(otherX, y));
             }
         }
     }
@@ -385,5 +385,5 @@ void MainScene::checkField()
 
 bool MainScene::isAllNormal()
 {
-    return std::all_of(_entities.begin(), _entities.end(), [](Entity* entity) { return entity->isNormal(); });
+    return std::all_of(_cookies.begin(), _cookies.end(), [](Cookie* cookie) { return cookie->isNormal(); });
 }
