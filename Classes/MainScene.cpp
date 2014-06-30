@@ -24,7 +24,18 @@ const int VANISH_COUNT = 4;
 
 MainScene::MainScene() : _currentEntity(nullptr), _cue(nullptr)
 {
-    ADX2::ADX2Manager::initialize();
+    CriAtomExStandardVoicePoolConfig vp_config;
+    criAtomExVoicePool_SetDefaultConfigForStandardVoicePool(&vp_config);
+    vp_config.num_voices = 8;
+    vp_config.player_config.streaming_flag = CRI_TRUE;
+    vp_config.player_config.max_sampling_rate = 48000 << 1;
+    
+    CriAtomExPlayerConfig pf_config;
+    criAtomExPlayer_SetDefaultConfig(&pf_config);
+    pf_config.max_path_strings = 1;
+    pf_config.max_path = 256;
+    
+    ADX2::ADX2Manager::initialize(pf_config, vp_config);
 }
 
 MainScene::~MainScene()
