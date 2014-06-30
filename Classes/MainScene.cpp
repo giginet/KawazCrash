@@ -22,7 +22,7 @@ const int HORIZONTAL_COUNT = 6;
 const int VERTICAL_COUNT = 8;
 const int VANISH_COUNT = 4;
 
-MainScene::MainScene() : _currentCookie(nullptr)
+MainScene::MainScene() : _currentCookie(nullptr), _cue(nullptr)
 {
     CriAtomExStandardVoicePoolConfig vp_config;
     criAtomExVoicePool_SetDefaultConfigForStandardVoicePool(&vp_config);
@@ -41,9 +41,8 @@ MainScene::MainScene() : _currentCookie(nullptr)
 MainScene::~MainScene()
 {
     CC_SAFE_RELEASE_NULL(_currentCookie);
-    ADX2::ADX2Manager::finalize();
-
     CC_SAFE_RELEASE_NULL(_cue);
+    ADX2::ADX2Manager::finalize();
 }
 
 Scene* MainScene::createScene()
