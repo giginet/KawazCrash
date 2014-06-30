@@ -917,7 +917,7 @@
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
-				LIBRARY_SEARCH_PATHS = /Users/giginet/Desktop/KawazCrash/adx2/cocos2dx/libs/ios;
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../adx2/cocos2dx/libs/ios";
 				ONLY_ACTIVE_ARCH = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -955,7 +955,7 @@
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
-				LIBRARY_SEARCH_PATHS = /Users/giginet/Desktop/KawazCrash/adx2/cocos2dx/libs/ios;
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../adx2/cocos2dx/libs/ios";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
