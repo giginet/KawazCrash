@@ -25,9 +25,9 @@ bool Cookie::init()
     std::random_device rdev;
     auto engine = std::mt19937(rdev());
     auto dist = std::uniform_int_distribution<>(0, 4);
-    auto color = dist(engine);
-    _cookieColor = static_cast<Cookie::Color>(color);
-    if (!Sprite::initWithFile("blocks.png", Rect(Cookie::getSize() * color,
+    auto shape = dist(engine);
+    _cookieShape = static_cast<Cookie::Shape>(shape);
+    if (!Sprite::initWithFile("blocks.png", Rect(Cookie::getSize() * shape,
                                                  0,
                                                  Cookie::getSize(),
                                                  Cookie::getSize()))) {

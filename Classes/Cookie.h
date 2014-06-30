@@ -20,14 +20,12 @@ public:
     Cookie();
     virtual ~Cookie();
 
-    enum class Color {
-        BROWN,
-        RED,
-        YELLOW,
-        GREEN,
-        LIGHTBLUE,
-        BLUE,
-        PINK
+    enum class Shape {
+        SQUARE,
+        POLYGON,
+        STAR,
+        CIRCLE,
+        HEART,
     };
     
     enum class State {
@@ -63,7 +61,7 @@ public:
     
     CC_SYNTHESIZE(State, _state, State);
     CC_SYNTHESIZE_READONLY(cocos2d::Vec2, _cookiePosition, CookiePosition);
-    CC_SYNTHESIZE_READONLY(Color, _cookieColor, CookieColor);
+    CC_SYNTHESIZE_READONLY(Shape, _cookieShape, CookieShape);
     CC_SYNTHESIZE_RETAIN(cocos2d::Label *, _debugLabel, DebugLabel);
     CREATE_FUNC(Cookie);
 };

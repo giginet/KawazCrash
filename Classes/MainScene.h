@@ -79,6 +79,7 @@ private:
      *  @param checked すでに調査済みのクッキーの一覧。ここから調査する場合は空のVectorを渡してください
      *  @return 自身を含む同種の隣接したクッキーが含まれたVector
      */
+    CookieVector checkNeighborCookies(Cookie* cookie);
     CookieVector checkNeighborCookies(Cookie* cookie, CookieVector checked);
     
     /** 渡されたクッキーが落ちるかどうかを判定し、落ちる場合は落下させます
@@ -88,10 +89,10 @@ private:
     bool fallCookie(Cookie *cookie);
     
     /** 渡されたクッキーが消えるかどうかを判定し、消える場合は消去します
-     *  @param cookie チェックするクッキー
+     *  @param cookie チェックするクッキーの一覧
      *  @return 消えたかどうか
      */
-    bool vanishCookies(Cookie* cookie);
+    bool vanishCookies(CookieVector cookies);
     
     cocos2d::Vector<Cookie*> spawnCookies();
     
@@ -102,9 +103,9 @@ private:
     bool canVanishNext(Cookie *cookie);
     
     /** フィールド全体を更新します。具体的に以下のことをします
-     *  - 既に消える状態になっているクッキーの消去を開始します
-     *  - 次のクッキーが出現できそうなら出現させます
      *  - 落ちるはずなのに落ちてないクッキーを落とします
+     *  - 次のクッキーが出現できそうなら出現させます
+     *  - 既に消える状態になっているクッキーの消去を開始します
      *  - 次のターンにどこを動かしても消せなくなったときに、フィールドをリセットします
      */
     void updateField();
