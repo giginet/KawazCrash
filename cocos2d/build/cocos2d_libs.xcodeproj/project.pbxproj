@@ -7203,6 +7203,7 @@
 					"\"$(SRCROOT)/../external/websockets/prebuilt/ios\"",
 					"\"$(SRCROOT)/../external/curl/prebuilt/ios\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				"OTHER_LDFLAGS[arch=arm64]" = (
 					"-lcurl_arm64",
 					"-ljpeg_arm64",
@@ -7261,6 +7262,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
