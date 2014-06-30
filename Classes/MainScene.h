@@ -10,7 +10,10 @@
 #define __KawazCrash__MainScene__
 
 #include "cocos2d.h"
+#include "cri_adx2le.h"
+
 #include "Cookie.h"
+#include "ADX2Manager.h"
 
 typedef cocos2d::Vector<Cookie *> CookieVector;
 
@@ -25,6 +28,8 @@ public:
     static cocos2d::Scene* createScene();
     
     void update(float dt) override;
+    
+    void onEnterTransitionDidFinish() override;
     
 private:
     bool init() override;
@@ -99,6 +104,7 @@ private:
     CC_SYNTHESIZE(cocos2d::Node*, _stage, Stage);
     CC_SYNTHESIZE(CookieVector, _cookies, Cookies);
     CC_SYNTHESIZE_RETAIN(Cookie *, _currentCookie, CurrentCookie);
+    CC_SYNTHESIZE_RETAIN(ADX2::Cue *, _cue, Cue);
 };
 
 #endif /* defined(__KawazCrash__MainScene__) */

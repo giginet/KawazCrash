@@ -10,6 +10,12 @@
 #include "Cookie.h"
 #include <algorithm>
 
+#include "CueSheet_0.h"
+#include "test_acf.h"
+
+#include <AudioToolbox/AudioSession.h>
+#include "ADX2Manager.h"
+
 USING_NS_CC;
 
 const int HORIZONTAL_COUNT = 6;
@@ -18,11 +24,26 @@ const int VANISH_COUNT = 4;
 
 MainScene::MainScene() : _currentCookie(nullptr)
 {
+    CriAtomExStandardVoicePoolConfig vp_config;
+    criAtomExVoicePool_SetDefaultConfigForStandardVoicePool(&vp_config);
+    vp_config.num_voices = 8;
+    vp_config.player_config.streaming_flag = CRI_TRUE;
+    vp_config.player_config.max_sampling_rate = 48000 << 1;
+    
+    CriAtomExPlayerConfig pf_config;
+    criAtomExPlayer_SetDefaultConfig(&pf_config);
+    pf_config.max_path_strings = 1;
+    pf_config.max_path = 256;
+    
+    ADX2::ADX2Manager::initialize(pf_config, vp_config);
 }
 
 MainScene::~MainScene()
 {
     CC_SAFE_RELEASE_NULL(_currentCookie);
+    ADX2::ADX2Manager::finalize();
+
+    CC_SAFE_RELEASE_NULL(_cue);
 }
 
 Scene* MainScene::createScene()
@@ -38,6 +59,9 @@ bool MainScene::init()
     if (!Layer::init()) {
         return false;
     }
+    
+    auto cue = ADX2::Cue::create("test.acf", "CueSheet_0.acb");
+    this->setCue(cue);
     
     this->setStage(Node::create());
     for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
@@ -96,8 +120,15 @@ bool MainScene::init()
     return true;
 }
 
+void MainScene::onEnterTransitionDidFinish()
+{
+    Layer::onEnterTransitionDidFinish();
+    this->getCue()->playCueByID(CRI_CUESHEET_0_BGM_INT);
+}
+
 void MainScene::update(float dt)
 {
+    ADX2::ADX2Manager::getInstance()->update();
     for (auto cookie : _cookies) {
         this->checkFall(cookie);
     }
