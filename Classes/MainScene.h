@@ -34,12 +34,12 @@ public:
 private:
     bool init() override;
 
-    /** 指定したブロックを追加します
+    /** 指定したクッキーをフィールドに追加します
      *  @param 追加するCookie
      */
     void addCookie(Cookie *cookie);
     
-    /** グリッド上の特定位置にあるブロックを取り出します
+    /** グリッド上の特定位置にあるクッキーを取り出します
     *   何もなかった場合はnullptrを返します
     *   @param x x座標
     *   @param y y座標
@@ -47,55 +47,69 @@ private:
     */
     Cookie* getCookieAt(int x, int y);
 
-    /** 画面上の特定位置にあるブロックを取り出します
+    /** 画面上の特定位置にあるクッキーを取り出します
      *  何もなかった場合はnullptrを返します
      *  @param position 画面上の絶対座標
      *  @return その位置にあるCookie、またはnullptr
      */
     Cookie* getCookieAt(cocos2d::Vec2 position);
     
-    /** ブロックをグリッド上の指定した位置に動かします
+    /** クッキーをグリッド上の指定した位置に動かします
      *  @param cookie0 動かすブロック
      *  @param cookiePosition 動かすグリッド上の座標
-     *  @return 動かせたかどうか
      */
-    bool moveCookie(Cookie* cookie0, cocos2d::Vec2 cookiePosition);
+    void moveCookie(Cookie* cookie0, cocos2d::Vec2 cookiePosition);
     
-    /** 2つのCookieを取り替えます
-     *  @param cookie0 1つめのEnitiy
+    /** 2つのクッキーを取り替えます
+     *  @param cookie0 1つめのCookie
      *  @param cookie1 2つめのCookie
      *  @return 取り替えられたかどうか
      */
-    bool swapEntities(Cookie* cookie0, Cookie* cookie1);
+    void swapCookies(Cookie* cookie0, Cookie* cookie1);
     
-    /** 渡されたCookieを消去します
+    /** 渡されたクッキーをフィールド上から消去します
+     *  消去時にはエフェクトも再生されます
      *  @param cookie 消すCookie
      */
     void deleteCookie(Cookie* cookie);
     
     
-    /** 渡されたCookieと隣接するCookieを全て取り出します
-     *  @param cookie 開始するCookie
-     *  @param checked すでに調査済みのCookieの一覧。ここから調査する場合は空のVectorを渡してください
-     *  @return 自身を含む隣接したCookieが含まれたVector
+    /** 渡されたクッキーと隣接する同種のクッキーを全て取り出します
+     *  @param cookie 探索開始するクッキー
+     *  @param checked すでに調査済みのクッキーの一覧。ここから調査する場合は空のVectorを渡してください
+     *  @return 自身を含む同種の隣接したクッキーが含まれたVector
      */
-    CookieVector checkNeighborEntities(Cookie* cookie, CookieVector checked);
+    CookieVector checkNeighborCookies(Cookie* cookie, CookieVector checked);
     
-    void checkFall(Cookie *cookie);
+    /** 渡されたクッキーが落ちるかどうかを判定し、落ちる場合は落下させます
+     *  @param cookie チェックするクッキー
+     *  @return 落ちたかどうか
+     */
+    bool fallCookie(Cookie *cookie);
     
-    bool checkVanishEntities(Cookie* cookie);
+    /** 渡されたクッキーが消えるかどうかを判定し、消える場合は消去します
+     *  @param cookie チェックするクッキー
+     *  @return 消えたかどうか
+     */
+    bool vanishCookies(Cookie* cookie);
     
-    cocos2d::Vector<Cookie*> spawnEntities();
+    cocos2d::Vector<Cookie*> spawnCookies();
     
-    /** 次のターンに渡されたブロックが消去可能かを判定します
+    /** 渡されたブロックが次のターンに消去できる可能性があるかを判定します
      *  @param Cookie* cookie
      *  @return 消去可能かどうか
      */
     bool canVanishNext(Cookie *cookie);
     
-    void checkField();
+    /** フィールド全体を更新します。具体的に以下のことをします
+     *  - 既に消える状態になっているクッキーの消去を開始します
+     *  - 次のクッキーが出現できそうなら出現させます
+     *  - 落ちるはずなのに落ちてないクッキーを落とします
+     *  - 次のターンにどこを動かしても消せなくなったときに、フィールドをリセットします
+     */
+    void updateField();
     
-    /** 全てのCookieがNormal状態かどうか
+    /** 全てのクッキーがNormal状態かどうかをチェックして返します
      *  @return Normal状態かどうか
      */
     bool isAllNormal();
