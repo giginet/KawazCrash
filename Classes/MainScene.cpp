@@ -415,10 +415,10 @@ void MainScene::updateField()
         this->fallCookie(cookie);
     }
     
+    // クッキーの生成
+    this->spawnCookies();
+    
     if (this->isAllNormal()) {
-        
-        // クッキーの生成
-        this->spawnCookies();
         
         // 既に揃ってるのを消す
         CookieVector checked;

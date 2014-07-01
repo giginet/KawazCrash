@@ -24,7 +24,7 @@ bool Cookie::init()
 {
     std::random_device rdev;
     auto engine = std::mt19937(rdev());
-    auto dist = std::uniform_int_distribution<>(0, 4);
+    auto dist = std::uniform_int_distribution<>(0, (int)Cookie::Shape::COUNT - 1);
     auto shape = dist(engine);
     _cookieShape = static_cast<Cookie::Shape>(shape);
     if (!Sprite::initWithFile("blocks.png", Rect(Cookie::getSize() * shape,
@@ -45,7 +45,7 @@ void Cookie::setCookiePosition(Vec2 position)
 {
     CCASSERT(floor(position.x) == position.x || floor(position.y) == position.y, "position must contains integers");
     _cookiePosition = position;
-    _debugLabel->setString(this->getKey());
+    _debugLabel->setString(this->getDescription());
 }
 
 void Cookie::adjustPosition()
@@ -54,7 +54,7 @@ void Cookie::adjustPosition()
     this->setPosition(Vec2(Cookie::getSize() * position.x, Cookie::getSize() * position.y));
 }
 
-std::string Cookie::getKey()
+std::string Cookie::getDescription()
 {
     auto key = StringUtils::format("%d,%d", static_cast<int>(_cookiePosition.x), static_cast<int>(_cookiePosition.y));
     return key;
