@@ -451,7 +451,7 @@ void MainScene::updateField()
         }
         if (vanished) {
             float gameVariable = _comboCount * 0.125;
-            log("variable = %f", gameVariable);
+            gameVariable = MIN(1.0, gameVariable);
             criAtomEx_SetGameVariableByName("ComboCount", gameVariable);
             _cue->playCueByID(CRI_COOKIE_MAIN_VANISH);
         }
