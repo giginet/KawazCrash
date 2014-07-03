@@ -36,6 +36,9 @@ namespace ADX2 {
         static ADX2Manager* initialize();
         static ADX2Manager* initialize(CriAtomExPlayerConfig playerConfig, CriAtomExStandardVoicePoolConfig voicePoolConfig);
         static ADX2Manager* getInstance();
+        CriAtomExPlayerHn getPlayer() {
+            return _player;
+        }
         void update();
         void stopAll();
         int getVoiceNum();

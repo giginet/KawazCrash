@@ -259,8 +259,8 @@
 		072548CD195D05740099BCFE /* libcri_file_system_net_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcri_file_system_net_ios.a; sourceTree = "<group>"; };
 		072548CE195D05740099BCFE /* libcri_file_system_net_iosD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcri_file_system_net_iosD.a; sourceTree = "<group>"; };
 		07254A06195D20050099BCFE /* adx2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = adx2; sourceTree = "<group>"; };
-		07254A09195D20610099BCFE /* CueSheet_0.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CueSheet_0.h; path = ../Classes/CueSheet_0.h; sourceTree = "<group>"; };
-		07254A0A195D20610099BCFE /* test_acf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = test_acf.h; path = ../Classes/test_acf.h; sourceTree = "<group>"; };
+		07E9711C19654D4100A76699 /* cookie_crush_acf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cookie_crush_acf.h; path = ../Classes/cookie_crush_acf.h; sourceTree = "<group>"; };
+		07E9712019656B6300A76699 /* cookie_main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cookie_main.h; path = ../Classes/cookie_main.h; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = ../Classes/AppDelegate.cpp; sourceTree = "<group>"; };
@@ -464,8 +464,8 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				07254A09195D20610099BCFE /* CueSheet_0.h */,
-				07254A0A195D20610099BCFE /* test_acf.h */,
+				07E9711C19654D4100A76699 /* cookie_crush_acf.h */,
+				07E9712019656B6300A76699 /* cookie_main.h */,
 				1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */,
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
 				072319A419531B7300B0103D /* Cookie.cpp */,

@@ -10,8 +10,8 @@
 #include "Cookie.h"
 #include <algorithm>
 
-#include "CueSheet_0.h"
-#include "test_acf.h"
+#include "cookie_main.h"
+#include "cookie_crush_acf.h"
 
 #include <AudioToolbox/AudioSession.h>
 #include "ADX2Manager.h"
@@ -23,6 +23,7 @@ const int VERTICAL_COUNT = 8;
 const int VANISH_COUNT = 4;
 
 MainScene::MainScene() :
+_comboCount(0),
 _stage(nullptr),
 _currentCookie(nullptr),
 _cue(nullptr)
@@ -65,7 +66,7 @@ bool MainScene::init()
         return false;
     }
     
-    auto cue = ADX2::Cue::create("test.acf", "CueSheet_0.acb");
+    auto cue = ADX2::Cue::create("cookie_crush.acf", "cookie_main.acb");
     this->setCue(cue);
     
     this->setStage(Node::create());
@@ -87,7 +88,7 @@ bool MainScene::init()
         auto position = touch->getLocation();
         // 現在のタッチ位置にあるクッキーを取り出す
         auto cookie = this->getCookieAt(position);
-        
+
         // 現在移動中のクッキーとして設定
         this->setCurrentCookie(cookie);
         return true;
@@ -137,9 +138,7 @@ bool MainScene::init()
 void MainScene::onEnterTransitionDidFinish()
 {
     Layer::onEnterTransitionDidFinish();
-    
-    // 音楽を再生する
-    this->getCue()->playCueByID(CRI_CUESHEET_0_BGM_INT);
+    _cue->playCueByID(CRI_COOKIE_MAIN_BGM);
 }
 
 void MainScene::update(float dt)
@@ -186,6 +185,12 @@ void MainScene::swapCookies(Cookie *cookie0, Cookie *cookie1)
 {
     const auto duration = 0.2;
     
+    // 連鎖数を0にする
+    _comboCount = 0;
+    
+    // 効果音を鳴らす
+    _cue->playCueByID(CRI_COOKIE_MAIN_SWIPE);
+    
     // 画面上の位置を取得しておく
     auto position0 = cookie0->getPosition();
     auto position1 = cookie1->getPosition();
@@ -218,14 +223,17 @@ void MainScene::swapCookies(Cookie *cookie0, Cookie *cookie1)
                                         CallFuncN::create([=](Node *node) {
         auto cookie = dynamic_cast<Cookie *>(node);
         if (canMove) {
+            criAtomExPlayer_ResetParameters(ADX2::ADX2Manager::getInstance()->getPlayer());
+            criAtomExPlayer_SetCuePriority(ADX2::ADX2Manager::getInstance()->getPlayer(), 0);
             this->moveCookie(cookie, cookiePosition1);
             cookie->setState(Cookie::State::NORMAL);
         } else {
             // 元に戻すアニメーション
             cookie->runAction(Sequence::create(MoveTo::create(duration / 2.0, position0),
-                                               CallFuncN::create([] (Node *node) {
+                                               CallFuncN::create([this] (Node *node) {
                 auto cookie = dynamic_cast<Cookie *>(node);
                 cookie->setState(Cookie::State::NORMAL);
+                _cue->playCueByID(CRI_COOKIE_MAIN_SWIPE);
             }), NULL));
         }
     }), NULL));
@@ -425,16 +433,27 @@ void MainScene::updateField()
     if (this->isAllNormal()) {
         
         // 既に揃ってるのを消す
+        auto vanished = false;
         CookieVector checked;
         for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
             for (int y = 0; y < VERTICAL_COUNT; ++y) {
                 auto cookie = this->getCookieAt(x, y);
                 if (cookie && !checked.contains(cookie)) {
                     CookieVector v = this->checkNeighborCookies(cookie);
+                    if (v.size() >= VANISH_COUNT && !vanished) {
+                        _comboCount += 1;
+                        vanished = true;
+                    }
                     checked.pushBack(v);
                     this->vanishCookies(std::move(v));
                 }
             }
+        }
+        if (vanished) {
+            float gameVariable = _comboCount * 0.125;
+            log("variable = %f", gameVariable);
+            criAtomEx_SetGameVariableByName("ComboCount", gameVariable);
+            _cue->playCueByID(CRI_COOKIE_MAIN_VANISH);
         }
         
         // 次にどれも消えなさそうだったらランダムに2列消す
