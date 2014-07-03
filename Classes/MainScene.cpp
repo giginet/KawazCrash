@@ -22,7 +22,10 @@ const int HORIZONTAL_COUNT = 6;
 const int VERTICAL_COUNT = 8;
 const int VANISH_COUNT = 4;
 
-MainScene::MainScene() : _currentCookie(nullptr), _cue(nullptr)
+MainScene::MainScene() :
+_stage(nullptr),
+_currentCookie(nullptr),
+_cue(nullptr)
 {
     // ADX2を初期化します
     CriAtomExStandardVoicePoolConfig vp_config;
@@ -41,6 +44,7 @@ MainScene::MainScene() : _currentCookie(nullptr), _cue(nullptr)
 
 MainScene::~MainScene()
 {
+    CC_SAFE_RELEASE_NULL(_stage);
     CC_SAFE_RELEASE_NULL(_currentCookie);
     CC_SAFE_RELEASE_NULL(_cue);
     // ADX2を終了します

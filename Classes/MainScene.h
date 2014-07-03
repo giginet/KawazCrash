@@ -116,8 +116,8 @@ private:
     bool isAllNormal();
     
     CREATE_FUNC(MainScene);
-    CC_SYNTHESIZE(cocos2d::Node*, _stage, Stage);
     CC_SYNTHESIZE(CookieVector, _cookies, Cookies);
+    CC_SYNTHESIZE_RETAIN(cocos2d::Node*, _stage, Stage);
     CC_SYNTHESIZE_RETAIN(Cookie *, _currentCookie, CurrentCookie);
     CC_SYNTHESIZE_RETAIN(ADX2::Cue *, _cue, Cue);
 };

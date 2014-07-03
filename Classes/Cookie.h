@@ -11,9 +11,10 @@
 
 #include "cocos2d.h"
 
-///
+/// クッキーの1辺の大きさ
 const int COOKIE_SIZE = 36;
 
+/// クッキー
 class Cookie :public cocos2d::Sprite
 {
 public:
@@ -56,6 +57,7 @@ public:
     static int getSize() {
         return COOKIE_SIZE;
     }
+    
     bool init() override;
     
     /** クッキーのグリッド上の位置を指定します
