@@ -288,30 +288,41 @@ void MainScene::deleteCookie(Cookie *cookie)
 }
 
 CookieVector MainScene::checkNeighborCookies(Cookie *cookie) {
+    // 空のベクターを作って渡している
     CookieVector v;
-    return this->checkNeighborCookies(cookie, v);
+    return this->checkNeighborCookies(cookie, std::move(v));
 }
 
 CookieVector MainScene::checkNeighborCookies(Cookie *cookie, CookieVector checked) {
+    // すでにチェック済みだった場合は何もせずにそのままチェック済みのベクターを返す
     if (checked.contains(cookie)) {
         return std::move(checked);
     }
+    // クッキーをチェック済み一覧に追加する
     checked.pushBack(cookie);
+    
+    // チェックするクッキーのグリッド上の位置を取り出す
     auto position = cookie->getCookiePosition();
+    
+    // グリッド上の上下左右にあるクッキーを取得する
     auto up = this->getCookieAt(position.x, position.y + 1);
     auto down = this->getCookieAt(position.x, position.y - 1);
     auto left = this->getCookieAt(position.x - 1, position.y);
     auto right = this->getCookieAt(position.x + 1, position.y);
     
+    // 上にクッキーがあって同じ形なら、上にあるクッキーも再帰的にチェックする
     if (up && up->getCookieShape() == cookie->getCookieShape()) {
         checked = this->checkNeighborCookies(up, std::move(checked));
     }
+    // 下
     if (down && down->getCookieShape() == cookie->getCookieShape()) {
         checked = this->checkNeighborCookies(down, std::move(checked));
     }
+    // 左
     if (left && left->getCookieShape() == cookie->getCookieShape()) {
         checked = this->checkNeighborCookies(left, std::move(checked));
     }
+    // 右
     if (right && right->getCookieShape() == cookie->getCookieShape()) {
         checked = this->checkNeighborCookies(right, std::move(checked));
     }
