@@ -4,8 +4,8 @@
  *  Tool Ver.          : CRI Atom Craft LE Ver.1.32.00
  *  File Path          : F:/music tools/cri/projects/cookie/Public/cookie_crush.acf
  *  File Name          : cookie_crush.acf
- *  File Size          : 3,232 bytes
- *  Date Time          : 2014/07/03 19:39
+ *  File Size          : 3,456 bytes
+ *  Date Time          : 2014/07/07 18:41
  *  Target             : Public
  *  Categories         : 2
  *  AISAC Controls     : 16
@@ -27,8 +27,8 @@
 #define CRI_COOKIE_CRUSH_ACF_GAMEVARIABLENUM (1)
 
 /* Category List (Category ID) */
-#define CRI_COOKIE_CRUSH_ACF_CATEGORY_COMBO  ( 0) /* CategoryGroup_0/combo  */
-#define CRI_COOKIE_CRUSH_ACF_CATEGORY_FLICK  ( 1) /* CategoryGroup_0/flick  */
+#define CRI_COOKIE_CRUSH_ACF_CATEGORY_SE   ( 0) /* CategoryGroup_0/SE  */
+#define CRI_COOKIE_CRUSH_ACF_CATEGORY_BGM  ( 2) /* CategoryGroup_0/BGM  */
 
 /* AISAC Control List (AISAC Control ID) */
 #define CRI_COOKIE_CRUSH_ACF_AISACCONTROL_ANY             ( 0) /* Any  */
@@ -59,7 +59,7 @@
 
 
 /* Game Variable (Game Variable Index) */
-#define CRI_COOKIE_CRUSH_ACF_GAMEVARIABLE_DEFAULT  "Default" /*   */
+#define CRI_COOKIE_CRUSH_ACF_GAMEVARIABLE_COMBOCOUNT  "ComboCount" /*   */
 
 /* end of file */
 
