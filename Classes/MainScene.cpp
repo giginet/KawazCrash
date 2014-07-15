@@ -160,11 +160,14 @@ void MainScene::update(float dt)
 
 Cookie* MainScene::getCookieAt(int x, int y)
 {
-    for (auto cookie : _cookies) {
-        if (cookie->getCookiePosition().x == x &&
-            cookie->getCookiePosition().y == y) {
-            return cookie;
-        }
+    auto itr = std::find_if(_cookies.begin(),
+                            _cookies.end(),
+                            [=](Cookie *cookie) {
+        return (cookie->getCookiePosition().x == x &&
+                cookie->getCookiePosition().y == y);
+    });
+    if (itr != _cookies.end()) {
+        return *itr;
     }
     return nullptr;
 }
@@ -490,5 +493,7 @@ void MainScene::updateField()
 
 bool MainScene::isAllStatic()
 {
-    return std::all_of(_cookies.begin(), _cookies.end(), [](Cookie* cookie) { return cookie->isStatic(); });
+    return std::all_of(_cookies.begin(),
+                       _cookies.end(),
+                       [](Cookie* cookie) { return cookie->isStatic(); });
 }
