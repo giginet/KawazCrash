@@ -10,6 +10,8 @@
 #include "Cookie.h"
 #include <algorithm>
 
+#include "Cocostudio/cocostudio.h"
+
 #include "cookie_main.h"
 #include "cookie_crush_acf.h"
 
@@ -66,6 +68,9 @@ bool MainScene::init()
         return false;
     }
     
+    auto node = cocostudio::SceneReader::getInstance()->createNodeWithSceneFile("cocostudio/MainScene.json");
+    this->addChild(node);
+    
     auto cue = ADX2::Cue::create("cookie_crush.acf", "cookie_main.acb");
     this->setCue(cue);
     
@@ -79,8 +84,8 @@ bool MainScene::init()
     }
     auto winSize = Director::getInstance()->getWinSize();
     auto leftMargin = winSize.width - Cookie::getSize() * HORIZONTAL_COUNT;
-    _stage->setPosition(Vec2(leftMargin / 2 + Cookie::getSize() / 2.0, 50));
-    this->addChild(_stage);
+    _stage->setPosition(Vec2(leftMargin / 2 + Cookie::getSize() / 2.0, 208));
+    node->addChild(_stage, 1);
     
     // タッチイベントの登録
     auto listener = EventListenerTouchOneByOne::create();
