@@ -71,7 +71,7 @@ bool MainScene::init()
     auto node = cocostudio::SceneReader::getInstance()->createNodeWithSceneFile("cocostudio/MainScene.json");
     this->addChild(node);
     
-    auto cue = ADX2::Cue::create("cookie_crush.acf", "cookie_main.acb");
+    auto cue = ADX2::Cue::create("adx2/cookie/cookie_crush.acf", "adx2/cookie/cookie_main.acb");
     this->setCue(cue);
     
     this->setStage(Node::create());
