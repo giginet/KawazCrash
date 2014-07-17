@@ -113,7 +113,7 @@ private:
     /** 全てのクッキーがNormal状態かどうかをチェックして返します
      *  @return Normal状態かどうか
      */
-    bool isAllNormal();
+    bool isAllStatic();
     
     CREATE_FUNC(MainScene);
     CC_SYNTHESIZE(int, _comboCount, ComboCount);
