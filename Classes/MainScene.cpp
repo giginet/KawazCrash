@@ -15,7 +15,6 @@
 #include "cookie_main.h"
 #include "cookie_crush_acf.h"
 
-#include <AudioToolbox/AudioSession.h>
 #include "ADX2Manager.h"
 
 USING_NS_CC;
