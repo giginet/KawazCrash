@@ -41,7 +41,7 @@ public:
     /// クッキーの状態
     enum class State {
         /// 通常
-        NORMAL,
+        STATIC,
         /// 出現中
         APPEARING,
         /// 落下中
@@ -77,8 +77,8 @@ public:
     /** クッキーが通常状態かどうかを返します
      *  @return 通常状態かどうか
      */
-    bool isNormal() {
-        return _state == State::NORMAL;
+    bool isStatic() {
+        return _state == State::STATIC;
     }
     
     CC_SYNTHESIZE(State, _state, State);
