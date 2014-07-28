@@ -23,11 +23,12 @@ const int HORIZONTAL_COUNT = 6;
 const int VERTICAL_COUNT = 8;
 const int VANISH_COUNT = 4;
 
-MainScene::MainScene() :
-_comboCount(0),
-_stage(nullptr),
-_currentCookie(nullptr),
-_cue(nullptr)
+MainScene::MainScene()
+: _state(State::Ready)
+,_comboCount(0)
+,_stage(nullptr)
+,_currentCookie(nullptr)
+,_cue(nullptr)
 {
     // ADX2を初期化します
     CriAtomExStandardVoicePoolConfig vp_config;
@@ -151,6 +152,17 @@ void MainScene::onEnterTransitionDidFinish()
 {
     Layer::onEnterTransitionDidFinish();
     _cue->playCueByID(CRI_COOKIE_MAIN_BGM);
+    
+    auto gamestart = Sprite::create("gamestart.png");
+    auto winSize = Director::getInstance()->getWinSize();
+    gamestart->setPosition(Vec2(winSize.width / 2.0, winSize.height / 1.5));
+    gamestart->setScale(0);
+    gamestart->runAction(Sequence::create(EaseElasticIn::create(ScaleTo::create(0.5, 1.0)),
+                                          DelayTime::create(1.5),
+                                          MoveBy::create(0.5, Vec2(0, winSize.height / 2.0)),
+                                          RemoveSelf::create(),
+                                          NULL));
+    this->addChild(gamestart, 2);
 }
 
 void MainScene::update(float dt)
