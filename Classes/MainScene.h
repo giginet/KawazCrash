@@ -122,6 +122,7 @@ private:
     bool isAllStatic();
     
     CREATE_FUNC(MainScene);
+    CC_SYNTHESIZE(float, _second, Second);
     CC_SYNTHESIZE(int, _comboCount, ComboCount);
     CC_SYNTHESIZE(CookieVector, _cookies, Cookies);
     CC_SYNTHESIZE(State, _state, State);
