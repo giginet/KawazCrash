@@ -32,7 +32,7 @@
           "name": "CCSprite",
           "file": null,
           "fileData": {
-            "path": "Resources/images/nonretina/background.png",
+            "path": "background.png",
             "plistFile": "",
             "resourceType": 0
           }
@@ -60,7 +60,7 @@
           "name": "CCSprite",
           "file": null,
           "fileData": {
-            "path": "Resources/images/nonretina/stage.png",
+            "path": "stage.png",
             "plistFile": "",
             "resourceType": 0
           }
@@ -77,8 +77,8 @@
       "scalex": 1,
       "scaley": 1,
       "visible": 1,
-      "x": 71,
-      "y": 172.5,
+      "x": 68,
+      "y": 174.5,
       "zorder": 1,
       "gameobjects": [],
       "components": []
@@ -104,7 +104,7 @@
           "name": "CCSprite",
           "file": null,
           "fileData": {
-            "path": "Resources/images/nonretina/hunny.png",
+            "path": "hunny.png",
             "plistFile": "",
             "resourceType": 0
           }
@@ -132,7 +132,7 @@
           "name": "CCSprite",
           "file": null,
           "fileData": {
-            "path": "Resources/images/nonretina/points-bg.png",
+            "path": "points-bg.png",
             "plistFile": "",
             "resourceType": 0
           }
@@ -160,7 +160,7 @@
           "name": "CCSprite",
           "file": null,
           "fileData": {
-            "path": "Resources/images/nonretina/beans.png",
+            "path": "beans.png",
             "plistFile": "",
             "resourceType": 0
           }
@@ -188,7 +188,7 @@
           "name": "CCSprite",
           "file": null,
           "fileData": {
-            "path": "Resources/images/nonretina/number.png",
+            "path": "number.png",
             "plistFile": "",
             "resourceType": 0
           }
