@@ -22,6 +22,8 @@ USING_NS_CC;
 const int HORIZONTAL_COUNT = 6;
 const int VERTICAL_COUNT = 8;
 const int VANISH_COUNT = 4;
+/// Stage用のNodeのタグ
+const int STAGE_TAG = 10013;
 
 MainScene::MainScene()
 : _state(State::Ready)
@@ -69,8 +71,11 @@ bool MainScene::init()
         return false;
     }
     
+    auto winSize = Director::getInstance()->getWinSize();
+    
     auto node = cocostudio::SceneReader::getInstance()->createNodeWithSceneFile("cocostudio/MainScene.json");
     this->addChild(node);
+    node->setPosition(Vec2(0, -(568 - winSize.height)));
     
     auto cue = ADX2::Cue::create("adx2/cookie/cookie_crush.acf", "adx2/cookie/cookie_main.acb");
     this->setCue(cue);
@@ -83,10 +88,9 @@ bool MainScene::init()
             this->addCookie(cookie);
         }
     }
-    auto winSize = Director::getInstance()->getWinSize();
-    auto leftMargin = winSize.width - Cookie::getSize() * HORIZONTAL_COUNT;
-    _stage->setPosition(Vec2(leftMargin / 2 + Cookie::getSize() / 2.0, 208));
-    node->addChild(_stage, 1);
+    
+    auto stage = node->getChildByTag(STAGE_TAG);
+    stage->addChild(_stage, 1);
     
     // タッチイベントの登録
     auto listener = EventListenerTouchOneByOne::create();
