@@ -6,5 +6,11 @@
   "Resources/images/nonretina/stage.png",
   "Resources/images/nonretina/background.png",
   "Resources/images/nonretina/hunny.png",
+  "number.png",
+  "beans.png",
+  "hunny.png",
+  "points-bg.png",
+  "stage.png",
+  "background.png",
   "publish\\MainScene.json"
 ]
