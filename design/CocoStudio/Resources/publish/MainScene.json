@@ -32,7 +32,7 @@
           "name": "CCSprite",
           "file": null,
           "fileData": {
-            "path": "background.png",
+            "path": "Resources/images/nonretina/background.png",
             "plistFile": "",
             "resourceType": 0
           }
@@ -50,7 +50,7 @@
       "scaley": 1,
       "visible": 1,
       "x": 160,
-      "y": 323,
+      "y": 298,
       "zorder": 1,
       "gameobjects": [],
       "components": [
@@ -60,12 +60,28 @@
           "name": "CCSprite",
           "file": null,
           "fileData": {
-            "path": "stage.png",
+            "path": "Resources/images/nonretina/stage.png",
             "plistFile": "",
             "resourceType": 0
           }
         }
       ]
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": "Stage",
+      "canedit": true,
+      "objecttag": 10013,
+      "rotation": 0,
+      "scalex": 1,
+      "scaley": 1,
+      "visible": 1,
+      "x": 68,
+      "y": 174.5,
+      "zorder": 1,
+      "gameobjects": [],
+      "components": []
     },
     {
       "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
@@ -88,7 +104,7 @@
           "name": "CCSprite",
           "file": null,
           "fileData": {
-            "path": "hunny.png",
+            "path": "Resources/images/nonretina/hunny.png",
             "plistFile": "",
             "resourceType": 0
           }
@@ -116,7 +132,7 @@
           "name": "CCSprite",
           "file": null,
           "fileData": {
-            "path": "points-bg.png",
+            "path": "Resources/images/nonretina/points-bg.png",
             "plistFile": "",
             "resourceType": 0
           }
@@ -144,7 +160,7 @@
           "name": "CCSprite",
           "file": null,
           "fileData": {
-            "path": "beans.png",
+            "path": "Resources/images/nonretina/beans.png",
             "plistFile": "",
             "resourceType": 0
           }
@@ -172,7 +188,7 @@
           "name": "CCSprite",
           "file": null,
           "fileData": {
-            "path": "number.png",
+            "path": "Resources/images/nonretina/number.png",
             "plistFile": "",
             "resourceType": 0
           }

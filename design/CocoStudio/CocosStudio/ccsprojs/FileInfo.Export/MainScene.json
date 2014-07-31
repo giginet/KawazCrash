@@ -1,9 +1,10 @@
 [
-  "background.png",
-  "hunny.png",
-  "points-bg.png",
-  "number.png",
-  "stage.png",
-  "beans.png",
+  "Resources/images/nonretina/number.png",
+  "Resources/images/nonretina/beans.png",
+  "Resources/images/nonretina/points-bg.png",
+  "Resources/images/nonretina/blocks.png",
+  "Resources/images/nonretina/stage.png",
+  "Resources/images/nonretina/background.png",
+  "Resources/images/nonretina/hunny.png",
   "publish\\MainScene.json"
 ]
