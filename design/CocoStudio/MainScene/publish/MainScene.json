@@ -16,48 +16,20 @@
       "classname": "CCNode",
       "name": null,
       "canedit": true,
-      "objecttag": 20000,
+      "objecttag": 10003,
       "rotation": 0,
       "scalex": 1,
       "scaley": 1,
       "visible": 1,
-      "x": 320.50006103515625,
-      "y": 633.0001220703125,
+      "x": 160,
+      "y": 284,
       "zorder": 1,
       "gameobjects": [],
       "components": [
         {
           "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
           "classname": "CCSprite",
-          "name": "frame",
-          "file": null,
-          "fileData": {
-            "path": "hunny.png",
-            "plistFile": "",
-            "resourceType": 0
-          }
-        }
-      ]
-    },
-    {
-      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
-      "classname": "CCNode",
-      "name": null,
-      "canedit": true,
-      "objecttag": 19999,
-      "rotation": 0,
-      "scalex": 1,
-      "scaley": 1,
-      "visible": 1,
-      "x": 320,
-      "y": 568,
-      "zorder": 1,
-      "gameobjects": [],
-      "components": [
-        {
-          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
-          "classname": "CCSprite",
-          "name": "background",
+          "name": "CCSprite",
           "file": null,
           "fileData": {
             "path": "background.png",
@@ -72,13 +44,113 @@
       "classname": "CCNode",
       "name": null,
       "canedit": true,
-      "objecttag": 20003,
+      "objecttag": 10008,
       "rotation": 0,
       "scalex": 1,
       "scaley": 1,
       "visible": 1,
-      "x": 0,
-      "y": -522.50006103515625,
+      "x": 160,
+      "y": 298,
+      "zorder": 1,
+      "gameobjects": [],
+      "components": [
+        {
+          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
+          "classname": "CCSprite",
+          "name": "CCSprite",
+          "file": null,
+          "fileData": {
+            "path": "stage.png",
+            "plistFile": "",
+            "resourceType": 0
+          }
+        }
+      ]
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": "Stage",
+      "canedit": true,
+      "objecttag": 10013,
+      "rotation": 0,
+      "scalex": 1,
+      "scaley": 1,
+      "visible": 1,
+      "x": 68,
+      "y": 174.5,
+      "zorder": 1,
+      "gameobjects": [],
+      "components": []
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": null,
+      "canedit": true,
+      "objecttag": 10004,
+      "rotation": 0,
+      "scalex": 1,
+      "scaley": 1,
+      "visible": 1,
+      "x": 160,
+      "y": 317,
+      "zorder": 2,
+      "gameobjects": [],
+      "components": [
+        {
+          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
+          "classname": "CCSprite",
+          "name": "CCSprite",
+          "file": null,
+          "fileData": {
+            "path": "hunny.png",
+            "plistFile": "",
+            "resourceType": 0
+          }
+        }
+      ]
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": null,
+      "canedit": true,
+      "objecttag": 10006,
+      "rotation": 0,
+      "scalex": 1,
+      "scaley": 1,
+      "visible": 1,
+      "x": 33,
+      "y": 537,
+      "zorder": 1,
+      "gameobjects": [],
+      "components": [
+        {
+          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
+          "classname": "CCSprite",
+          "name": "CCSprite",
+          "file": null,
+          "fileData": {
+            "path": "points-bg.png",
+            "plistFile": "",
+            "resourceType": 0
+          }
+        }
+      ]
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": null,
+      "canedit": true,
+      "objecttag": 10009,
+      "rotation": 0,
+      "scalex": 1,
+      "scaley": 1,
+      "visible": 1,
+      "x": 160,
+      "y": 53,
       "zorder": 1,
       "gameobjects": [],
       "components": [
@@ -100,13 +172,13 @@
       "classname": "CCNode",
       "name": null,
       "canedit": true,
-      "objecttag": 20002,
+      "objecttag": 10007,
       "rotation": 0,
       "scalex": 1,
       "scaley": 1,
       "visible": 1,
-      "x": 66.999984741210938,
-      "y": 1081.0001220703125,
+      "x": 32,
+      "y": 540,
       "zorder": 1,
       "gameobjects": [],
       "components": [
@@ -122,39 +194,11 @@
           }
         }
       ]
-    },
-    {
-      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
-      "classname": "CCNode",
-      "name": null,
-      "canedit": true,
-      "objecttag": 20001,
-      "rotation": 0,
-      "scalex": 1,
-      "scaley": 1,
-      "visible": 1,
-      "x": 66.5,
-      "y": 1077.500244140625,
-      "zorder": 1,
-      "gameobjects": [],
-      "components": [
-        {
-          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
-          "classname": "CCSprite",
-          "name": "CCSprite",
-          "file": null,
-          "fileData": {
-            "path": "points-bg.png",
-            "plistFile": "",
-            "resourceType": 0
-          }
-        }
-      ]
     }
   ],
   "CanvasSize": {
-    "_height": 1136,
-    "_width": 640
+    "_height": 568,
+    "_width": 320
   },
   "Triggers": null,
   "Version": "1.5.0.1",

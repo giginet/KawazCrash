@@ -15,7 +15,6 @@
 #include "cookie_main.h"
 #include "cookie_crush_acf.h"
 
-#include <AudioToolbox/AudioSession.h>
 #include "ADX2Manager.h"
 
 USING_NS_CC;
@@ -23,12 +22,16 @@ USING_NS_CC;
 const int HORIZONTAL_COUNT = 6;
 const int VERTICAL_COUNT = 8;
 const int VANISH_COUNT = 4;
+/// Stage用のNodeのタグ
+const int STAGE_TAG = 10013;
 
-MainScene::MainScene() :
-_comboCount(0),
-_stage(nullptr),
-_currentCookie(nullptr),
-_cue(nullptr)
+MainScene::MainScene()
+: _state(State::Ready)
+,_second(60)
+,_comboCount(0)
+,_stage(nullptr)
+,_currentCookie(nullptr)
+,_cue(nullptr)
 {
     // ADX2を初期化します
     CriAtomExStandardVoicePoolConfig vp_config;
@@ -68,10 +71,13 @@ bool MainScene::init()
         return false;
     }
     
+    auto winSize = Director::getInstance()->getWinSize();
+    
     auto node = cocostudio::SceneReader::getInstance()->createNodeWithSceneFile("cocostudio/MainScene.json");
     this->addChild(node);
+    node->setPosition(Vec2(0, -(568 - winSize.height)));
     
-    auto cue = ADX2::Cue::create("cookie_crush.acf", "cookie_main.acb");
+    auto cue = ADX2::Cue::create("adx2/cookie/cookie_crush.acf", "adx2/cookie/cookie_main.acb");
     this->setCue(cue);
     
     this->setStage(Node::create());
@@ -82,10 +88,9 @@ bool MainScene::init()
             this->addCookie(cookie);
         }
     }
-    auto winSize = Director::getInstance()->getWinSize();
-    auto leftMargin = winSize.width - Cookie::getSize() * HORIZONTAL_COUNT;
-    _stage->setPosition(Vec2(leftMargin / 2 + Cookie::getSize() / 2.0, 208));
-    node->addChild(_stage, 1);
+    
+    auto stage = node->getChildByTag(STAGE_TAG);
+    stage->addChild(_stage, 1);
     
     // タッチイベントの登録
     auto listener = EventListenerTouchOneByOne::create();
@@ -101,6 +106,9 @@ bool MainScene::init()
     listener->onTouchMoved = [this](Touch* touch, Event* event) {
         // 移動先のクッキーを取得
         auto nextCookie = this->getCookieAt(touch->getLocation());
+        
+        // Main以外では何もしない
+        if (_state != State::Main) return;
         
         // 元のクッキー、移動後のクッキーが共に存在していて、違った場合、移動させる
         if (_currentCookie != nullptr &&
@@ -152,6 +160,18 @@ void MainScene::onEnterTransitionDidFinish()
 {
     Layer::onEnterTransitionDidFinish();
     _cue->playCueByID(CRI_COOKIE_MAIN_BGM);
+    
+    auto gamestart = Sprite::create("gamestart.png");
+    auto winSize = Director::getInstance()->getWinSize();
+    gamestart->setPosition(Vec2(winSize.width / 2.0, winSize.height / 1.5));
+    gamestart->setScale(0);
+    gamestart->runAction(Sequence::create(EaseElasticIn::create(ScaleTo::create(0.5, 1.0)),
+                                          DelayTime::create(1.5),
+                                          MoveBy::create(0.5, Vec2(0, winSize.height / 2.0)),
+                                          RemoveSelf::create(),
+                                          NULL));
+    this->addChild(gamestart, 2);
+    setState(State::Main);
 }
 
 void MainScene::update(float dt)
@@ -159,8 +179,31 @@ void MainScene::update(float dt)
     // ADX2を更新する
     ADX2::ADX2Manager::getInstance()->update();
     
-    // フィールドの更新
-    this->updateField();
+    // 全クッキーに対して落下を判定する
+    for (auto cookie : _cookies) {
+        this->fallCookie(cookie);
+    }
+    
+    if (_state == State::Main) {
+        
+        // フィールドの更新
+        this->updateField();
+        
+        _second -= dt;
+        if (_second <= 0) {
+            setState(State::Result);
+            auto gamestart = Sprite::create("timeup.png");
+            auto winSize = Director::getInstance()->getWinSize();
+            gamestart->setPosition(Vec2(winSize.width / 2.0, winSize.height / 1.5));
+            gamestart->setScale(0);
+            gamestart->runAction(Sequence::create(EaseElasticIn::create(ScaleTo::create(0.5, 1.0)),
+                                                  DelayTime::create(1.5),
+                                                  ScaleTo::create(0.5, 0),
+                                                  RemoveSelf::create(),
+                                                  NULL));
+            this->addChild(gamestart, 2);
+        }
+    }
 }
 
 Cookie* MainScene::getCookieAt(int x, int y)
@@ -168,9 +211,9 @@ Cookie* MainScene::getCookieAt(int x, int y)
     auto itr = std::find_if(_cookies.begin(),
                             _cookies.end(),
                             [=](Cookie *cookie) {
-        return (cookie->getCookiePosition().x == x &&
-                cookie->getCookiePosition().y == y);
-    });
+                                return (cookie->getCookiePosition().x == x &&
+                                        cookie->getCookiePosition().y == y);
+                            });
     if (itr != _cookies.end()) {
         return *itr;
     }
@@ -239,7 +282,7 @@ void MainScene::swapCookies(Cookie *cookie0, Cookie *cookie1)
         const auto duration = 0.2;
         
         cookie->runAction(Sequence::create(MoveTo::create(duration, toPosition),
-                                            CallFuncN::create([=](Node *node) {
+                                           CallFuncN::create([=](Node *node) {
             auto cookie = dynamic_cast<Cookie *>(node);
             // もし、クッキーが動かせるとき
             if (canMove) {
@@ -441,12 +484,6 @@ bool MainScene::canVanishNext(Cookie *cookie)
 
 void MainScene::updateField()
 {
-    
-    // 全クッキーに対して落下を判定する
-    for (auto cookie : _cookies) {
-        this->fallCookie(cookie);
-    }
-    
     // クッキーの生成
     this->spawnCookies();
     

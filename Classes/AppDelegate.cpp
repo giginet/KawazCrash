@@ -34,8 +34,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
     };
     addPath("music");
     addPath("se");
-    addPath("adx2/test");
-    addPath("adx2/main");
     
     // 画像リソースを振り分ける
     // 画像リソースを検索する順番を定義する配列
