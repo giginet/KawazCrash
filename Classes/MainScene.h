@@ -123,6 +123,12 @@ private:
      */
     bool isAllStatic();
     
+    /** 指定されたクッキーの位置にチェインカウントを表示します
+     *  @param cookie クッキー
+     *  @param comboCount コンボ数
+     */
+    void showChainCount(Cookie *cookie, int comboCount);
+    
     CREATE_FUNC(MainScene);
     CC_SYNTHESIZE(float, _second, Second);
     CC_SYNTHESIZE(int, _comboCount, ComboCount);

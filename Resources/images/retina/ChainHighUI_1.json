@@ -94,7 +94,7 @@
           "layoutParameter": null,
           "opacity": 255,
           "positionPercentX": 0.6375,
-          "positionPercentY": 0.545454562,
+          "positionPercentY": 0.745454562,
           "positionType": 1,
           "rotation": 0,
           "scaleX": 1,
@@ -111,7 +111,7 @@
           "y": 12,
           "charMapFile": null,
           "charMapFileData": {
-            "path": "chain_number1.png",
+            "path": "chain_numbers1.png",
             "plistFile": "",
             "resourceType": 0
           },

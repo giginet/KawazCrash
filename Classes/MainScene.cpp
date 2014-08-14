@@ -517,6 +517,8 @@ void MainScene::updateField()
                         vanished = true;
                         // スコアの追加
                         _score += 1000 * pow(3, _comboCount);
+                        // コンボカウンターを表示
+                        this->showChainCount(v.getRandomObject(), _comboCount);
                     }
                     checked.pushBack(v);
                     this->vanishCookies(std::move(v));
@@ -555,4 +557,29 @@ bool MainScene::isAllStatic()
     return std::all_of(_cookies.begin(),
                        _cookies.end(),
                        [](Cookie* cookie) { return cookie->isStatic(); });
+}
+
+void MainScene::showChainCount(Cookie * cookie, int comboCount)
+{
+    std::string filename;
+    if (comboCount >= 8) {
+        // コンボ数が8以上なら色を変える
+        filename = "ChainHighUI_1.json";
+    } else {
+        filename = "ChainUI_1.json";
+    }
+    auto chainCount = cocostudio::GUIReader::getInstance()->widgetFromJsonFile(filename.c_str());
+    chainCount->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    ui::TextAtlas * atlas = dynamic_cast<ui::TextAtlas *>(chainCount->getChildByTag(7));
+    atlas->setString(StringUtils::toString(comboCount));
+    chainCount->setPosition(cookie->getParent()->convertToWorldSpace(cookie->getPosition()));
+    chainCount->setScale(0);
+    this->addChild(chainCount, 1000);
+    
+    // ToDo アニメーションはcocoStudio側で持たせた方が綺麗かも！
+    chainCount->runAction(Sequence::create(ScaleTo::create(0.2, 1.0),
+                                           DelayTime::create(1.0),
+                                           ScaleTo::create(0.2, 0),
+                                           RemoveSelf::create(), NULL));
+    
 }
