@@ -23,7 +23,7 @@ const int HORIZONTAL_COUNT = 6;
 const int VERTICAL_COUNT = 8;
 const int VANISH_COUNT = 4;
 /// Stage用のNodeのタグ
-const int STAGE_TAG = 10013;
+const int STAGE_TAG = 50000;
 
 MainScene::MainScene()
 : _state(State::Ready)
