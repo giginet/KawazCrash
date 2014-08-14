@@ -178,34 +178,6 @@
           }
         }
       ]
-    },
-    {
-      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
-      "classname": "CCNode",
-      "name": null,
-      "canedit": true,
-      "objecttag": 10011,
-      "rotation": 0,
-      "scalex": 1,
-      "scaley": 1,
-      "visible": 1,
-      "x": -114.54123687744141,
-      "y": 467.02743530273438,
-      "zorder": 1,
-      "gameobjects": [],
-      "components": [
-        {
-          "__type": "ComGUIAdapterSurrogate:#EditorCommon.JsonModel.Component",
-          "classname": "GUIComponent",
-          "name": "GUIComponent",
-          "file": null,
-          "fileData": {
-            "path": "",
-            "plistFile": "",
-            "resourceType": 0
-          }
-        }
-      ]
     }
   ],
   "CanvasSize": {

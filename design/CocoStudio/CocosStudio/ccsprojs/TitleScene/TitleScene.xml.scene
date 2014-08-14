@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <SceneProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ProjectDir>C:\Users\giginet\Documents\GitHub\KawazCrash\design\CocoStudio\CocosStudio\ccsprojs\MainScene</ProjectDir>
+  <ProjectDir>C:\Users\giginet\Documents\GitHub\KawazCrash\design\CocoStudio\CocosStudio\ccsprojs\TitleScene</ProjectDir>
   <Version>1.6.0.0</Version>
   <Resources>C:\Users\giginet\Documents\GitHub\KawazCrash\design\CocoStudio</Resources>
-  <Name>MainScene</Name>
-  <JsonFileName>MainScene.json</JsonFileName>
+  <Name>TitleScene</Name>
+  <JsonFileName>TitleScene.json</JsonFileName>
   <JsonFolder>C:\Users\giginet\Documents\GitHub\KawazCrash\design\CocoStudio\CocosStudio\assets\publish</JsonFolder>
   <JsonList />
   <CanvasSize>
-    <Width>320</Width>
-    <Height>568</Height>
+    <Width>480</Width>
+    <Height>320</Height>
   </CanvasSize>
-  <filePath>C:\Users\giginet\Documents\GitHub\KawazCrash\design\CocoStudio\CocosStudio\ccsprojs\MainScene\MainScene.xml.scene</filePath>
+  <filePath>C:\Users\giginet\Documents\GitHub\KawazCrash\design\CocoStudio\CocosStudio\ccsprojs\TitleScene\TitleScene.xml.scene</filePath>
   <ProjectType>SceneProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <JSFileList />
