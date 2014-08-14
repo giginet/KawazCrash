@@ -10,8 +10,6 @@
 #include "Cookie.h"
 #include <algorithm>
 
-#include "Cocostudio/cocostudio.h"
-
 #include "cookie_main.h"
 #include "cookie_crush_acf.h"
 
@@ -28,10 +26,13 @@ const int STAGE_TAG = 50000;
 MainScene::MainScene()
 : _state(State::Ready)
 ,_second(60)
+,_score(0)
 ,_comboCount(0)
 ,_stage(nullptr)
 ,_currentCookie(nullptr)
 ,_cue(nullptr)
+,_scoreLabel(nullptr)
+,_secondLabel(nullptr)
 {
     // ADX2を初期化します
     CriAtomExStandardVoicePoolConfig vp_config;
@@ -53,6 +54,8 @@ MainScene::~MainScene()
     CC_SAFE_RELEASE_NULL(_stage);
     CC_SAFE_RELEASE_NULL(_currentCookie);
     CC_SAFE_RELEASE_NULL(_cue);
+    CC_SAFE_RELEASE_NULL(_scoreLabel);
+    CC_SAFE_RELEASE_NULL(_secondLabel);
     // ADX2を終了します
     ADX2::ADX2Manager::finalize();
 }
@@ -153,6 +156,12 @@ bool MainScene::init()
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
     this->scheduleUpdate();
     
+    auto secondLabel = node->getChildByTag(30000)->getChildren().at(0)->getChildByTag(6);
+    this->setSecondLabel(dynamic_cast<ui::TextAtlas *>(secondLabel));
+    
+    auto scoreLabel = node->getChildByTag(20000)->getChildren().at(0)->getChildByTag(6);
+    this->setScoreLabel(dynamic_cast<ui::TextAtlas *>(scoreLabel));
+    
     return true;
 }
 
@@ -189,7 +198,13 @@ void MainScene::update(float dt)
         // フィールドの更新
         this->updateField();
         
+        // スコアの更新
+        _secondLabel->setString(StringUtils::toString((int)_score));
+        
+        // 残り時間の更新
         _second -= dt;
+        _secondLabel->setString(StringUtils::toString((int)_second));
+        
         if (_second <= 0) {
             setState(State::Result);
             auto gamestart = Sprite::create("timeup.png");
