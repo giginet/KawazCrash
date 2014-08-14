@@ -199,7 +199,7 @@ void MainScene::update(float dt)
         this->updateField();
         
         // スコアの更新
-        _secondLabel->setString(StringUtils::toString((int)_score));
+        _scoreLabel->setString(StringUtils::toString((int)_score));
         
         // 残り時間の更新
         _second -= dt;
@@ -515,6 +515,8 @@ void MainScene::updateField()
                     if (v.size() >= VANISH_COUNT && !vanished) {
                         _comboCount += 1;
                         vanished = true;
+                        // スコアの追加
+                        _score += 1000 * pow(3, _comboCount);
                     }
                     checked.pushBack(v);
                     this->vanishCookies(std::move(v));
