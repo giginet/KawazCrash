@@ -61,7 +61,7 @@
           "capInsetsY": 0,
           "fileName": null,
           "fileNameData": {
-            "path": "Resources/images/nonretina/chain.png",
+            "path": "Resources/images/nonretina/chain1.png",
             "plistFile": "",
             "resourceType": 0
           },
@@ -111,7 +111,7 @@
           "y": 12,
           "charMapFile": null,
           "charMapFileData": {
-            "path": "Resources/images/nonretina/chain_number.png",
+            "path": "Resources/images/nonretina/chain_number1.png",
             "plistFile": "",
             "resourceType": 0
           },
