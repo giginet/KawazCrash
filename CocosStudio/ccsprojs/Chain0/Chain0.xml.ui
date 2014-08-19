@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<UIProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectDir>C:\Users\giginet\Documents\GitHub\KawazCrash\CocosStudio\ccsprojs\Chain0</ProjectDir>
+  <Version>1.6.0.0</Version>
+  <Resources>C:\Users\giginet\Documents\GitHub\KawazCrash\CocosStudio\assets</Resources>
+  <Name>Chain0</Name>
+  <JsonFileName>Chain0.json</JsonFileName>
+  <JsonFolder>C:\Users\giginet\Documents\GitHub\KawazCrash\CocosStudio\ccsprojs\Chain0\Json</JsonFolder>
+  <JsonList>
+    <string>Chain0_1.json</string>
+  </JsonList>
+  <CanvasSize>
+    <Width>80</Width>
+    <Height>22</Height>
+  </CanvasSize>
+  <filePath>C:\Users\giginet\Documents\GitHub\KawazCrash\CocosStudio\ccsprojs\Chain0\Chain0.xml.ui</filePath>
+  <ProjectType>UIProject</ProjectType>
+  <ResRelativePath>\\..\\..\\assets</ResRelativePath>
+  <imageFileList />
+  <imagePngList>
+    <string>chain0.png</string>
+  </imagePngList>
+  <JsonSuffix>.json</JsonSuffix>
+  <CurrentUIJson>Chain0_1.json</CurrentUIJson>
+</UIProject>

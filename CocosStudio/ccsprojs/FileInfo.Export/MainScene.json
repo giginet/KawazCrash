@@ -3,5 +3,11 @@
   "beans.png",
   "stage.png",
   "hunny.png",
-  "publish\\MainScene.json"
+  "publish/second_bg.png",
+  "publish/second_numbers.png",
+  "publish/points_bg.png",
+  "publish/points_numbers.png",
+  "publish\\MainScene.json",
+  "publish/Second_1.json",
+  "publish/Score_1.json"
 ]
