@@ -100,6 +100,34 @@
       "classname": "CCNode",
       "name": null,
       "canedit": true,
+      "objecttag": 50000,
+      "rotation": 0,
+      "scalex": 1,
+      "scaley": 1,
+      "visible": 1,
+      "x": 71,
+      "y": 179,
+      "zorder": 1,
+      "gameobjects": [],
+      "components": [
+        {
+          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
+          "classname": "CCSprite",
+          "name": "Stage",
+          "file": null,
+          "fileData": {
+            "path": "",
+            "plistFile": "",
+            "resourceType": 0
+          }
+        }
+      ]
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": null,
+      "canedit": true,
       "objecttag": 10005,
       "rotation": 0,
       "scalex": 1,
@@ -173,34 +201,6 @@
           "file": null,
           "fileData": {
             "path": "publish/Score_1.json",
-            "plistFile": "",
-            "resourceType": 0
-          }
-        }
-      ]
-    },
-    {
-      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
-      "classname": "CCNode",
-      "name": null,
-      "canedit": true,
-      "objecttag": 50000,
-      "rotation": 0,
-      "scalex": 1,
-      "scaley": 1,
-      "visible": 1,
-      "x": 71,
-      "y": 179,
-      "zorder": 1,
-      "gameobjects": [],
-      "components": [
-        {
-          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
-          "classname": "CCSprite",
-          "name": "CCSprite",
-          "file": null,
-          "fileData": {
-            "path": "",
             "plistFile": "",
             "resourceType": 0
           }
