@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<GameProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectDir>C:\Users\giginet\Documents\GitHub\KawazCrash</ProjectDir>
+  <Version>1.6.0.0</Version>
+  <Resources>C:\Users\giginet\Documents\GitHub\KawazCrash</Resources>
+  <Name>CocoStudio</Name>
+  <JsonFileName>CocoStudio.json</JsonFileName>
+  <JsonList />
+  <CanvasSize>
+    <Width>480</Width>
+    <Height>320</Height>
+  </CanvasSize>
+  <filePath>C:\Users\giginet\Documents\GitHub\KawazCrash\CocoStudio.xml.ccsproj</filePath>
+  <ProjectType>GameProject</ProjectType>
+  <ResRelativePath />
+  <ResProjFolder>C:\Users\giginet\Documents\GitHub\KawazCrash\CocosStudio\ccsprojs</ResProjFolder>
+  <AssetsDir>C:\Users\giginet\Documents\GitHub\KawazCrash\CocosStudio\assets</AssetsDir>
+  <LanaguageType>cpp</LanaguageType>
+</GameProject>
