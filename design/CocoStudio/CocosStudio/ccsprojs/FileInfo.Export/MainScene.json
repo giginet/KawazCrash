@@ -1,16 +1,13 @@
 [
-  "Resources/images/nonretina/number.png",
-  "Resources/images/nonretina/beans.png",
-  "Resources/images/nonretina/points-bg.png",
-  "Resources/images/nonretina/blocks.png",
-  "Resources/images/nonretina/stage.png",
   "Resources/images/nonretina/background.png",
+  "Resources/images/nonretina/beans.png",
+  "Resources/images/nonretina/stage.png",
   "Resources/images/nonretina/hunny.png",
-  "number.png",
-  "beans.png",
-  "hunny.png",
-  "points-bg.png",
-  "stage.png",
-  "background.png",
-  "publish\\MainScene.json"
+  "Resources/images/nonretina/second_bg.png",
+  "Resources/images/nonretina/second_numbers.png",
+  "Resources/images/nonretina/points_bg.png",
+  "Resources/images/nonretina/points_numbers.png",
+  "publish\\MainScene.json",
+  "SecondNumber_1.json",
+  "Score_1.json"
 ]

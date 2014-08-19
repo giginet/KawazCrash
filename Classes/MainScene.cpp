@@ -10,8 +10,6 @@
 #include "Cookie.h"
 #include <algorithm>
 
-#include "Cocostudio/cocostudio.h"
-
 #include "cookie_main.h"
 #include "cookie_crush_acf.h"
 
@@ -23,15 +21,18 @@ const int HORIZONTAL_COUNT = 6;
 const int VERTICAL_COUNT = 8;
 const int VANISH_COUNT = 4;
 /// Stage用のNodeのタグ
-const int STAGE_TAG = 10013;
+const int STAGE_TAG = 50000;
 
 MainScene::MainScene()
 : _state(State::Ready)
 ,_second(60)
+,_score(0)
 ,_comboCount(0)
 ,_stage(nullptr)
 ,_currentCookie(nullptr)
 ,_cue(nullptr)
+,_scoreLabel(nullptr)
+,_secondLabel(nullptr)
 {
     // ADX2を初期化します
     CriAtomExStandardVoicePoolConfig vp_config;
@@ -53,6 +54,8 @@ MainScene::~MainScene()
     CC_SAFE_RELEASE_NULL(_stage);
     CC_SAFE_RELEASE_NULL(_currentCookie);
     CC_SAFE_RELEASE_NULL(_cue);
+    CC_SAFE_RELEASE_NULL(_scoreLabel);
+    CC_SAFE_RELEASE_NULL(_secondLabel);
     // ADX2を終了します
     ADX2::ADX2Manager::finalize();
 }
@@ -153,6 +156,12 @@ bool MainScene::init()
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
     this->scheduleUpdate();
     
+    auto secondLabel = node->getChildByTag(30000)->getChildren().at(0)->getChildByTag(6);
+    this->setSecondLabel(dynamic_cast<ui::TextAtlas *>(secondLabel));
+    
+    auto scoreLabel = node->getChildByTag(20000)->getChildren().at(0)->getChildByTag(6);
+    this->setScoreLabel(dynamic_cast<ui::TextAtlas *>(scoreLabel));
+    
     return true;
 }
 
@@ -189,7 +198,13 @@ void MainScene::update(float dt)
         // フィールドの更新
         this->updateField();
         
+        // スコアの更新
+        _scoreLabel->setString(StringUtils::toString((int)_score));
+        
+        // 残り時間の更新
         _second -= dt;
+        _secondLabel->setString(StringUtils::toString((int)_second));
+        
         if (_second <= 0) {
             setState(State::Result);
             auto gamestart = Sprite::create("timeup.png");
@@ -500,6 +515,10 @@ void MainScene::updateField()
                     if (v.size() >= VANISH_COUNT && !vanished) {
                         _comboCount += 1;
                         vanished = true;
+                        // スコアの追加
+                        _score += 1000 * pow(3, _comboCount);
+                        // コンボカウンターを表示
+                        this->showChainCount(v.getRandomObject(), _comboCount);
                     }
                     checked.pushBack(v);
                     this->vanishCookies(std::move(v));
@@ -538,4 +557,29 @@ bool MainScene::isAllStatic()
     return std::all_of(_cookies.begin(),
                        _cookies.end(),
                        [](Cookie* cookie) { return cookie->isStatic(); });
+}
+
+void MainScene::showChainCount(Cookie * cookie, int comboCount)
+{
+    std::string filename;
+    if (comboCount >= 8) {
+        // コンボ数が8以上なら色を変える
+        filename = "ChainHighUI_1.json";
+    } else {
+        filename = "ChainUI_1.json";
+    }
+    auto chainCount = cocostudio::GUIReader::getInstance()->widgetFromJsonFile(filename.c_str());
+    chainCount->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    ui::TextAtlas * atlas = dynamic_cast<ui::TextAtlas *>(chainCount->getChildByTag(7));
+    atlas->setString(StringUtils::toString(comboCount));
+    chainCount->setPosition(cookie->getParent()->convertToWorldSpace(cookie->getPosition()));
+    chainCount->setScale(0);
+    this->addChild(chainCount, 1000);
+    
+    // ToDo アニメーションはcocoStudio側で持たせた方が綺麗かも！
+    chainCount->runAction(Sequence::create(ScaleTo::create(0.2, 1.0),
+                                           DelayTime::create(1.0),
+                                           ScaleTo::create(0.2, 0),
+                                           RemoveSelf::create(), NULL));
+    
 }

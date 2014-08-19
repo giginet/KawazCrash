@@ -32,7 +32,7 @@
           "name": "CCSprite",
           "file": null,
           "fileData": {
-            "path": "background.png",
+            "path": "Resources/images/nonretina/background.png",
             "plistFile": "",
             "resourceType": 0
           }
@@ -50,7 +50,7 @@
       "scaley": 1,
       "visible": 1,
       "x": 160,
-      "y": 317,
+      "y": 57,
       "zorder": 1,
       "gameobjects": [],
       "components": [
@@ -60,35 +60,7 @@
           "name": "CCSprite",
           "file": null,
           "fileData": {
-            "path": "hunny.png",
-            "plistFile": "",
-            "resourceType": 0
-          }
-        }
-      ]
-    },
-    {
-      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
-      "classname": "CCNode",
-      "name": null,
-      "canedit": true,
-      "objecttag": 10006,
-      "rotation": 0,
-      "scalex": 1,
-      "scaley": 1,
-      "visible": 1,
-      "x": 33,
-      "y": 537,
-      "zorder": 1,
-      "gameobjects": [],
-      "components": [
-        {
-          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
-          "classname": "CCSprite",
-          "name": "CCSprite",
-          "file": null,
-          "fileData": {
-            "path": "points-bg.png",
+            "path": "Resources/images/nonretina/beans.png",
             "plistFile": "",
             "resourceType": 0
           }
@@ -105,8 +77,8 @@
       "scalex": 1,
       "scaley": 1,
       "visible": 1,
-      "x": 32,
-      "y": 540,
+      "x": 33.5504264831543,
+      "y": 536.2659912109375,
       "zorder": 1,
       "gameobjects": [],
       "components": [
@@ -116,35 +88,7 @@
           "name": "CCSprite",
           "file": null,
           "fileData": {
-            "path": "number.png",
-            "plistFile": "",
-            "resourceType": 0
-          }
-        }
-      ]
-    },
-    {
-      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
-      "classname": "CCNode",
-      "name": null,
-      "canedit": true,
-      "objecttag": 10008,
-      "rotation": 0,
-      "scalex": 1,
-      "scaley": 1,
-      "visible": 1,
-      "x": 160,
-      "y": 267,
-      "zorder": 1,
-      "gameobjects": [],
-      "components": [
-        {
-          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
-          "classname": "CCSprite",
-          "name": "CCSprite",
-          "file": null,
-          "fileData": {
-            "path": "stage.png",
+            "path": "Resources/images/nonretina/second_bg.png",
             "plistFile": "",
             "resourceType": 0
           }
@@ -162,7 +106,7 @@
       "scaley": 1,
       "visible": 1,
       "x": 160,
-      "y": 53,
+      "y": 297.24765014648438,
       "zorder": 1,
       "gameobjects": [],
       "components": [
@@ -172,7 +116,91 @@
           "name": "CCSprite",
           "file": null,
           "fileData": {
-            "path": "beans.png",
+            "path": "Resources/images/nonretina/stage.png",
+            "plistFile": "",
+            "resourceType": 0
+          }
+        }
+      ]
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": null,
+      "canedit": true,
+      "objecttag": 10008,
+      "rotation": 0,
+      "scalex": 1,
+      "scaley": 1,
+      "visible": 1,
+      "x": 160.55043029785156,
+      "y": 545.43109130859375,
+      "zorder": 1,
+      "gameobjects": [],
+      "components": [
+        {
+          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
+          "classname": "CCSprite",
+          "name": "CCSprite",
+          "file": null,
+          "fileData": {
+            "path": "Resources/images/nonretina/points_bg.png",
+            "plistFile": "",
+            "resourceType": 0
+          }
+        }
+      ]
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": null,
+      "canedit": true,
+      "objecttag": 10005,
+      "rotation": 0,
+      "scalex": 1,
+      "scaley": 1,
+      "visible": 1,
+      "x": 160.55043029785156,
+      "y": 315.65133666992188,
+      "zorder": 1,
+      "gameobjects": [],
+      "components": [
+        {
+          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
+          "classname": "CCSprite",
+          "name": "CCSprite",
+          "file": null,
+          "fileData": {
+            "path": "Resources/images/nonretina/hunny.png",
+            "plistFile": "",
+            "resourceType": 0
+          }
+        }
+      ]
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": null,
+      "canedit": true,
+      "objecttag": 10011,
+      "rotation": 0,
+      "scalex": 1,
+      "scaley": 1,
+      "visible": 1,
+      "x": -114.54123687744141,
+      "y": 467.02743530273438,
+      "zorder": 1,
+      "gameobjects": [],
+      "components": [
+        {
+          "__type": "ComGUIAdapterSurrogate:#EditorCommon.JsonModel.Component",
+          "classname": "GUIComponent",
+          "name": "GUIComponent",
+          "file": null,
+          "fileData": {
+            "path": "",
             "plistFile": "",
             "resourceType": 0
           }
@@ -185,7 +213,7 @@
     "_width": 320
   },
   "Triggers": null,
-  "Version": "1.5.0.1",
+  "Version": "1.6.0.0",
   "components": [
     {
       "__type": "ComSceneSurrogate:#EditorCommon.JsonModel.Component",

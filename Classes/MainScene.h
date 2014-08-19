@@ -11,6 +11,8 @@
 
 #include "cocos2d.h"
 #include "cri_adx2le.h"
+#include "Cocostudio/cocostudio.h"
+#include "ui/UITextAtlas.h"
 
 #include "Cookie.h"
 #include "ADX2Manager.h"
@@ -121,14 +123,23 @@ private:
      */
     bool isAllStatic();
     
+    /** 指定されたクッキーの位置にチェインカウントを表示します
+     *  @param cookie クッキー
+     *  @param comboCount コンボ数
+     */
+    void showChainCount(Cookie *cookie, int comboCount);
+    
     CREATE_FUNC(MainScene);
     CC_SYNTHESIZE(float, _second, Second);
     CC_SYNTHESIZE(int, _comboCount, ComboCount);
+    CC_SYNTHESIZE(int, _score, Score);
     CC_SYNTHESIZE_PASS_BY_REF(CookieVector, _cookies, Cookies);
     CC_SYNTHESIZE(State, _state, State);
     CC_SYNTHESIZE_RETAIN(cocos2d::Node*, _stage, Stage);
     CC_SYNTHESIZE_RETAIN(Cookie *, _currentCookie, CurrentCookie);
     CC_SYNTHESIZE_RETAIN(ADX2::Cue *, _cue, Cue);
+    CC_SYNTHESIZE_RETAIN(cocos2d::ui::TextAtlas *, _scoreLabel, ScoreLabel);
+    CC_SYNTHESIZE_RETAIN(cocos2d::ui::TextAtlas *, _secondLabel, SecondLabel);
 };
 
 #endif /* defined(__KawazCrash__MainScene__) */
