@@ -76,7 +76,7 @@ bool MainScene::init()
     
     auto winSize = Director::getInstance()->getWinSize();
     
-    auto node = cocostudio::SceneReader::getInstance()->createNodeWithSceneFile("cocostudio/MainScene.json");
+    auto node = cocostudio::SceneReader::getInstance()->createNodeWithSceneFile("publish/MainScene.json");
     this->addChild(node);
     node->setPosition(Vec2(0, -(568 - winSize.height)));
     
@@ -564,13 +564,13 @@ void MainScene::showChainCount(Cookie * cookie, int comboCount)
     std::string filename;
     if (comboCount >= 8) {
         // コンボ数が8以上なら色を変える
-        filename = "ChainHighUI_1.json";
+        filename = "publish/Chain1_1.json";
     } else {
-        filename = "ChainUI_1.json";
+        filename = "publish/Chain0_1.json";
     }
     auto chainCount = cocostudio::GUIReader::getInstance()->widgetFromJsonFile(filename.c_str());
     chainCount->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-    ui::TextAtlas * atlas = dynamic_cast<ui::TextAtlas *>(chainCount->getChildByTag(7));
+    ui::TextAtlas * atlas = dynamic_cast<ui::TextAtlas *>(chainCount->getChildByTag(8));
     atlas->setString(StringUtils::toString(comboCount));
     chainCount->setPosition(cookie->getParent()->convertToWorldSpace(cookie->getPosition()));
     chainCount->setScale(0);
