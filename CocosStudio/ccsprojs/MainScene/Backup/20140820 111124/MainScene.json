@@ -44,113 +44,13 @@
       "classname": "CCNode",
       "name": null,
       "canedit": true,
-      "objecttag": 10008,
-      "rotation": 0,
-      "scalex": 1,
-      "scaley": 1,
-      "visible": 1,
-      "x": 160,
-      "y": 298,
-      "zorder": 1,
-      "gameobjects": [],
-      "components": [
-        {
-          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
-          "classname": "CCSprite",
-          "name": "CCSprite",
-          "file": null,
-          "fileData": {
-            "path": "stage.png",
-            "plistFile": "",
-            "resourceType": 0
-          }
-        }
-      ]
-    },
-    {
-      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
-      "classname": "CCNode",
-      "name": "Stage",
-      "canedit": true,
-      "objecttag": 10013,
-      "rotation": 0,
-      "scalex": 1,
-      "scaley": 1,
-      "visible": 1,
-      "x": 72,
-      "y": 177.5,
-      "zorder": 1,
-      "gameobjects": [],
-      "components": []
-    },
-    {
-      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
-      "classname": "CCNode",
-      "name": null,
-      "canedit": true,
       "objecttag": 10004,
       "rotation": 0,
       "scalex": 1,
       "scaley": 1,
       "visible": 1,
       "x": 160,
-      "y": 317,
-      "zorder": 2,
-      "gameobjects": [],
-      "components": [
-        {
-          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
-          "classname": "CCSprite",
-          "name": "CCSprite",
-          "file": null,
-          "fileData": {
-            "path": "hunny.png",
-            "plistFile": "",
-            "resourceType": 0
-          }
-        }
-      ]
-    },
-    {
-      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
-      "classname": "CCNode",
-      "name": null,
-      "canedit": true,
-      "objecttag": 10006,
-      "rotation": 0,
-      "scalex": 1,
-      "scaley": 1,
-      "visible": 1,
-      "x": 33,
-      "y": 537,
-      "zorder": 1,
-      "gameobjects": [],
-      "components": [
-        {
-          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
-          "classname": "CCSprite",
-          "name": "CCSprite",
-          "file": null,
-          "fileData": {
-            "path": "points-bg.png",
-            "plistFile": "",
-            "resourceType": 0
-          }
-        }
-      ]
-    },
-    {
-      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
-      "classname": "CCNode",
-      "name": null,
-      "canedit": true,
-      "objecttag": 10009,
-      "rotation": 0,
-      "scalex": 1,
-      "scaley": 1,
-      "visible": 1,
-      "x": 160,
-      "y": 53,
+      "y": 57,
       "zorder": 1,
       "gameobjects": [],
       "components": [
@@ -172,13 +72,13 @@
       "classname": "CCNode",
       "name": null,
       "canedit": true,
-      "objecttag": 10007,
+      "objecttag": 40000,
       "rotation": 0,
       "scalex": 1,
       "scaley": 1,
       "visible": 1,
-      "x": 32,
-      "y": 540,
+      "x": 160,
+      "y": 297.24765014648438,
       "zorder": 1,
       "gameobjects": [],
       "components": [
@@ -188,7 +88,120 @@
           "name": "CCSprite",
           "file": null,
           "fileData": {
-            "path": "number.png",
+            "path": "stage.png",
+            "plistFile": "",
+            "resourceType": 0
+          }
+        }
+      ]
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": null,
+      "canedit": true,
+      "objecttag": 50000,
+      "rotation": 0,
+      "scalex": 1,
+      "scaley": 1,
+      "visible": 1,
+      "x": 71,
+      "y": 179,
+      "zorder": 1,
+      "gameobjects": [],
+      "components": [
+        {
+          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
+          "classname": "CCSprite",
+          "name": "Stage",
+          "file": null,
+          "fileData": {
+            "path": "",
+            "plistFile": "",
+            "resourceType": 0
+          }
+        }
+      ]
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": null,
+      "canedit": true,
+      "objecttag": 10005,
+      "rotation": 0,
+      "scalex": 1,
+      "scaley": 1,
+      "visible": 1,
+      "x": 160.55043029785156,
+      "y": 315.65133666992188,
+      "zorder": 1,
+      "gameobjects": [
+        {
+          "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+          "classname": "CCNode",
+          "name": null,
+          "canedit": true,
+          "objecttag": 50002,
+          "rotation": 0,
+          "scalex": 1,
+          "scaley": 1,
+          "visible": 1,
+          "x": -161,
+          "y": 190,
+          "zorder": 1,
+          "gameobjects": [],
+          "components": [
+            {
+              "__type": "ComGUIAdapterSurrogate:#EditorCommon.JsonModel.Component",
+              "classname": "GUIComponent",
+              "name": "GUIComponent",
+              "file": null,
+              "fileData": {
+                "path": "Second_1.json",
+                "plistFile": "",
+                "resourceType": 0
+              }
+            }
+          ]
+        }
+      ],
+      "components": [
+        {
+          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
+          "classname": "CCSprite",
+          "name": "CCSprite",
+          "file": null,
+          "fileData": {
+            "path": "hunny.png",
+            "plistFile": "",
+            "resourceType": 0
+          }
+        }
+      ]
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": null,
+      "canedit": true,
+      "objecttag": 50003,
+      "rotation": 0,
+      "scalex": 1,
+      "scaley": 1,
+      "visible": 1,
+      "x": 100,
+      "y": 535,
+      "zorder": 1,
+      "gameobjects": [],
+      "components": [
+        {
+          "__type": "ComGUIAdapterSurrogate:#EditorCommon.JsonModel.Component",
+          "classname": "GUIComponent",
+          "name": "GUIComponent",
+          "file": null,
+          "fileData": {
+            "path": "Score_1.json",
             "plistFile": "",
             "resourceType": 0
           }

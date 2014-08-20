@@ -17,7 +17,9 @@
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList />
-  <imagePngList />
+  <imagePngList>
+    <string>chain1.png</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>Chain1_1.json</CurrentUIJson>
 </UIProject>

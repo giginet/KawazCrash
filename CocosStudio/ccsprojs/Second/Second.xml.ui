@@ -16,7 +16,10 @@
   <filePath>C:\Users\giginet\Documents\GitHub\KawazCrash\CocosStudio\ccsprojs\Second\Second.xml.ui</filePath>
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
-  <imagePngList />
+  <imageFileList />
+  <imagePngList>
+    <string>second_bg.png</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>Second_1.json</CurrentUIJson>
 </UIProject>

@@ -16,7 +16,10 @@
   <filePath>C:\Users\giginet\Documents\GitHub\KawazCrash\CocosStudio\ccsprojs\Score\Score.xml.ui</filePath>
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
-  <imagePngList />
+  <imageFileList />
+  <imagePngList>
+    <string>points_bg.png</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>Score_1.json</CurrentUIJson>
 </UIProject>
