@@ -136,36 +136,7 @@
       "x": 160.55043029785156,
       "y": 315.65133666992188,
       "zorder": 1,
-      "gameobjects": [
-        {
-          "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
-          "classname": "CCNode",
-          "name": null,
-          "canedit": true,
-          "objecttag": 50002,
-          "rotation": 0,
-          "scalex": 1,
-          "scaley": 1,
-          "visible": 1,
-          "x": -161,
-          "y": 190,
-          "zorder": 1,
-          "gameobjects": [],
-          "components": [
-            {
-              "__type": "ComGUIAdapterSurrogate:#EditorCommon.JsonModel.Component",
-              "classname": "GUIComponent",
-              "name": "GUIComponent",
-              "file": null,
-              "fileData": {
-                "path": "Second_1.json",
-                "plistFile": "",
-                "resourceType": 0
-              }
-            }
-          ]
-        }
-      ],
+      "gameobjects": [],
       "components": [
         {
           "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
@@ -202,6 +173,34 @@
           "file": null,
           "fileData": {
             "path": "Score_1.json",
+            "plistFile": "",
+            "resourceType": 0
+          }
+        }
+      ]
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": null,
+      "canedit": true,
+      "objecttag": 50002,
+      "rotation": 0,
+      "scalex": 1,
+      "scaley": 1,
+      "visible": 1,
+      "x": 0,
+      "y": 506,
+      "zorder": 1,
+      "gameobjects": [],
+      "components": [
+        {
+          "__type": "ComGUIAdapterSurrogate:#EditorCommon.JsonModel.Component",
+          "classname": "GUIComponent",
+          "name": "GUIComponent",
+          "file": null,
+          "fileData": {
+            "path": "Second_1.json",
             "plistFile": "",
             "resourceType": 0
           }
