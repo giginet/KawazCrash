@@ -11,7 +11,6 @@
 
 #include "cocos2d.h"
 #include "cri_adx2le.h"
-#include "Cocostudio/cocostudio.h"
 #include "ui/UITextAtlas.h"
 
 #include "Cookie.h"
@@ -49,18 +48,17 @@ private:
     
     /** グリッド上の特定位置にあるクッキーを取り出します
     *   何もなかった場合はnullptrを返します
-    *   @param x x座標
-    *   @param y y座標
-    *   @return その位置にあるCookie、またはnullptr
+     *  @param position グリッド上のクッキー位置
+     *  @return その位置にあるCookie、またはnullptr
     */
-    Cookie* getCookieAt(int x, int y);
+    Cookie* getCookieAt(cocos2d::Vec2 position);
 
     /** 画面上の特定位置にあるクッキーを取り出します
      *  何もなかった場合はnullptrを返します
      *  @param position 画面上の絶対座標
      *  @return その位置にあるCookie、またはnullptr
      */
-    Cookie* getCookieAt(cocos2d::Vec2 position);
+    Cookie* getCookieAtByWorld(cocos2d::Vec2 worldPosition);
     
     /** クッキーをグリッド上の指定した位置に動かします
      *  @param cookie0 動かすブロック

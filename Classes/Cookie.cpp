@@ -25,7 +25,7 @@ bool Cookie::init()
     // 乱数発生器の初期化
     std::random_device rdev;
     auto engine = std::mt19937(rdev());
-    auto dist = std::uniform_int_distribution<>(0, (int)Cookie::Shape::COUNT - 1);
+    auto dist = std::uniform_int_distribution<>(0, static_cast<int>(Cookie::Shape::COUNT) - 1);
     
     // クッキーの形をランダムに1つ選ぶ
     auto shape = dist(engine);
@@ -61,7 +61,7 @@ void Cookie::adjustPosition()
 {
     auto position = _cookiePosition;
     // _cookiePositionを元にpositionを設定する
-    this->setPosition(position * Cookie::getSize());
+    this->setPosition((position + Vec2::ONE * 0.5) * Cookie::getSize());
 }
 
 std::string Cookie::getDescription()

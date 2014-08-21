@@ -82,7 +82,7 @@ public:
     }
     
     CC_SYNTHESIZE(State, _state, State);
-    CC_SYNTHESIZE_READONLY(cocos2d::Vec2, _cookiePosition, CookiePosition);
+    CC_SYNTHESIZE_READONLY_PASS_BY_REF(cocos2d::Vec2, _cookiePosition, CookiePosition);
     CC_SYNTHESIZE_READONLY(Shape, _cookieShape, CookieShape);
     CC_SYNTHESIZE_RETAIN(cocos2d::Label *, _debugLabel, DebugLabel);
     CREATE_FUNC(Cookie);

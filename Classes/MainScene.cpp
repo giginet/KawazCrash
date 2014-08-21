@@ -9,9 +9,11 @@
 #include "MainScene.h"
 #include "Cookie.h"
 #include <algorithm>
+#include "Cocostudio/cocostudio.h"
 
 #include "cookie_main.h"
 #include "cookie_crush_acf.h"
+
 
 #include "ADX2Manager.h"
 
@@ -74,16 +76,26 @@ bool MainScene::init()
         return false;
     }
     
+    // 画面サイズの取得
     auto winSize = Director::getInstance()->getWinSize();
     
-    auto node = cocostudio::SceneReader::getInstance()->createNodeWithSceneFile("publish/MainScene.json");
+    // シーンファイルを読み込み
+    auto node = cocostudio::SceneReader::getInstance()->createNodeWithSceneFile("MainScene.json");
+    // シーンファイルの高さ
+    const auto sceneHeight = 568;
+    // 3.5インチ環境で下の部分を隠すために画面の高さによって位置を変えている
+    node->setPosition(Vec2(0, -(sceneHeight - winSize.height)));
     this->addChild(node);
-    node->setPosition(Vec2(0, -(568 - winSize.height)));
     
     auto cue = ADX2::Cue::create("adx2/cookie/cookie_crush.acf", "adx2/cookie/cookie_main.acb");
     this->setCue(cue);
     
     this->setStage(Node::create());
+    auto stageSize = Size(Cookie::getSize() * HORIZONTAL_COUNT, Cookie::getSize() * VERTICAL_COUNT);
+    _stage->setContentSize(stageSize);
+    auto layer = LayerColor::create(Color4B::RED, stageSize.width, stageSize.height);
+    _stage->addChild(layer);
+    
     for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
         for (int y = 0; y < VERTICAL_COUNT; ++y) {
             auto cookie = Cookie::create();
@@ -95,12 +107,13 @@ bool MainScene::init()
     auto stage = node->getChildByTag(STAGE_TAG);
     stage->addChild(_stage, 1);
     
+    
     // タッチイベントの登録
     auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = [this](Touch* touch, Event* event) {
         auto position = touch->getLocation();
         // 現在のタッチ位置にあるクッキーを取り出す
-        auto cookie = this->getCookieAt(position);
+        auto cookie = this->getCookieAtByWorld(position);
         
         // 現在移動中のクッキーとして設定
         this->setCurrentCookie(cookie);
@@ -108,7 +121,7 @@ bool MainScene::init()
     };
     listener->onTouchMoved = [this](Touch* touch, Event* event) {
         // 移動先のクッキーを取得
-        auto nextCookie = this->getCookieAt(touch->getLocation());
+        auto nextCookie = this->getCookieAtByWorld(touch->getLocation());
         
         // Main以外では何もしない
         if (_state != State::Main) return;
@@ -156,10 +169,10 @@ bool MainScene::init()
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
     this->scheduleUpdate();
     
-    auto secondLabel = node->getChildByTag(30000)->getChildren().at(0)->getChildByTag(6);
+    auto secondLabel = node->getChildByTag(50002)->getChildren().at(0)->getChildByTag(6);
     this->setSecondLabel(dynamic_cast<ui::TextAtlas *>(secondLabel));
     
-    auto scoreLabel = node->getChildByTag(20000)->getChildren().at(0)->getChildByTag(6);
+    auto scoreLabel = node->getChildByTag(50003)->getChildren().at(0)->getChildByTag(6);
     this->setScoreLabel(dynamic_cast<ui::TextAtlas *>(scoreLabel));
     
     return true;
@@ -221,26 +234,23 @@ void MainScene::update(float dt)
     }
 }
 
-Cookie* MainScene::getCookieAt(int x, int y)
+Cookie* MainScene::getCookieAt(cocos2d::Vec2 position)
 {
-    auto itr = std::find_if(_cookies.begin(),
-                            _cookies.end(),
-                            [=](Cookie *cookie) {
-                                return (cookie->getCookiePosition().x == x &&
-                                        cookie->getCookiePosition().y == y);
-                            });
-    if (itr != _cookies.end()) {
-        return *itr;
+    for (auto& cookie : _cookies) {
+        if (cookie->getCookiePosition().x == position.x &&
+            cookie->getCookiePosition().y == position.y) {
+            return cookie;
+        }
     }
     return nullptr;
 }
 
-Cookie* MainScene::getCookieAt(cocos2d::Vec2 position)
+Cookie* MainScene::getCookieAtByWorld(cocos2d::Vec2 worldPosition)
 {
-    auto stagePoint = _stage->convertToNodeSpace(position);
-    auto x = floor((stagePoint.x + Cookie::getSize() / 2.0) / Cookie::getSize());
-    auto y = floor((stagePoint.y + Cookie::getSize() / 2.0) / Cookie::getSize());
-    return this->getCookieAt(x, y);
+    auto stagePoint = _stage->convertToNodeSpace(worldPosition);
+    auto x = floor(stagePoint.x / Cookie::getSize());
+    auto y = floor(stagePoint.y / Cookie::getSize());
+    return this->getCookieAt(Vec2(x, y));
 }
 
 void MainScene::addCookie(Cookie *cookie)
@@ -372,10 +382,10 @@ CookieVector MainScene::checkNeighborCookies(Cookie *cookie, CookieVector checke
     auto position = cookie->getCookiePosition();
     
     // グリッド上の上下左右にあるクッキーを取得する
-    auto up = this->getCookieAt(position.x, position.y + 1);
-    auto down = this->getCookieAt(position.x, position.y - 1);
-    auto left = this->getCookieAt(position.x - 1, position.y);
-    auto right = this->getCookieAt(position.x + 1, position.y);
+    auto up = this->getCookieAt(Vec2(position.x, position.y + 1));
+    auto down = this->getCookieAt(Vec2(position.x, position.y - 1));
+    auto left = this->getCookieAt(Vec2(position.x - 1, position.y));
+    auto right = this->getCookieAt(Vec2(position.x + 1, position.y));
     
     // 上にクッキーがあって同じ形なら、上にあるクッキーも再帰的にチェックする
     if (up && up->getCookieShape() == cookie->getCookieShape()) {
@@ -409,7 +419,7 @@ bool MainScene::fallCookie(Cookie *cookie)
     }
     auto downPosition = Vec2(position.x, position.y - 1);
     // 1つ下のクッキーを取り出す
-    auto down = this->getCookieAt(position.x, position.y - 1);
+    auto down = this->getCookieAt(Vec2(position.x, position.y - 1));
     // 1つ下がなかったとき、落ちる
     if (down == nullptr) {
         auto duration = 0.05;
@@ -437,7 +447,7 @@ cocos2d::Vector<Cookie *> MainScene::spawnCookies()
     auto y = VERTICAL_COUNT - 1;
     // 一番上の行を全てチェック
     for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
-        auto cookie = this->getCookieAt(x, y);
+        auto cookie = this->getCookieAt(Vec2(x, y));
         if (!cookie) { // もしクッキーがなければ
             // クッキーを追加する
             auto cookie = Cookie::create();
@@ -462,7 +472,7 @@ bool MainScene::canVanishNext(Cookie *cookie)
         // もし3つ繋がっていたとき
         for (auto vector : allDirections) {
             auto nextVector = cookie->getCookiePosition() + vector;
-            auto nextCookie = this->getCookieAt(nextVector.x, nextVector.y);
+            auto nextCookie = this->getCookieAt(nextVector);
             // 塊に含まれるクッキーそれぞれの距離2の位置に、別の同種のクッキーが1つでもあったら消せる
             if (nextCookie && cookie && nextCookie->getCookieShape() == cookie->getCookieShape() && !cookies.contains(nextCookie)) {
                 return true;
@@ -472,14 +482,14 @@ bool MainScene::canVanishNext(Cookie *cookie)
         // もし2つ繋がっていたとき
         for (auto vector : allDirections) {
             auto nextVector = cookie->getCookiePosition() + vector;
-            auto nextCookie = this->getCookieAt(nextVector.x, nextVector.y);
+            auto nextCookie = this->getCookieAt(nextVector);
             // 塊に含まれるクッキーの距離2の位置に、別の同種のクッキーがある
             if (nextCookie && cookie && nextCookie->getCookieShape() == cookie->getCookieShape() && !cookies.contains(nextCookie)) {
                 // かつ、そのクッキーと塊のクッキーがナナメ方向に共通の同種のクッキーを持っている
                 for (auto sv0 : skews) {
                     for (auto sv1 : skews) {
-                        auto e0 = this->getCookieAt((currentVector + sv0).x, (currentVector + sv0).y);
-                        auto e1 = this->getCookieAt((nextVector + sv1).x, (nextVector + sv1).y);
+                        auto e0 = this->getCookieAt(currentVector + sv0);
+                        auto e1 = this->getCookieAt(nextVector + sv1);
                         if (e0 &&
                             e1 &&
                             e0->getCookieShape() == cookie->getCookieShape() &&
@@ -509,7 +519,7 @@ void MainScene::updateField()
         CookieVector checked;
         for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
             for (int y = 0; y < VERTICAL_COUNT; ++y) {
-                auto cookie = this->getCookieAt(x, y);
+                auto cookie = this->getCookieAt(Vec2(x, y));
                 if (cookie && !checked.contains(cookie)) {
                     CookieVector v = this->checkNeighborCookies(cookie);
                     if (v.size() >= VANISH_COUNT && !vanished) {
@@ -535,7 +545,7 @@ void MainScene::updateField()
         // 次にどれも消えなさそうだったらランダムに2列消す
         for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
             for (int y = 0; y < VERTICAL_COUNT; ++y) {
-                auto cookie = this->getCookieAt(x, y);
+                auto cookie = this->getCookieAt(Vec2(x, y));
                 if (cookie && this->canVanishNext(cookie)) {
                     // どれか消えそうなら探索を打ち切る
                     return;
@@ -546,8 +556,8 @@ void MainScene::updateField()
         auto baseX = rand() % HORIZONTAL_COUNT;
         auto otherX = (rand() % (HORIZONTAL_COUNT - 1) + baseX) % HORIZONTAL_COUNT;
         for (int y = 0; y < VERTICAL_COUNT; ++y) {
-            this->deleteCookie(this->getCookieAt(baseX, y));
-            this->deleteCookie(this->getCookieAt(otherX, y));
+            this->deleteCookie(this->getCookieAt(Vec2(baseX, y)));
+            this->deleteCookie(this->getCookieAt(Vec2(otherX, y)));
         }
     }
 }
@@ -564,9 +574,9 @@ void MainScene::showChainCount(Cookie * cookie, int comboCount)
     std::string filename;
     if (comboCount >= 8) {
         // コンボ数が8以上なら色を変える
-        filename = "publish/Chain1_1.json";
+        filename = "Chain1_1.json";
     } else {
-        filename = "publish/Chain0_1.json";
+        filename = "Chain0_1.json";
     }
     auto chainCount = cocostudio::GUIReader::getInstance()->widgetFromJsonFile(filename.c_str());
     chainCount->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
