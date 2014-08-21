@@ -41,12 +41,23 @@ bool Cookie::init()
     
     
     auto label = Label::createWithSystemFont("", "Helvetica", 12);
-    //this->addChild(label);
     this->setDebugLabel(label);
     label->setPosition(Vec2(Cookie::getSize() / 2.0, Cookie::getSize() / 2.0));
     label->setColor(Color3B::BLUE);
     
     return true;
+}
+
+Vec2 Cookie::convertToStageSpace(cocos2d::Vec2& gridPosition)
+{
+    return std::move((gridPosition + Vec2::ONE * 0.5) * Cookie::getSize());
+}
+
+Vec2 Cookie::convertToGridSpace(cocos2d::Vec2& stagePosition)
+{
+    auto x = floor(stagePosition.x / Cookie::getSize());
+    auto y = floor(stagePosition.y / Cookie::getSize());
+    return std::move(Vec2(x, y));
 }
 
 void Cookie::setCookiePosition(Vec2 position)
@@ -61,7 +72,7 @@ void Cookie::adjustPosition()
 {
     auto position = _cookiePosition;
     // _cookiePositionを元にpositionを設定する
-    this->setPosition((position + Vec2::ONE * 0.5) * Cookie::getSize());
+    this->setPosition(Cookie::convertToStageSpace(position));
 }
 
 std::string Cookie::getDescription()

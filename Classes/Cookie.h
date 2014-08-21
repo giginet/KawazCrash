@@ -17,11 +17,13 @@ const int COOKIE_SIZE = 36;
 /// クッキー
 class Cookie :public cocos2d::Sprite
 {
-public:
-    
+protected:    
     Cookie();
     virtual ~Cookie();
+    bool init() override;
 
+public:
+    
     /// クッキーの形
     enum class Shape {
         /// 四角
@@ -58,7 +60,17 @@ public:
         return COOKIE_SIZE;
     }
     
-    bool init() override;
+    /** ステージ上の座標をグリッド上の位置に変換します
+     *  @param stagePosition ステージ上の座標
+     *  @return グリッド上の位置
+     */
+    static cocos2d::Vec2 convertToGridSpace(cocos2d::Vec2& stagePosition);
+    
+    /** グリッド上の位置をステージ上の座標に変換します
+     *  @param gridPosition グリッド上の位置
+     *  @return ステージ上の座標
+     */
+    static cocos2d::Vec2 convertToStageSpace(cocos2d::Vec2& gridPosition);
     
     /** クッキーのグリッド上の位置を指定します
     * @param position x, y位置を含んだ二次元ベクトル

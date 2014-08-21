@@ -79,7 +79,6 @@ private:
      */
     void deleteCookie(Cookie* cookie);
     
-    
     /** 渡されたクッキーと隣接する同種のクッキーを全て取り出します
      *  @param cookie 探索開始するクッキー
      *  @param checked すでに調査済みのクッキーの一覧。ここから調査する場合は空のVectorを渡してください

@@ -19,8 +19,11 @@
 
 USING_NS_CC;
 
+/// ステージの横のクッキーの数
 const int HORIZONTAL_COUNT = 6;
+/// ステージの縦のクッキーの数
 const int VERTICAL_COUNT = 8;
+/// クッキーが消える個数
 const int VANISH_COUNT = 4;
 /// Stage用のNodeのタグ
 const int STAGE_TAG = 50000;
@@ -91,10 +94,6 @@ bool MainScene::init()
     this->setCue(cue);
     
     this->setStage(Node::create());
-    auto stageSize = Size(Cookie::getSize() * HORIZONTAL_COUNT, Cookie::getSize() * VERTICAL_COUNT);
-    _stage->setContentSize(stageSize);
-    auto layer = LayerColor::create(Color4B::RED, stageSize.width, stageSize.height);
-    _stage->addChild(layer);
     
     for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
         for (int y = 0; y < VERTICAL_COUNT; ++y) {
@@ -247,16 +246,20 @@ Cookie* MainScene::getCookieAt(cocos2d::Vec2 position)
 
 Cookie* MainScene::getCookieAtByWorld(cocos2d::Vec2 worldPosition)
 {
-    auto stagePoint = _stage->convertToNodeSpace(worldPosition);
-    auto x = floor(stagePoint.x / Cookie::getSize());
-    auto y = floor(stagePoint.y / Cookie::getSize());
-    return this->getCookieAt(Vec2(x, y));
+    // 絶対座標をステージ中の位置に変換
+    auto stagePosition = _stage->convertToNodeSpace(worldPosition);
+    // ステージ中の位置をグリッド座標に変換
+    auto gridPosition = Cookie::convertToGridSpace(stagePosition);
+    return this->getCookieAt(gridPosition);
 }
 
 void MainScene::addCookie(Cookie *cookie)
 {
+    // クッキー一覧にクッキーを追加
     _cookies.pushBack(cookie);
+    // _stageノードにクッキーを追加
     _stage->addChild(cookie);
+    // クッキーの位置を調整
     cookie->adjustPosition();
 }
 
