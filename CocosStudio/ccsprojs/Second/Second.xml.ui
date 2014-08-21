@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<UIProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectDir>C:\Users\giginet\Documents\GitHub\KawazCrash\CocosStudio\ccsprojs\Second</ProjectDir>
+  <Version>1.6.0.0</Version>
+  <Resources>C:\Users\giginet\Documents\GitHub\KawazCrash\CocosStudio\assets</Resources>
+  <Name>Second</Name>
+  <JsonFileName>Second.json</JsonFileName>
+  <JsonFolder>C:\Users\giginet\Documents\GitHub\KawazCrash\CocosStudio\ccsprojs\Second\Json</JsonFolder>
+  <JsonList>
+    <string>Second_1.json</string>
+  </JsonList>
+  <CanvasSize>
+    <Width>66</Width>
+    <Height>63</Height>
+  </CanvasSize>
+  <filePath>C:\Users\giginet\Documents\GitHub\KawazCrash\CocosStudio\ccsprojs\Second\Second.xml.ui</filePath>
+  <ProjectType>UIProject</ProjectType>
+  <ResRelativePath>\\..\\..\\assets</ResRelativePath>
+  <imageFileList />
+  <imagePngList>
+    <string>second_bg.png</string>
+  </imagePngList>
+  <JsonSuffix>.json</JsonSuffix>
+  <CurrentUIJson>Second_1.json</CurrentUIJson>
+</UIProject>
