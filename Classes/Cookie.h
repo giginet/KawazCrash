@@ -42,7 +42,7 @@ public:
     
     /// クッキーの状態
     enum class State {
-        /// 通常
+        /// 停止中
         STATIC,
         /// 出現中
         APPEARING,
@@ -86,8 +86,8 @@ public:
      */
     void adjustPosition();
     
-    /** クッキーが通常状態かどうかを返します
-     *  @return 通常状態かどうか
+    /** クッキーが停止状態かどうかを返します
+     *  @return 停止状態かどうか
      */
     bool isStatic() {
         return _state == State::STATIC;

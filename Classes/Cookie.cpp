@@ -11,7 +11,8 @@
 
 USING_NS_CC;
 
-Cookie::Cookie() : _state(State::STATIC), _debugLabel(nullptr)
+Cookie::Cookie() :
+_state(State::STATIC), _debugLabel(nullptr)
 {
 }
 

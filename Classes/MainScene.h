@@ -71,7 +71,7 @@ private:
      *  @param cookie1 2つめのCookie
      *  @return 取り替えられたかどうか
      */
-    void swapCookies(Cookie* cookie0, Cookie* cookie1);
+    bool swapCookies(Cookie* cookie0, Cookie* cookie1);
     
     /** 渡されたクッキーをフィールド上から消去します
      *  消去時にはエフェクトも再生されます

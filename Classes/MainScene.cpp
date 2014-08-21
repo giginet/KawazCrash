@@ -34,7 +34,7 @@ MainScene::MainScene()
 ,_score(0)
 ,_comboCount(0)
 ,_stage(nullptr)
-,_currentCookie(nullptr)
+, _currentCookie(nullptr)
 ,_cue(nullptr)
 ,_scoreLabel(nullptr)
 ,_secondLabel(nullptr)
@@ -106,9 +106,9 @@ bool MainScene::init()
     auto stage = node->getChildByTag(STAGE_TAG);
     stage->addChild(_stage, 1);
     
-    
     // タッチイベントの登録
     auto listener = EventListenerTouchOneByOne::create();
+    // タッチしたとき
     listener->onTouchBegan = [this](Touch* touch, Event* event) {
         auto position = touch->getLocation();
         // 現在のタッチ位置にあるクッキーを取り出す
@@ -118,6 +118,7 @@ bool MainScene::init()
         this->setCurrentCookie(cookie);
         return true;
     };
+    // タッチ中に動かしたとき
     listener->onTouchMoved = [this](Touch* touch, Event* event) {
         // 移動先のクッキーを取得
         auto nextCookie = this->getCookieAtByWorld(touch->getLocation());
@@ -134,38 +135,27 @@ bool MainScene::init()
             if (_currentCookie->isStatic() && nextCookie->isStatic()) {
                 auto cp = _currentCookie->getCookiePosition();
                 auto np = nextCookie->getCookiePosition();
-                // 移動先のクッキーが右方向にあるとき
-                if (cp.y == np.y && cp.x + 1 == np.x) {
+                
+                // 移動先のクッキーが上下左右いずれかにあるとき
+                // すなわち、距離の2乗が1のとき
+                if (cp.distanceSquared(np) == 1) {
                     // 2枚のクッキーを入れ替える
                     this->swapCookies(_currentCookie, nextCookie);
                     
                     // 現在選択中のクッキーを外す
                     this->setCurrentCookie(nullptr);
                 }
-                if (cp.y == np.y && cp.x - 1 == np.x) { // 左方向
-                    this->swapCookies(_currentCookie, nextCookie);
-                    this->setCurrentCookie(nullptr);
-                }
-                if (cp.x == np.x && cp.y + 1 == np.y) { // 上方向
-                    this->swapCookies(_currentCookie, nextCookie);
-                    this->setCurrentCookie(nullptr);
-                }
-                if (cp.x == np.x && cp.y - 1 == np.y) { // 下方向
-                    this->swapCookies(_currentCookie, nextCookie);
-                    this->setCurrentCookie(nullptr);
-                }
             }
         }
     };
-    listener->onTouchEnded = [this](Touch* touch, Event* event) {
+    // タッチを離したとき、キャンセルされた時
+    listener->onTouchEnded = listener->onTouchCancelled = [this](Touch* touch, Event* event) {
         // 現在選択中のクッキーを外す
         this->setCurrentCookie(nullptr);
     };
-    listener->onTouchCancelled = [this](Touch* touch, Event* event) {
-        // 現在選択中のクッキーを外す
-        this->setCurrentCookie(nullptr);
-    };
+    // イベントリスナーを追加
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+    
     this->scheduleUpdate();
     
     auto secondLabel = node->getChildByTag(50002)->getChildren().at(0)->getChildByTag(6);
@@ -236,8 +226,7 @@ void MainScene::update(float dt)
 Cookie* MainScene::getCookieAt(const cocos2d::Vec2& position)
 {
     for (auto& cookie : _cookies) {
-        if (cookie->getCookiePosition().x == position.x &&
-            cookie->getCookiePosition().y == position.y) {
+        if (position.equals(cookie->getCookiePosition())) {
             return cookie;
         }
     }
@@ -269,7 +258,7 @@ void MainScene::moveCookie(Cookie *cookie, const cocos2d::Vec2& cookiePosition)
     cookie->adjustPosition();
 }
 
-void MainScene::swapCookies(Cookie *cookie0, Cookie *cookie1)
+bool MainScene::swapCookies(Cookie *cookie0, Cookie *cookie1)
 {
     // 連鎖数を0にする
     _comboCount = 0;
@@ -334,6 +323,7 @@ void MainScene::swapCookies(Cookie *cookie0, Cookie *cookie1)
     // 移動アニメーションを追加する
     addMoveAnimation(cookie0, position0, position1, cookiePosition1);
     addMoveAnimation(cookie1, position1, position0, cookiePosition0);
+    return canMove;
 }
 
 bool MainScene::vanishCookies(const CookieVector& cookies)
