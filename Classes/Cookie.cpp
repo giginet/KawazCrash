@@ -48,19 +48,19 @@ bool Cookie::init()
     return true;
 }
 
-Vec2 Cookie::convertToStageSpace(cocos2d::Vec2& gridPosition)
+Vec2 Cookie::convertToStageSpace(const cocos2d::Vec2& gridPosition)
 {
     return std::move((gridPosition + Vec2::ONE * 0.5) * Cookie::getSize());
 }
 
-Vec2 Cookie::convertToGridSpace(cocos2d::Vec2& stagePosition)
+Vec2 Cookie::convertToGridSpace(const cocos2d::Vec2& stagePosition)
 {
     auto x = floor(stagePosition.x / Cookie::getSize());
     auto y = floor(stagePosition.y / Cookie::getSize());
     return std::move(Vec2(x, y));
 }
 
-void Cookie::setCookiePosition(Vec2 position)
+void Cookie::setCookiePosition(const Vec2& position)
 {
     // もし、CookiePositionにfloatが含まれていたらassertする
     CCASSERT(floor(position.x) == position.x || floor(position.y) == position.y, "position must contains integers");

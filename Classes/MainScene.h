@@ -51,20 +51,20 @@ private:
      *  @param position グリッド上のクッキー位置
      *  @return その位置にあるCookie、またはnullptr
     */
-    Cookie* getCookieAt(cocos2d::Vec2 position);
+    Cookie* getCookieAt(const cocos2d::Vec2& position);
 
     /** 画面上の特定位置にあるクッキーを取り出します
      *  何もなかった場合はnullptrを返します
      *  @param position 画面上の絶対座標
      *  @return その位置にあるCookie、またはnullptr
      */
-    Cookie* getCookieAtByWorld(cocos2d::Vec2 worldPosition);
+    Cookie* getCookieAtByWorld(const cocos2d::Vec2& worldPosition);
     
     /** クッキーをグリッド上の指定した位置に動かします
      *  @param cookie0 動かすブロック
      *  @param cookiePosition 動かすグリッド上の座標
      */
-    void moveCookie(Cookie* cookie0, cocos2d::Vec2 cookiePosition);
+    void moveCookie(Cookie* cookie0, const cocos2d::Vec2& cookiePosition);
     
     /** 2つのクッキーを取り替えます
      *  @param cookie0 1つめのCookie
@@ -97,7 +97,7 @@ private:
      *  @param cookie チェックするクッキーの一覧
      *  @return 消えたかどうか
      */
-    bool vanishCookies(CookieVector cookies);
+    bool vanishCookies(const CookieVector& cookies);
     
     cocos2d::Vector<Cookie*> spawnCookies();
     

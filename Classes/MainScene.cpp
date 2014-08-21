@@ -233,7 +233,7 @@ void MainScene::update(float dt)
     }
 }
 
-Cookie* MainScene::getCookieAt(cocos2d::Vec2 position)
+Cookie* MainScene::getCookieAt(const cocos2d::Vec2& position)
 {
     for (auto& cookie : _cookies) {
         if (cookie->getCookiePosition().x == position.x &&
@@ -244,7 +244,7 @@ Cookie* MainScene::getCookieAt(cocos2d::Vec2 position)
     return nullptr;
 }
 
-Cookie* MainScene::getCookieAtByWorld(cocos2d::Vec2 worldPosition)
+Cookie* MainScene::getCookieAtByWorld(const cocos2d::Vec2& worldPosition)
 {
     // 絶対座標をステージ中の位置に変換
     auto stagePosition = _stage->convertToNodeSpace(worldPosition);
@@ -263,7 +263,7 @@ void MainScene::addCookie(Cookie *cookie)
     cookie->adjustPosition();
 }
 
-void MainScene::moveCookie(Cookie *cookie, cocos2d::Vec2 cookiePosition)
+void MainScene::moveCookie(Cookie *cookie, const cocos2d::Vec2& cookiePosition)
 {
     cookie->setCookiePosition(cookiePosition);
     cookie->adjustPosition();
@@ -336,7 +336,7 @@ void MainScene::swapCookies(Cookie *cookie0, Cookie *cookie1)
     addMoveAnimation(cookie1, position1, position0, cookiePosition0);
 }
 
-bool MainScene::vanishCookies(CookieVector cookies)
+bool MainScene::vanishCookies(const CookieVector& cookies)
 {
     // 全てが消去可能かを調べる
     bool canVanish = std::all_of(cookies.begin(),

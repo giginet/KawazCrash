@@ -64,18 +64,18 @@ public:
      *  @param stagePosition ステージ上の座標
      *  @return グリッド上の位置
      */
-    static cocos2d::Vec2 convertToGridSpace(cocos2d::Vec2& stagePosition);
+    static cocos2d::Vec2 convertToGridSpace(const cocos2d::Vec2& stagePosition);
     
     /** グリッド上の位置をステージ上の座標に変換します
      *  @param gridPosition グリッド上の位置
      *  @return ステージ上の座標
      */
-    static cocos2d::Vec2 convertToStageSpace(cocos2d::Vec2& gridPosition);
+    static cocos2d::Vec2 convertToStageSpace(const cocos2d::Vec2& gridPosition);
     
     /** クッキーのグリッド上の位置を指定します
     * @param position x, y位置を含んだ二次元ベクトル
     */
-    void setCookiePosition(cocos2d::Vec2 position);
+    void setCookiePosition(const cocos2d::Vec2& position);
     
     /** クッキーの位置を文字列で取り出します
      *  @return x座標とy座標を,で繋いだ文字列
