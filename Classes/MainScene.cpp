@@ -293,10 +293,16 @@ bool MainScene::swapCookies(Cookie *cookie0, Cookie *cookie1)
     cookie1->setCookiePosition(cookiePosition1);
     cookie0->setCookiePosition(cookiePosition0);
     
-    // 移動アニメーションの追加関数
-    auto addMoveAnimation = [canMove, this](Cookie *cookie, Vec2 fromPosition, Vec2 toPosition, Vec2 toCookiePosition)
+    /** 移動アニメーションの追加関数
+     *  @param cookie 動かすクッキー
+     *  @param toPosition 移動先のステージ座標
+     *  @param toCookiePosition 移動先のグリッド座標
+     */
+    auto addMoveAnimation = [canMove, this](Cookie *cookie, Vec2 toPosition, Vec2 toCookiePosition)
     {
+        // 移動アニメーションの実行時間
         const auto duration = 0.2;
+        auto fromPosition = cookie->getPosition();
         
         cookie->runAction(Sequence::create(MoveTo::create(duration, toPosition),
                                            CallFuncN::create([=](Node *node) {
@@ -305,15 +311,14 @@ bool MainScene::swapCookies(Cookie *cookie0, Cookie *cookie1)
             if (canMove) {
                 // 位置を入れ替える
                 this->moveCookie(cookie, toCookiePosition);
-                
                 // 状態を静止中にする
                 cookie->setState(Cookie::State::STATIC);
-            } else {
-                // もし、動かせないとき
+            } else { // もし、動かせないとき
                 // 元に戻すアニメーション
                 cookie->runAction(Sequence::create(MoveTo::create(duration / 2.0, fromPosition),
                                                    CallFuncN::create([] (Node *node) {
                     auto cookie = dynamic_cast<Cookie *>(node);
+                    // 状態を停止中にする
                     cookie->setState(Cookie::State::STATIC);
                 }), NULL));
             }
@@ -321,35 +326,52 @@ bool MainScene::swapCookies(Cookie *cookie0, Cookie *cookie1)
     };
     
     // 移動アニメーションを追加する
-    addMoveAnimation(cookie0, position0, position1, cookiePosition1);
-    addMoveAnimation(cookie1, position1, position0, cookiePosition0);
+    addMoveAnimation(cookie0, position1, cookiePosition1);
+    addMoveAnimation(cookie1, position0, cookiePosition0);
     return canMove;
 }
 
-bool MainScene::vanishCookies(const CookieVector& cookies)
+bool MainScene::checkVanish()
 {
-    // 全てが消去可能かを調べる
-    bool canVanish = std::all_of(cookies.begin(),
-                                 cookies.end(),
-                                 [](Cookie *cookie) {
-                                     return cookie->isStatic();
-                                 });
-    if (cookies.size() >= VANISH_COUNT && canVanish) {
-        for (auto cookie : cookies) {
-            this->deleteCookie(cookie);
+    // チェック済みのクッキー
+    CookieVector checked;
+    for (Cookie * cookie : _cookies) {
+        // クッキーがチェック済みじゃないとき
+        if (!checked.contains(cookie)) {
+            // そのクッキーと隣接してるクッキーを全て取り出す
+            CookieVector neighbors = this->checkNeighborCookies(cookie);
+            // 隣接していた物はチェック済みにして重複して判定しない
+            checked.pushBack(neighbors);
+            // 隣接してるクッキーが一定個数以上なら
+            if (neighbors.size() >= VANISH_COUNT) {
+                // コンボ回数の追加
+                _comboCount += 1;
+                // スコアの追加
+                _score += 1000 * pow(3, _comboCount);
+                // コンボカウンターを表示
+                this->showChainCount(neighbors.getRandomObject(), _comboCount);
+                // 隣接してるクッキー全てを消去にする
+                for (auto neighborCookie : neighbors) {
+                    this->vanishCookie(neighborCookie);
+                }
+                return true;
+            }
         }
-        return true;
     }
     return false;
 }
 
-void MainScene::deleteCookie(Cookie *cookie)
+void MainScene::vanishCookie(Cookie *cookie)
 {
     if (!cookie) return;
+    // 状態を消去中にする
     cookie->setState(Cookie::State::DISAPEARING);
-    auto duration = 0.2f;
+    // アニメーションの時間
+    const auto duration = 0.2f;
+    // 削除アニメーションを追加する
     cookie->runAction(Sequence::create(FadeOut::create(duration),
                                        CallFuncN::create([this](Node* node) {
+        // クッキー一覧から削除する
         auto cookie = dynamic_cast<Cookie *>(node);
         _cookies.eraseObject(cookie);
     }),
@@ -419,7 +441,7 @@ bool MainScene::fallCookie(Cookie *cookie)
         cookie->setState(Cookie::State::FALLING);
         cookie->runAction(Sequence::create(MoveBy::create(duration, Vec2(0, -Cookie::getSize())),
                                            CallFuncN::create([this, downPosition] (Node *node) {
-            // 落下アニメーション終了語
+            // 落下アニメーション終了後
             auto cookie = dynamic_cast<Cookie *>(node);
             // クッキーを動かす
             this->moveCookie(cookie, downPosition);
@@ -508,26 +530,7 @@ void MainScene::updateField()
     if (this->isAllStatic()) {
         
         // 既に揃ってるのを消す
-        auto vanished = false;
-        CookieVector checked;
-        for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
-            for (int y = 0; y < VERTICAL_COUNT; ++y) {
-                auto cookie = this->getCookieAt(Vec2(x, y));
-                if (cookie && !checked.contains(cookie)) {
-                    CookieVector v = this->checkNeighborCookies(cookie);
-                    if (v.size() >= VANISH_COUNT && !vanished) {
-                        _comboCount += 1;
-                        vanished = true;
-                        // スコアの追加
-                        _score += 1000 * pow(3, _comboCount);
-                        // コンボカウンターを表示
-                        this->showChainCount(v.getRandomObject(), _comboCount);
-                    }
-                    checked.pushBack(v);
-                    this->vanishCookies(std::move(v));
-                }
-            }
-        }
+        auto vanished = this->checkVanish();
         if (vanished) {
             float gameVariable = _comboCount * 0.125;
             gameVariable = MIN(1.0, gameVariable);
@@ -536,21 +539,18 @@ void MainScene::updateField()
         }
         
         // 次にどれも消えなさそうだったらランダムに2列消す
-        for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
-            for (int y = 0; y < VERTICAL_COUNT; ++y) {
-                auto cookie = this->getCookieAt(Vec2(x, y));
-                if (cookie && this->canVanishNext(cookie)) {
-                    // どれか消えそうなら探索を打ち切る
-                    return;
-                }
+        for (Cookie * cookie : _cookies) {
+            if (cookie && this->canVanishNext(cookie)) {
+                // どれか消えそうなら探索を打ち切る
+                return;
             }
         }
         // もしどれも消えなかったとき、ランダムに2列を選んで消去する
         auto baseX = rand() % HORIZONTAL_COUNT;
         auto otherX = (rand() % (HORIZONTAL_COUNT - 1) + baseX) % HORIZONTAL_COUNT;
         for (int y = 0; y < VERTICAL_COUNT; ++y) {
-            this->deleteCookie(this->getCookieAt(Vec2(baseX, y)));
-            this->deleteCookie(this->getCookieAt(Vec2(otherX, y)));
+            this->vanishCookie(this->getCookieAt(Vec2(baseX, y)));
+            this->vanishCookie(this->getCookieAt(Vec2(otherX, y)));
         }
     }
 }

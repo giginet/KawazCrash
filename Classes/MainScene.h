@@ -20,11 +20,13 @@ typedef cocos2d::Vector<Cookie *> CookieVector;
 
 class MainScene :public cocos2d::Layer
 {
-public:
+protected:
+    bool init() override;
     
     MainScene();
     
     virtual ~MainScene();
+public:
     
     static cocos2d::Scene* createScene();
     
@@ -39,8 +41,6 @@ public:
     };
     
 private:
-    bool init() override;
-
     /** 指定したクッキーをフィールドに追加します
      *  @param 追加するCookie
      */
@@ -77,7 +77,7 @@ private:
      *  消去時にはエフェクトも再生されます
      *  @param cookie 消すCookie
      */
-    void deleteCookie(Cookie* cookie);
+    void vanishCookie(Cookie* cookie);
     
     /** 渡されたクッキーと隣接する同種のクッキーを全て取り出します
      *  @param cookie 探索開始するクッキー
@@ -93,11 +93,10 @@ private:
      */
     bool fallCookie(Cookie *cookie);
     
-    /** 渡されたクッキーが消えるかどうかを判定し、消える場合は消去します
-     *  @param cookie チェックするクッキーの一覧
+    /** ステージ上のクッキーが消えるかどうかを判定し、消える場合は消去します
      *  @return 消えたかどうか
      */
-    bool vanishCookies(const CookieVector& cookies);
+    bool checkVanish();
     
     cocos2d::Vector<Cookie*> spawnCookies();
     
