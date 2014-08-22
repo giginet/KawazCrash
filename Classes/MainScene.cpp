@@ -197,8 +197,36 @@ void MainScene::update(float dt)
     
     if (_state == State::Main) {
         
-        // フィールドの更新
-        this->updateField();
+        // クッキーの生成
+        this->checkSpawn();
+    
+        // 全てのクッキーが停止しているとき
+        if (this->isAllStatic()) {
+            // 既に揃ってるのを消す
+            auto vanished = this->checkVanish();
+            // 消えた場合、音を鳴らす
+            if (vanished) {
+                float gameVariable = _comboCount * 0.125;
+                gameVariable = MIN(1.0, gameVariable);
+                criAtomEx_SetGameVariableByName("ComboCount", gameVariable);
+                _cue->playCueByID(CRI_COOKIE_MAIN_VANISH);
+            }
+            
+            // 次にどれも消えなさそうだったらランダムに2列消す
+            for (Cookie * cookie : _cookies) {
+                if (cookie && this->canVanishNext(cookie)) {
+                    // どれか消えそうなら探索を打ち切る
+                    return;
+                }
+            }
+            // もしどれも消えなかったとき、ランダムに2列を選んで消去する
+            auto baseX = rand() % HORIZONTAL_COUNT;
+            auto otherX = (rand() % (HORIZONTAL_COUNT - 1) + baseX) % HORIZONTAL_COUNT;
+            for (int y = 0; y < VERTICAL_COUNT; ++y) {
+                this->vanishCookie(this->getCookieAt(Vec2(baseX, y)));
+                this->vanishCookie(this->getCookieAt(Vec2(otherX, y)));
+            }
+        }
         
         // スコアの更新
         _scoreLabel->setString(StringUtils::toString((int)_score));
@@ -363,6 +391,7 @@ bool MainScene::checkVanish()
 
 void MainScene::vanishCookie(Cookie *cookie)
 {
+    // クッキーがnullptrだったら何もしない
     if (!cookie) return;
     // 状態を消去中にする
     cookie->setState(Cookie::State::DISAPEARING);
@@ -424,22 +453,24 @@ CookieVector MainScene::checkNeighborCookies(Cookie *cookie, CookieVector checke
 bool MainScene::fallCookie(Cookie *cookie)
 {
     auto position = cookie->getCookiePosition();
-    // すでに一番下にあったとき、落ちない
-    if (position.y == 0) {
+    // すでに一番下にあったときや、停止中じゃないとき、落ちない
+    if (position.y == 0 || !cookie->isStatic()) {
         return false;
     }
-    // クッキーがSTATIC状態じゃなかったとき、落ちない
-    if (!cookie->isStatic()) {
-        return false;
-    }
+    // 1つ下のグリッド座標を取り出す
     auto downPosition = Vec2(position.x, position.y - 1);
     // 1つ下のクッキーを取り出す
     auto down = this->getCookieAt(Vec2(position.x, position.y - 1));
     // 1つ下がなかったとき、落ちる
     if (down == nullptr) {
-        auto duration = 0.05;
+        // 落下アニメーション時間
+        const auto duration = 0.05;
+        // 落下距離
+        auto distance = -Cookie::getSize();
+        // 状態を落下中にする
         cookie->setState(Cookie::State::FALLING);
-        cookie->runAction(Sequence::create(MoveBy::create(duration, Vec2(0, -Cookie::getSize())),
+        // 落下アニメーションの実行
+        cookie->runAction(Sequence::create(MoveBy::create(duration, Vec2(0, distance)),
                                            CallFuncN::create([this, downPosition] (Node *node) {
             // 落下アニメーション終了後
             auto cookie = dynamic_cast<Cookie *>(node);
@@ -455,8 +486,9 @@ bool MainScene::fallCookie(Cookie *cookie)
     return false;
 }
 
-cocos2d::Vector<Cookie *> MainScene::spawnCookies()
+cocos2d::Vector<Cookie *> MainScene::checkSpawn()
 {
+    // 出現したクッキーの一覧
     cocos2d::Vector<Cookie *> cookies;
     // 一番上の座標を取り出す
     auto y = VERTICAL_COUNT - 1;
@@ -520,39 +552,6 @@ bool MainScene::canVanishNext(Cookie *cookie)
         }
     }
     return false;
-}
-
-void MainScene::updateField()
-{
-    // クッキーの生成
-    this->spawnCookies();
-    
-    if (this->isAllStatic()) {
-        
-        // 既に揃ってるのを消す
-        auto vanished = this->checkVanish();
-        if (vanished) {
-            float gameVariable = _comboCount * 0.125;
-            gameVariable = MIN(1.0, gameVariable);
-            criAtomEx_SetGameVariableByName("ComboCount", gameVariable);
-            _cue->playCueByID(CRI_COOKIE_MAIN_VANISH);
-        }
-        
-        // 次にどれも消えなさそうだったらランダムに2列消す
-        for (Cookie * cookie : _cookies) {
-            if (cookie && this->canVanishNext(cookie)) {
-                // どれか消えそうなら探索を打ち切る
-                return;
-            }
-        }
-        // もしどれも消えなかったとき、ランダムに2列を選んで消去する
-        auto baseX = rand() % HORIZONTAL_COUNT;
-        auto otherX = (rand() % (HORIZONTAL_COUNT - 1) + baseX) % HORIZONTAL_COUNT;
-        for (int y = 0; y < VERTICAL_COUNT; ++y) {
-            this->vanishCookie(this->getCookieAt(Vec2(baseX, y)));
-            this->vanishCookie(this->getCookieAt(Vec2(otherX, y)));
-        }
-    }
 }
 
 bool MainScene::isAllStatic()

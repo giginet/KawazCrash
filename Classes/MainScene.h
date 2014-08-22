@@ -75,7 +75,7 @@ private:
     
     /** 渡されたクッキーをフィールド上から消去します
      *  消去時にはエフェクトも再生されます
-     *  @param cookie 消すCookie
+     *  @param cookie 消すクッキー
      */
     void vanishCookie(Cookie* cookie);
     
@@ -98,7 +98,11 @@ private:
      */
     bool checkVanish();
     
-    cocos2d::Vector<Cookie*> spawnCookies();
+    /** ステージをチェックして出現できる場所にクッキーを出現させ、出現したクッキーの一覧を返します
+     *  出現しなかった場合、空のベクターを返します
+     *  @return 出現したクッキーの一覧
+     */
+    cocos2d::Vector<Cookie*> checkSpawn();
     
     /** 渡されたブロックが次のターンに消去できる可能性があるかを判定します
      *  @param Cookie* cookie
@@ -106,16 +110,8 @@ private:
      */
     bool canVanishNext(Cookie *cookie);
     
-    /** フィールド全体を更新します。具体的に以下のことをします
-     *  - 落ちるはずなのに落ちてないクッキーを落とします
-     *  - 次のクッキーが出現できそうなら出現させます
-     *  - 既に消える状態になっているクッキーの消去を開始します
-     *  - 次のターンにどこを動かしても消せなくなったときに、フィールドをリセットします
-     */
-    void updateField();
-    
-    /** 全てのクッキーがNormal状態かどうかをチェックして返します
-     *  @return Normal状態かどうか
+    /** 全てのクッキーが停止中かどうかをチェックして返します
+     *  @return 停止中かどうか
      */
     bool isAllStatic();
     
