@@ -11,7 +11,6 @@
 
 #include "cocos2d.h"
 #include "cri_adx2le.h"
-#include "Cocostudio/cocostudio.h"
 #include "ui/UITextAtlas.h"
 
 #include "Cookie.h"
@@ -21,11 +20,13 @@ typedef cocos2d::Vector<Cookie *> CookieVector;
 
 class MainScene :public cocos2d::Layer
 {
-public:
+protected:
+    bool init() override;
     
     MainScene();
     
     virtual ~MainScene();
+public:
     
     static cocos2d::Scene* createScene();
     
@@ -40,8 +41,6 @@ public:
     };
     
 private:
-    bool init() override;
-
     /** 指定したクッキーをフィールドに追加します
      *  @param 追加するCookie
      */
@@ -49,38 +48,36 @@ private:
     
     /** グリッド上の特定位置にあるクッキーを取り出します
     *   何もなかった場合はnullptrを返します
-    *   @param x x座標
-    *   @param y y座標
-    *   @return その位置にあるCookie、またはnullptr
+     *  @param position グリッド上のクッキー位置
+     *  @return その位置にあるCookie、またはnullptr
     */
-    Cookie* getCookieAt(int x, int y);
+    Cookie* getCookieAt(const cocos2d::Vec2& position);
 
     /** 画面上の特定位置にあるクッキーを取り出します
      *  何もなかった場合はnullptrを返します
      *  @param position 画面上の絶対座標
      *  @return その位置にあるCookie、またはnullptr
      */
-    Cookie* getCookieAt(cocos2d::Vec2 position);
+    Cookie* getCookieAtByWorld(const cocos2d::Vec2& worldPosition);
     
     /** クッキーをグリッド上の指定した位置に動かします
      *  @param cookie0 動かすブロック
      *  @param cookiePosition 動かすグリッド上の座標
      */
-    void moveCookie(Cookie* cookie0, cocos2d::Vec2 cookiePosition);
+    void moveCookie(Cookie* cookie0, const cocos2d::Vec2& cookiePosition);
     
     /** 2つのクッキーを取り替えます
      *  @param cookie0 1つめのCookie
      *  @param cookie1 2つめのCookie
      *  @return 取り替えられたかどうか
      */
-    void swapCookies(Cookie* cookie0, Cookie* cookie1);
+    bool swapCookies(Cookie* cookie0, Cookie* cookie1);
     
     /** 渡されたクッキーをフィールド上から消去します
      *  消去時にはエフェクトも再生されます
-     *  @param cookie 消すCookie
+     *  @param cookie 消すクッキー
      */
-    void deleteCookie(Cookie* cookie);
-    
+    void vanishCookie(Cookie* cookie);
     
     /** 渡されたクッキーと隣接する同種のクッキーを全て取り出します
      *  @param cookie 探索開始するクッキー
@@ -96,13 +93,16 @@ private:
      */
     bool fallCookie(Cookie *cookie);
     
-    /** 渡されたクッキーが消えるかどうかを判定し、消える場合は消去します
-     *  @param cookie チェックするクッキーの一覧
+    /** ステージ上のクッキーが消えるかどうかを判定し、消える場合は消去します
      *  @return 消えたかどうか
      */
-    bool vanishCookies(CookieVector cookies);
+    bool checkVanish();
     
-    cocos2d::Vector<Cookie*> spawnCookies();
+    /** ステージをチェックして出現できる場所にクッキーを出現させ、出現したクッキーの一覧を返します
+     *  出現しなかった場合、空のベクターを返します
+     *  @return 出現したクッキーの一覧
+     */
+    cocos2d::Vector<Cookie*> checkSpawn();
     
     /** 渡されたブロックが次のターンに消去できる可能性があるかを判定します
      *  @param Cookie* cookie
@@ -110,16 +110,8 @@ private:
      */
     bool canVanishNext(Cookie *cookie);
     
-    /** フィールド全体を更新します。具体的に以下のことをします
-     *  - 落ちるはずなのに落ちてないクッキーを落とします
-     *  - 次のクッキーが出現できそうなら出現させます
-     *  - 既に消える状態になっているクッキーの消去を開始します
-     *  - 次のターンにどこを動かしても消せなくなったときに、フィールドをリセットします
-     */
-    void updateField();
-    
-    /** 全てのクッキーがNormal状態かどうかをチェックして返します
-     *  @return Normal状態かどうか
+    /** 全てのクッキーが停止中かどうかをチェックして返します
+     *  @return 停止中かどうか
      */
     bool isAllStatic();
     

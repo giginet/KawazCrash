@@ -10,7 +10,9 @@
   "designHeight": 22,
   "designWidth": 80,
   "textures": [],
-  "texturesPng": [],
+  "texturesPng": [
+    "chain1.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -37,10 +39,27 @@
           "flipY": false,
           "height": 21,
           "ignoreSize": true,
-          "layoutParameter": null,
+          "layoutParameter": {
+            "classname": null,
+            "name": null,
+            "align": 1,
+            "gravity": 0,
+            "layoutEageType": 0,
+            "layoutNormalHorizontal": 0,
+            "layoutNormalVertical": 0,
+            "layoutParentHorizontal": 0,
+            "layoutParentVertical": 0,
+            "marginDown": 0,
+            "marginLeft": 5,
+            "marginRight": 0,
+            "marginTop": 2,
+            "relativeName": "Image_2",
+            "relativeToName": "Panel_14",
+            "type": 2
+          },
           "opacity": 255,
           "positionPercentX": 0.352272719,
-          "positionPercentY": 0.4090909,
+          "positionPercentY": 0.4318182,
           "positionType": 0,
           "rotation": 0,
           "scaleX": 1,
@@ -61,7 +80,7 @@
           "capInsetsY": 0,
           "fileName": null,
           "fileNameData": {
-            "path": "chain0.png",
+            "path": "chain1.png",
             "plistFile": "",
             "resourceType": 0
           },
@@ -91,7 +110,24 @@
           "flipY": false,
           "height": 16,
           "ignoreSize": true,
-          "layoutParameter": null,
+          "layoutParameter": {
+            "classname": null,
+            "name": null,
+            "align": 1,
+            "gravity": 0,
+            "layoutEageType": 0,
+            "layoutNormalHorizontal": 0,
+            "layoutNormalVertical": 0,
+            "layoutParentHorizontal": 0,
+            "layoutParentVertical": 0,
+            "marginDown": 0,
+            "marginLeft": 53,
+            "marginRight": 0,
+            "marginTop": 4,
+            "relativeName": "AtlasLabel_5",
+            "relativeToName": "Panel_14",
+            "type": 2
+          },
           "opacity": 255,
           "positionPercentX": 0.602272749,
           "positionPercentY": 0.454545468,
@@ -111,7 +147,7 @@
           "y": 10,
           "charMapFile": null,
           "charMapFileData": {
-            "path": "chain_numbers0.png",
+            "path": "chain_numbers1.png",
             "plistFile": "",
             "resourceType": 0
           },
@@ -177,7 +213,7 @@
       "capInsetsY": 0,
       "clipAble": false,
       "colorType": 1,
-      "layoutType": 0,
+      "layoutType": 3,
       "vectorX": 0,
       "vectorY": -0.5
     }

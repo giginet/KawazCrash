@@ -27,7 +27,6 @@
 		0725495C195D05740099BCFE /* libcri_file_system_net_iosD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548CE195D05740099BCFE /* libcri_file_system_net_iosD.a */; };
 		07254A07195D20050099BCFE /* adx2 in Resources */ = {isa = PBXBuildFile; fileRef = 07254A06195D20050099BCFE /* adx2 */; };
 		07254A08195D20050099BCFE /* adx2 in Resources */ = {isa = PBXBuildFile; fileRef = 07254A06195D20050099BCFE /* adx2 */; };
-		07CE544419A375E500473436 /* publish in Resources */ = {isa = PBXBuildFile; fileRef = 07CE544319A375E500473436 /* publish */; };
 		1AC6FB1F180E996B004C840B /* libbox2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAFF180E9839004C840B /* libbox2d Mac.a */; };
 		1AC6FB20180E996B004C840B /* libchipmunk Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAFD180E9839004C840B /* libchipmunk Mac.a */; };
 		1AC6FB21180E996B004C840B /* libcocos2dx Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2dx Mac.a */; };
@@ -260,7 +259,6 @@
 		072548CD195D05740099BCFE /* libcri_file_system_net_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcri_file_system_net_ios.a; sourceTree = "<group>"; };
 		072548CE195D05740099BCFE /* libcri_file_system_net_iosD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcri_file_system_net_iosD.a; sourceTree = "<group>"; };
 		07254A06195D20050099BCFE /* adx2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = adx2; sourceTree = "<group>"; };
-		07CE544319A375E500473436 /* publish */ = {isa = PBXFileReference; lastKnownFileType = folder; path = publish; sourceTree = "<group>"; };
 		07E9711C19654D4100A76699 /* cookie_crush_acf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cookie_crush_acf.h; path = ../Classes/cookie_crush_acf.h; sourceTree = "<group>"; };
 		07E9712019656B6300A76699 /* cookie_main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cookie_main.h; path = ../Classes/cookie_main.h; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
@@ -591,7 +589,6 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				07CE544319A375E500473436 /* publish */,
 				072319B31953238500B0103D /* images */,
 				1AFAF8B916D35E4900DB1158 /* CloseNormal.png */,
 				1AFAF8BA16D35E4900DB1158 /* CloseSelected.png */,
@@ -787,7 +784,6 @@
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
-				07CE544419A375E500473436 /* publish in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

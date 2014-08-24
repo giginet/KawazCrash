@@ -11,7 +11,8 @@
 
 USING_NS_CC;
 
-Cookie::Cookie() : _state(State::STATIC), _debugLabel(nullptr)
+Cookie::Cookie() :
+_state(State::STATIC), _debugLabel(nullptr)
 {
 }
 
@@ -25,7 +26,7 @@ bool Cookie::init()
     // 乱数発生器の初期化
     std::random_device rdev;
     auto engine = std::mt19937(rdev());
-    auto dist = std::uniform_int_distribution<>(0, (int)Cookie::Shape::COUNT - 1);
+    auto dist = std::uniform_int_distribution<>(0, static_cast<int>(Cookie::Shape::COUNT) - 1);
     
     // クッキーの形をランダムに1つ選ぶ
     auto shape = dist(engine);
@@ -41,7 +42,6 @@ bool Cookie::init()
     
     
     auto label = Label::createWithSystemFont("", "Helvetica", 12);
-    //this->addChild(label);
     this->setDebugLabel(label);
     label->setPosition(Vec2(Cookie::getSize() / 2.0, Cookie::getSize() / 2.0));
     label->setColor(Color3B::BLUE);
@@ -49,7 +49,19 @@ bool Cookie::init()
     return true;
 }
 
-void Cookie::setCookiePosition(Vec2 position)
+Vec2 Cookie::convertToStageSpace(const cocos2d::Vec2& gridPosition)
+{
+    return std::move((gridPosition + Vec2::ONE * 0.5) * Cookie::getSize());
+}
+
+Vec2 Cookie::convertToGridSpace(const cocos2d::Vec2& stagePosition)
+{
+    auto x = floor(stagePosition.x / Cookie::getSize());
+    auto y = floor(stagePosition.y / Cookie::getSize());
+    return std::move(Vec2(x, y));
+}
+
+void Cookie::setCookiePosition(const Vec2& position)
 {
     // もし、CookiePositionにfloatが含まれていたらassertする
     CCASSERT(floor(position.x) == position.x || floor(position.y) == position.y, "position must contains integers");
@@ -61,7 +73,7 @@ void Cookie::adjustPosition()
 {
     auto position = _cookiePosition;
     // _cookiePositionを元にpositionを設定する
-    this->setPosition(position * Cookie::getSize());
+    this->setPosition(Cookie::convertToStageSpace(position));
 }
 
 std::string Cookie::getDescription()
