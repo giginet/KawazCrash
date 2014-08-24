@@ -33,7 +33,7 @@ bool Cookie::init()
     _cookieShape = static_cast<Cookie::Shape>(shape);
     
     // クッキーの形を元にSpriteを初期化
-    if (!Sprite::initWithFile("blocks.png", Rect(Cookie::getSize() * shape,
+    if (!Sprite::initWithFile("cookies.png", Rect(Cookie::getSize() * shape,
                                                  0,
                                                  Cookie::getSize(),
                                                  Cookie::getSize()))) {
