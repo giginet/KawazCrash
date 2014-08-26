@@ -1,15 +1,15 @@
 [
   "background.png",
-  "beans.png",
-  "stage.png",
   "score_bg.png",
   "score_numbers.png",
   "second_bg.png",
-  "second_numbers.png",
   "second_label.png",
+  "second_numbers.png",
   "footer.png",
   "header.png",
+  "beans.png",
+  "stage.png",
   "publish\\MainScene.json",
-  "Score_1.json",
-  "Second_1.json"
+  "Score.json",
+  "Timer.json"
 ]

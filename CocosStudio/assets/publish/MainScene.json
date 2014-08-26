@@ -42,34 +42,6 @@
     {
       "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
       "classname": "CCNode",
-      "name": "beans",
-      "canedit": true,
-      "objecttag": 10004,
-      "rotation": 0,
-      "scalex": 1,
-      "scaley": 1,
-      "visible": 1,
-      "x": 160,
-      "y": 45,
-      "zorder": 1,
-      "gameobjects": [],
-      "components": [
-        {
-          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
-          "classname": "CCSprite",
-          "name": "CCSprite",
-          "file": null,
-          "fileData": {
-            "path": "beans.png",
-            "plistFile": "",
-            "resourceType": 0
-          }
-        }
-      ]
-    },
-    {
-      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
-      "classname": "CCNode",
       "name": "frame",
       "canedit": true,
       "objecttag": 40000,
@@ -144,7 +116,7 @@
           "name": "GUIComponent",
           "file": null,
           "fileData": {
-            "path": "Score_1.json",
+            "path": "Score.json",
             "plistFile": "",
             "resourceType": 0
           }
@@ -172,7 +144,7 @@
           "name": "GUIComponent",
           "file": null,
           "fileData": {
-            "path": "Second_1.json",
+            "path": "Timer.json",
             "plistFile": "",
             "resourceType": 0
           }
@@ -182,7 +154,7 @@
     {
       "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
       "classname": "CCNode",
-      "name": null,
+      "name": "footer",
       "canedit": true,
       "objecttag": 50005,
       "rotation": 0,
@@ -210,7 +182,7 @@
     {
       "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
       "classname": "CCNode",
-      "name": null,
+      "name": "header",
       "canedit": true,
       "objecttag": 50006,
       "rotation": 0,
@@ -229,6 +201,34 @@
           "file": null,
           "fileData": {
             "path": "header.png",
+            "plistFile": "",
+            "resourceType": 0
+          }
+        }
+      ]
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": "beans",
+      "canedit": true,
+      "objecttag": 10004,
+      "rotation": 0,
+      "scalex": 1,
+      "scaley": 1,
+      "visible": 1,
+      "x": 160,
+      "y": 45,
+      "zorder": 1,
+      "gameobjects": [],
+      "components": [
+        {
+          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
+          "classname": "CCSprite",
+          "name": "CCSprite",
+          "file": null,
+          "fileData": {
+            "path": "beans.png",
             "plistFile": "",
             "resourceType": 0
           }

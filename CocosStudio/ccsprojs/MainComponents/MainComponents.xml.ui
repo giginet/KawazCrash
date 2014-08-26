@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<UIProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectDir>C:\Users\giginet\Documents\GitHub\KawazCrash\CocosStudio\ccsprojs\MainComponents</ProjectDir>
+  <Version>1.6.0.0</Version>
+  <Resources>C:\Users\giginet\Documents\GitHub\KawazCrash\CocosStudio\assets</Resources>
+  <Name>MainComponents</Name>
+  <JsonFileName>MainComponents.json</JsonFileName>
+  <JsonFolder>C:\Users\giginet\Documents\GitHub\KawazCrash\CocosStudio\ccsprojs\MainComponents\Json</JsonFolder>
+  <JsonList>
+    <string>Timer.json</string>
+    <string>Score.json</string>
+  </JsonList>
+  <CanvasSize>
+    <Width>480</Width>
+    <Height>320</Height>
+  </CanvasSize>
+  <filePath>C:\Users\giginet\Documents\GitHub\KawazCrash\CocosStudio\ccsprojs\MainComponents\MainComponents.xml.ui</filePath>
+  <ProjectType>UIProject</ProjectType>
+  <ResRelativePath>\\..\\..\\assets</ResRelativePath>
+  <imageFileList />
+  <imagePngList>
+    <string>second_bg.png</string>
+    <string>second_label.png</string>
+    <string>score_bg.png</string>
+  </imagePngList>
+  <JsonSuffix>.json</JsonSuffix>
+  <CurrentUIJson>Score.json</CurrentUIJson>
+</UIProject>
