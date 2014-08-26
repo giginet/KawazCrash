@@ -8,4 +8,12 @@
     <Project>Score</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>Chain0</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>Chain1</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

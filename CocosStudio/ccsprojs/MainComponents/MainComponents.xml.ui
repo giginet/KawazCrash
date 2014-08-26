@@ -9,10 +9,12 @@
   <JsonList>
     <string>Timer.json</string>
     <string>Score.json</string>
+    <string>Chain0.json</string>
+    <string>Chain1.json</string>
   </JsonList>
   <CanvasSize>
-    <Width>480</Width>
-    <Height>320</Height>
+    <Width>100</Width>
+    <Height>27</Height>
   </CanvasSize>
   <filePath>C:\Users\giginet\Documents\GitHub\KawazCrash\CocosStudio\ccsprojs\MainComponents\MainComponents.xml.ui</filePath>
   <ProjectType>UIProject</ProjectType>
@@ -22,7 +24,9 @@
     <string>second_bg.png</string>
     <string>second_label.png</string>
     <string>score_bg.png</string>
+    <string>chain0.png</string>
+    <string>chain1.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>Score.json</CurrentUIJson>
+  <CurrentUIJson>Chain1.json</CurrentUIJson>
 </UIProject>

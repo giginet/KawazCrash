@@ -1,5 +1,6 @@
 [
   "background.png",
+  "stage.png",
   "score_bg.png",
   "score_numbers.png",
   "second_bg.png",
@@ -8,7 +9,6 @@
   "footer.png",
   "header.png",
   "beans.png",
-  "stage.png",
   "publish\\MainScene.json",
   "Score.json",
   "Timer.json"
