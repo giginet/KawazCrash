@@ -44,13 +44,13 @@
       "classname": "CCNode",
       "name": "frame",
       "canedit": true,
-      "objecttag": 40000,
+      "objecttag": 1000,
       "rotation": 0,
       "scalex": 1,
       "scaley": 1,
       "visible": 1,
       "x": 160,
-      "y": 273.24765014648438,
+      "y": 274.24765014648438,
       "zorder": 1,
       "gameobjects": [],
       "components": [
@@ -70,43 +70,15 @@
     {
       "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
       "classname": "CCNode",
-      "name": "cookies",
-      "canedit": true,
-      "objecttag": 1000,
-      "rotation": 0,
-      "scalex": 1,
-      "scaley": 1,
-      "visible": 1,
-      "x": 53,
-      "y": 137,
-      "zorder": 1,
-      "gameobjects": [],
-      "components": [
-        {
-          "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
-          "classname": "CCSprite",
-          "name": "Stage",
-          "file": null,
-          "fileData": {
-            "path": "",
-            "plistFile": "",
-            "resourceType": 0
-          }
-        }
-      ]
-    },
-    {
-      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
-      "classname": "CCNode",
       "name": "score",
       "canedit": true,
-      "objecttag": 50003,
+      "objecttag": 2000,
       "rotation": 0,
       "scalex": 1,
       "scaley": 1,
       "visible": 1,
       "x": 100,
-      "y": 535,
+      "y": 536,
       "zorder": 1,
       "gameobjects": [],
       "components": [
@@ -128,7 +100,7 @@
       "classname": "CCNode",
       "name": "second",
       "canedit": true,
-      "objecttag": 50002,
+      "objecttag": 3000,
       "rotation": 0,
       "scalex": 1,
       "scaley": 1,
