@@ -14,7 +14,7 @@
     {
       "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
       "classname": "CCNode",
-      "name": null,
+      "name": "background",
       "canedit": true,
       "objecttag": 10003,
       "rotation": 0,
@@ -29,7 +29,7 @@
         {
           "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
           "classname": "CCSprite",
-          "name": "CCSprite",
+          "name": "",
           "file": null,
           "fileData": {
             "path": "background.png",
@@ -42,7 +42,7 @@
     {
       "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
       "classname": "CCNode",
-      "name": null,
+      "name": "beans",
       "canedit": true,
       "objecttag": 10004,
       "rotation": 0,
@@ -50,7 +50,7 @@
       "scaley": 1,
       "visible": 1,
       "x": 160,
-      "y": 57,
+      "y": 56,
       "zorder": 1,
       "gameobjects": [],
       "components": [
@@ -70,7 +70,7 @@
     {
       "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
       "classname": "CCNode",
-      "name": null,
+      "name": "frame",
       "canedit": true,
       "objecttag": 40000,
       "rotation": 0,
@@ -98,14 +98,14 @@
     {
       "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
       "classname": "CCNode",
-      "name": null,
+      "name": "cookies",
       "canedit": true,
-      "objecttag": 50000,
+      "objecttag": 1000,
       "rotation": 0,
       "scalex": 1,
       "scaley": 1,
       "visible": 1,
-      "x": 71,
+      "x": 70,
       "y": 179,
       "zorder": 1,
       "gameobjects": [],
@@ -126,7 +126,7 @@
     {
       "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
       "classname": "CCNode",
-      "name": null,
+      "name": "decoration",
       "canedit": true,
       "objecttag": 10005,
       "rotation": 0,
@@ -136,36 +136,7 @@
       "x": 160.55043029785156,
       "y": 315.65133666992188,
       "zorder": 1,
-      "gameobjects": [
-        {
-          "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
-          "classname": "CCNode",
-          "name": null,
-          "canedit": true,
-          "objecttag": 50002,
-          "rotation": 0,
-          "scalex": 1,
-          "scaley": 1,
-          "visible": 1,
-          "x": -161,
-          "y": 190,
-          "zorder": 1,
-          "gameobjects": [],
-          "components": [
-            {
-              "__type": "ComGUIAdapterSurrogate:#EditorCommon.JsonModel.Component",
-              "classname": "GUIComponent",
-              "name": "GUIComponent",
-              "file": null,
-              "fileData": {
-                "path": "Second_1.json",
-                "plistFile": "",
-                "resourceType": 0
-              }
-            }
-          ]
-        }
-      ],
+      "gameobjects": [],
       "components": [
         {
           "__type": "ComSpriteSurrogate:#EditorCommon.JsonModel.Component",
@@ -183,7 +154,7 @@
     {
       "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
       "classname": "CCNode",
-      "name": null,
+      "name": "score",
       "canedit": true,
       "objecttag": 50003,
       "rotation": 0,
@@ -202,6 +173,34 @@
           "file": null,
           "fileData": {
             "path": "Score_1.json",
+            "plistFile": "",
+            "resourceType": 0
+          }
+        }
+      ]
+    },
+    {
+      "__type": "ComGameObjectSurrogate:#EditorCommon.JsonModel",
+      "classname": "CCNode",
+      "name": "second",
+      "canedit": true,
+      "objecttag": 50002,
+      "rotation": 0,
+      "scalex": 1,
+      "scaley": 1,
+      "visible": 1,
+      "x": 0,
+      "y": 506,
+      "zorder": 1,
+      "gameobjects": [],
+      "components": [
+        {
+          "__type": "ComGUIAdapterSurrogate:#EditorCommon.JsonModel.Component",
+          "classname": "GUIComponent",
+          "name": "GUIComponent",
+          "file": null,
+          "fileData": {
+            "path": "Second_1.json",
             "plistFile": "",
             "resourceType": 0
           }

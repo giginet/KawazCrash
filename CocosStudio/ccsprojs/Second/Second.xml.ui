@@ -19,6 +19,7 @@
   <imageFileList />
   <imagePngList>
     <string>second_bg.png</string>
+    <string>second_label.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>Second_1.json</CurrentUIJson>

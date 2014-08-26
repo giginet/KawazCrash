@@ -18,7 +18,7 @@
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList />
   <imagePngList>
-    <string>points_bg.png</string>
+    <string>score_bg.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>Score_1.json</CurrentUIJson>
