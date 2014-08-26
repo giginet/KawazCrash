@@ -26,7 +26,7 @@ const int VERTICAL_COUNT = 8;
 /// クッキーが消える個数
 const int VANISH_COUNT = 4;
 /// Stage用のNodeのタグ
-const int STAGE_TAG = 1000;
+const int FRAME_TAG = 1000;
 
 MainScene::MainScene()
 : _state(State::Ready)
@@ -103,8 +103,9 @@ bool MainScene::init()
         }
     }
     
-    auto stage = node->getChildByTag(STAGE_TAG);
-    stage->addChild(_stage, 1);
+    auto frame = node->getChildByTag(FRAME_TAG);
+    _stage->setPosition(-Vec2(Cookie::getSize() * HORIZONTAL_COUNT / 2, Cookie::getSize() * VERTICAL_COUNT / 2));
+    frame->addChild(_stage, 1);
     
     // タッチイベントの登録
     auto listener = EventListenerTouchOneByOne::create();
@@ -158,10 +159,10 @@ bool MainScene::init()
     
     this->scheduleUpdate();
     
-    auto secondLabel = node->getChildByTag(50002)->getChildren().at(0)->getChildByTag(6);
+    auto secondLabel = node->getChildByTag(3000)->getChildren().at(0)->getChildByTag(6);
     this->setSecondLabel(dynamic_cast<ui::TextAtlas *>(secondLabel));
     
-    auto scoreLabel = node->getChildByTag(50003)->getChildren().at(0)->getChildByTag(10);
+    auto scoreLabel = node->getChildByTag(2000)->getChildren().at(0)->getChildByTag(6);
     this->setScoreLabel(dynamic_cast<ui::TextAtlas *>(scoreLabel));
     
     return true;
