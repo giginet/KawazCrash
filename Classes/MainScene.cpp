@@ -32,7 +32,7 @@ MainScene::MainScene()
 : _state(State::Ready)
 ,_second(60)
 ,_score(0)
-,_comboCount(0)
+,_chainCount(0)
 ,_stage(nullptr)
 , _currentCookie(nullptr)
 ,_cue(nullptr)
@@ -104,7 +104,8 @@ bool MainScene::init()
     }
     
     auto frame = node->getChildByTag(FRAME_TAG);
-    _stage->setPosition(-Vec2(Cookie::getSize() * HORIZONTAL_COUNT / 2, Cookie::getSize() * VERTICAL_COUNT / 2));
+    _stage->setPosition(-Vec2(Cookie::getSize() * HORIZONTAL_COUNT / 2,
+                              Cookie::getSize() * VERTICAL_COUNT / 2));
     frame->addChild(_stage, 1);
     
     // タッチイベントの登録
@@ -159,10 +160,10 @@ bool MainScene::init()
     
     this->scheduleUpdate();
     
-    auto secondLabel = node->getChildByTag(3000)->getChildren().at(0)->getChildByTag(6);
+    auto secondLabel = node->getChildByTag(3000)->getChildren().at(0)->getChildByName<ui::TextAtlas *>("AtlasLabel_3");
     this->setSecondLabel(dynamic_cast<ui::TextAtlas *>(secondLabel));
     
-    auto scoreLabel = node->getChildByTag(2000)->getChildren().at(0)->getChildByTag(6);
+    auto scoreLabel = node->getChildByTag(2000)->getChildren().at(0)->getChildByName<ui::TextAtlas *>("AtlasLabel_5");
     this->setScoreLabel(dynamic_cast<ui::TextAtlas *>(scoreLabel));
     
     return true;
@@ -207,7 +208,7 @@ void MainScene::update(float dt)
             auto vanished = this->checkVanish();
             // 消えた場合、音を鳴らす
             if (vanished) {
-                float gameVariable = _comboCount * 0.125;
+                float gameVariable = _chainCount * 0.125;
                 gameVariable = MIN(1.0, gameVariable);
                 criAtomEx_SetGameVariableByName("ComboCount", gameVariable);
                 _cue->playCueByID(CRI_COOKIE_MAIN_VANISH);
@@ -294,7 +295,7 @@ void MainScene::moveCookie(Cookie *cookie, const cocos2d::Vec2& cookiePosition)
 bool MainScene::swapCookies(Cookie *cookie0, Cookie *cookie1)
 {
     // 連鎖数を0にする
-    _comboCount = 0;
+    _chainCount = 0;
     
     // 効果音を鳴らす
     _cue->playCueByID(CRI_COOKIE_MAIN_SWIPE);
@@ -378,11 +379,11 @@ bool MainScene::checkVanish()
             // 隣接してるクッキーが一定個数以上なら
             if (neighbors.size() >= VANISH_COUNT) {
                 // コンボ回数の追加
-                _comboCount += 1;
+                _chainCount += 1;
                 // スコアの追加
-                _score += 1000 * pow(3, _comboCount);
+                _score += 1000 * pow(3, _chainCount);
                 // コンボカウンターを表示
-                this->showChainCount(neighbors.getRandomObject(), _comboCount);
+                this->showChainCount(neighbors.getRandomObject(), _chainCount);
                 // 隣接してるクッキー全てを消去にする
                 for (auto neighborCookie : neighbors) {
                     this->vanishCookie(neighborCookie);
@@ -566,10 +567,10 @@ bool MainScene::isAllStatic()
                        [](Cookie* cookie) { return cookie->isStatic(); });
 }
 
-void MainScene::showChainCount(Cookie * cookie, int comboCount)
+void MainScene::showChainCount(Cookie * cookie, int count)
 {
     std::string filename;
-    if (comboCount >= 8) {
+    if (count >= 8) {
         // コンボ数が8以上なら色を変える
         filename = "Chain1.json";
     } else {
@@ -578,12 +579,11 @@ void MainScene::showChainCount(Cookie * cookie, int comboCount)
     auto chainCount = cocostudio::GUIReader::getInstance()->widgetFromJsonFile(filename.c_str());
     chainCount->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     ui::TextAtlas * atlas = dynamic_cast<ui::TextAtlas *>(chainCount->getChildByTag(6));
-    atlas->setString(StringUtils::toString(comboCount));
+    atlas->setString(StringUtils::toString(count));
     chainCount->setPosition(cookie->getParent()->convertToWorldSpace(cookie->getPosition()));
     chainCount->setScale(0);
     this->addChild(chainCount, 1000);
     
-    // ToDo アニメーションはcocoStudio側で持たせた方が綺麗かも！
     chainCount->runAction(Sequence::create(ScaleTo::create(0.2, 1.0),
                                            DelayTime::create(1.0),
                                            ScaleTo::create(0.2, 0),

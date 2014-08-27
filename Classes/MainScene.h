@@ -12,6 +12,7 @@
 #include "cocos2d.h"
 #include "cri_adx2le.h"
 #include "ui/UITextAtlas.h"
+#include "cocostudio/CCActionManagerEx.h"
 
 #include "Cookie.h"
 #include "ADX2Manager.h"
@@ -119,11 +120,11 @@ private:
      *  @param cookie クッキー
      *  @param comboCount コンボ数
      */
-    void showChainCount(Cookie *cookie, int comboCount);
+    void showChainCount(Cookie *cookie, int chainCount);
     
     CREATE_FUNC(MainScene);
     CC_SYNTHESIZE(float, _second, Second);
-    CC_SYNTHESIZE(int, _comboCount, ComboCount);
+    CC_SYNTHESIZE(int, _chainCount, ChainCount);
     CC_SYNTHESIZE(int, _score, Score);
     CC_SYNTHESIZE_PASS_BY_REF(CookieVector, _cookies, Cookies);
     CC_SYNTHESIZE(State, _state, State);
