@@ -26,7 +26,7 @@ const int VERTICAL_COUNT = 8;
 /// クッキーが消える個数
 const int VANISH_COUNT = 4;
 /// Stage用のNodeのタグ
-const int STAGE_TAG = 50000;
+const int FRAME_TAG = 1000;
 
 MainScene::MainScene()
 : _state(State::Ready)
@@ -103,8 +103,9 @@ bool MainScene::init()
         }
     }
     
-    auto stage = node->getChildByTag(STAGE_TAG);
-    stage->addChild(_stage, 1);
+    auto frame = node->getChildByTag(FRAME_TAG);
+    _stage->setPosition(-Vec2(Cookie::getSize() * HORIZONTAL_COUNT / 2, Cookie::getSize() * VERTICAL_COUNT / 2));
+    frame->addChild(_stage, 1);
     
     // タッチイベントの登録
     auto listener = EventListenerTouchOneByOne::create();
@@ -158,10 +159,10 @@ bool MainScene::init()
     
     this->scheduleUpdate();
     
-    auto secondLabel = node->getChildByTag(50002)->getChildren().at(0)->getChildByTag(6);
+    auto secondLabel = node->getChildByTag(3000)->getChildren().at(0)->getChildByTag(6);
     this->setSecondLabel(dynamic_cast<ui::TextAtlas *>(secondLabel));
     
-    auto scoreLabel = node->getChildByTag(50003)->getChildren().at(0)->getChildByTag(6);
+    auto scoreLabel = node->getChildByTag(2000)->getChildren().at(0)->getChildByTag(6);
     this->setScoreLabel(dynamic_cast<ui::TextAtlas *>(scoreLabel));
     
     return true;
@@ -199,7 +200,7 @@ void MainScene::update(float dt)
         
         // クッキーの生成
         this->checkSpawn();
-    
+        
         // 全てのクッキーが停止しているとき
         if (this->isAllStatic()) {
             // 既に揃ってるのを消す
@@ -212,28 +213,32 @@ void MainScene::update(float dt)
                 _cue->playCueByID(CRI_COOKIE_MAIN_VANISH);
             }
             
+            auto canVanish = false;
             // 次にどれも消えなさそうだったらランダムに2列消す
             for (Cookie * cookie : _cookies) {
                 if (cookie && this->canVanishNext(cookie)) {
                     // どれか消えそうなら探索を打ち切る
-                    return;
+                    canVanish = true;
+                    break;
                 }
             }
-            // もしどれも消えなかったとき、ランダムに2列を選んで消去する
-            auto baseX = rand() % HORIZONTAL_COUNT;
-            auto otherX = (rand() % (HORIZONTAL_COUNT - 1) + baseX) % HORIZONTAL_COUNT;
-            for (int y = 0; y < VERTICAL_COUNT; ++y) {
-                this->vanishCookie(this->getCookieAt(Vec2(baseX, y)));
-                this->vanishCookie(this->getCookieAt(Vec2(otherX, y)));
+            if (!canVanish) {
+                // もしどれも消えなかったとき、ランダムに2列を選んで消去する
+                auto baseX = rand() % HORIZONTAL_COUNT;
+                auto otherX = (rand() % (HORIZONTAL_COUNT - 1) + baseX) % HORIZONTAL_COUNT;
+                for (int y = 0; y < VERTICAL_COUNT; ++y) {
+                    this->vanishCookie(this->getCookieAt(Vec2(baseX, y)));
+                    this->vanishCookie(this->getCookieAt(Vec2(otherX, y)));
+                }
             }
         }
         
         // スコアの更新
-        _scoreLabel->setString(StringUtils::toString((int)_score));
+        _scoreLabel->setString(StringUtils::toString(_score));
         
         // 残り時間の更新
         _second -= dt;
-        _secondLabel->setString(StringUtils::toString((int)_second));
+        _secondLabel->setString(StringUtils::toString(floor(_second)));
         
         if (_second <= 0) {
             setState(State::Result);
@@ -566,13 +571,13 @@ void MainScene::showChainCount(Cookie * cookie, int comboCount)
     std::string filename;
     if (comboCount >= 8) {
         // コンボ数が8以上なら色を変える
-        filename = "Chain1_1.json";
+        filename = "Chain1.json";
     } else {
-        filename = "Chain0_1.json";
+        filename = "Chain0.json";
     }
     auto chainCount = cocostudio::GUIReader::getInstance()->widgetFromJsonFile(filename.c_str());
     chainCount->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-    ui::TextAtlas * atlas = dynamic_cast<ui::TextAtlas *>(chainCount->getChildByTag(8));
+    ui::TextAtlas * atlas = dynamic_cast<ui::TextAtlas *>(chainCount->getChildByTag(6));
     atlas->setString(StringUtils::toString(comboCount));
     chainCount->setPosition(cookie->getParent()->convertToWorldSpace(cookie->getPosition()));
     chainCount->setScale(0);
