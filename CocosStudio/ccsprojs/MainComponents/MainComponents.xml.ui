@@ -20,13 +20,7 @@
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList />
-  <imagePngList>
-    <string>second_bg.png</string>
-    <string>second_label.png</string>
-    <string>score_bg.png</string>
-    <string>chain0.png</string>
-    <string>chain1.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>Chain1.json</CurrentUIJson>
+  <CurrentUIJson />
 </UIProject>
