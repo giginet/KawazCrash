@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		0711EDA5195D7EB500426098 /* ADX2Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0711EDA1195D7EB500426098 /* ADX2Manager.cpp */; };
 		0711EDA6195D7EB500426098 /* ADX2Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0711EDA1195D7EB500426098 /* ADX2Manager.cpp */; };
-		0711EDA7195D7EB500426098 /* Cue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0711EDA3195D7EB500426098 /* Cue.cpp */; };
-		0711EDA8195D7EB500426098 /* Cue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0711EDA3195D7EB500426098 /* Cue.cpp */; };
+		0711EDA7195D7EB500426098 /* CueSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0711EDA3195D7EB500426098 /* CueSheet.cpp */; };
+		0711EDA8195D7EB500426098 /* CueSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0711EDA3195D7EB500426098 /* CueSheet.cpp */; };
 		072319A819531B7300B0103D /* Cookie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 072319A419531B7300B0103D /* Cookie.cpp */; };
 		072319A919531B7300B0103D /* Cookie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 072319A419531B7300B0103D /* Cookie.cpp */; };
 		072319AA19531B7300B0103D /* MainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 072319A619531B7300B0103D /* MainScene.cpp */; };
@@ -235,8 +235,8 @@
 /* Begin PBXFileReference section */
 		0711EDA1195D7EB500426098 /* ADX2Manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ADX2Manager.cpp; sourceTree = "<group>"; };
 		0711EDA2195D7EB500426098 /* ADX2Manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADX2Manager.h; sourceTree = "<group>"; };
-		0711EDA3195D7EB500426098 /* Cue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cue.cpp; sourceTree = "<group>"; };
-		0711EDA4195D7EB500426098 /* Cue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cue.h; sourceTree = "<group>"; };
+		0711EDA3195D7EB500426098 /* CueSheet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CueSheet.cpp; sourceTree = "<group>"; };
+		0711EDA4195D7EB500426098 /* CueSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CueSheet.h; sourceTree = "<group>"; };
 		072319A419531B7300B0103D /* Cookie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Cookie.cpp; path = ../Classes/Cookie.cpp; sourceTree = "<group>"; };
 		072319A519531B7300B0103D /* Cookie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cookie.h; path = ../Classes/Cookie.h; sourceTree = "<group>"; };
 		072319A619531B7300B0103D /* MainScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MainScene.cpp; path = ../Classes/MainScene.cpp; sourceTree = "<group>"; };
@@ -375,8 +375,8 @@
 			children = (
 				0711EDA1195D7EB500426098 /* ADX2Manager.cpp */,
 				0711EDA2195D7EB500426098 /* ADX2Manager.h */,
-				0711EDA3195D7EB500426098 /* Cue.cpp */,
-				0711EDA4195D7EB500426098 /* Cue.h */,
+				0711EDA3195D7EB500426098 /* CueSheet.cpp */,
+				0711EDA4195D7EB500426098 /* CueSheet.h */,
 			);
 			name = ADX2;
 			path = ../Classes/ADX2;
@@ -829,7 +829,7 @@
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
 				072319A819531B7300B0103D /* Cookie.cpp in Sources */,
-				0711EDA7195D7EB500426098 /* Cue.cpp in Sources */,
+				0711EDA7195D7EB500426098 /* CueSheet.cpp in Sources */,
 				072319AA19531B7300B0103D /* MainScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 			);
@@ -842,7 +842,7 @@
 				5087E75717EB910900C73F5D /* AppDelegate.cpp in Sources */,
 				072319AB19531B7300B0103D /* MainScene.cpp in Sources */,
 				072319A919531B7300B0103D /* Cookie.cpp in Sources */,
-				0711EDA8195D7EB500426098 /* Cue.cpp in Sources */,
+				0711EDA8195D7EB500426098 /* CueSheet.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				0711EDA6195D7EB500426098 /* ADX2Manager.cpp in Sources */,
 			);

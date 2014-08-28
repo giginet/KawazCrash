@@ -1,28 +1,28 @@
 //
-//  Cue.cpp
+//  CueSheet.cpp
 //  CcAdx2Basic
 //
 //  Created by giginet on 2014/6/27.
 //
 //
 
-#include "Cue.h"
+#include "CueSheet.h"
 #include "ADX2Manager.h"
 
 namespace ADX2 {
     
-    Cue::Cue() : _acb(nullptr)
+    CueSheet::CueSheet() : _acb(nullptr)
     {
     }
     
-    Cue* Cue::create(const char *acf, const char *acb)
+    CueSheet* CueSheet::create(const char *acf, const char *acb)
     {
-        return Cue::create(acf, acb, nullptr);
+        return CueSheet::create(acf, acb, nullptr);
     }
     
-    Cue* Cue::create(const char *acf, const char *acb, const char *awb)
+    CueSheet* CueSheet::create(const char *acf, const char *acb, const char *awb)
     {
-        auto cue = new Cue();
+        auto cue = new CueSheet();
         if (cue && cue->initWithFile(acf, acb, awb)) {
             cue->autorelease();
             return cue;
@@ -31,7 +31,7 @@ namespace ADX2 {
         return nullptr;
     }
     
-    bool Cue::initWithFile(const char* acf, const char* acb, const char* awb)
+    bool CueSheet::initWithFile(const char* acf, const char* acb, const char* awb)
     {
         
         auto fp = [](const char* filename)
@@ -57,37 +57,37 @@ namespace ADX2 {
         return true;
     }
     
-    Cue::~Cue()
+    CueSheet::~CueSheet()
     {
         criAtomExAcb_Release(_acb);
     }
     
-    CriAtomExPlaybackId Cue::playCueByID(CriAtomExCueId cueID)
+    CriAtomExPlaybackId CueSheet::playCueByID(CriAtomExCueId cueID)
     {
-        auto player = ADX2Manager::getInstance()->_player;
+        auto player = ADX2Manager::getInstance()->getDefaultPlayer();
         criAtomExPlayer_SetCueId(player, _acb, cueID);
         
-        int64_t playbackID = criAtomExPlayer_Start(player);
+        CriAtomExPlaybackId playbackID = criAtomExPlayer_Start(player);
         
         return playbackID;
     }
     
-    void Cue::stop(CriAtomExPlaybackId playbackID)
+    void CueSheet::stop(CriAtomExPlaybackId playbackID)
     {
         criAtomExPlayback_Stop(playbackID);
     }
     
-    const char* Cue::getCueName(CriAtomExCueId cueID)
+    const char* CueSheet::getCueName(CriAtomExCueId cueID)
     {
         return criAtomExAcb_GetCueNameById(_acb, cueID);
     }
     
-    int64_t Cue::getTime(CriAtomExPlaybackId playbackID)
+    int64_t CueSheet::getTime(CriAtomExPlaybackId playbackID)
     {
         return criAtomExPlayback_GetTime(playbackID);
     }
     
-    CriAtomExPlaybackStatus Cue::getStatus(CriAtomExPlaybackId playbackID)
+    CriAtomExPlaybackStatus CueSheet::getStatus(CriAtomExPlaybackId playbackID)
     {
         return criAtomExPlayback_GetStatus(playbackID);
     }
