@@ -9,7 +9,7 @@
 #ifndef __CcAdx2Basic__Cue__
 #define __CcAdx2Basic__Cue__
 
-#include <iostream>
+#include "ADX2Manager.h"
 #include "cri_adx2le.h"
 #include "cocos2d.h"
 

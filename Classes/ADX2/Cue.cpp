@@ -7,7 +7,6 @@
 //
 
 #include "Cue.h"
-#include "ADX2Manager.h"
 
 namespace ADX2 {
     

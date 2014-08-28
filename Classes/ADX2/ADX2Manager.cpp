@@ -7,6 +7,7 @@
 //
 
 #include "ADX2Manager.h"
+#include "cocos2d.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #include <AudioToolbox/AudioSession.h>
@@ -20,14 +21,13 @@ namespace ADX2 {
     
     ADX2Manager* ADX2Manager::initialize(CriAtomExPlayerConfig playerConfig, CriAtomExStandardVoicePoolConfig voicePoolConfig)
     {
+        assert(_instance == nullptr);
         _instance = new ADX2Manager(playerConfig, voicePoolConfig);
-        
         return _instance;
     }
     
     ADX2Manager* ADX2Manager::initialize()
     {
-        assert(_instance == nullptr);
         CriAtomExStandardVoicePoolConfig voicePoolConfig;
         CriAtomExPlayerConfig playerConfig;
         return ADX2Manager::initialize(playerConfig, voicePoolConfig);

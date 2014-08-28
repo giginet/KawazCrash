@@ -10,9 +10,7 @@
 #define __CcAdx2Basic__ADX2Manager__
 
 #include <iostream>
-#include "cocos2d.h"
 #include "cri_adx2le.h"
-#include "Cue.h"
 
 namespace ADX2 {
     
