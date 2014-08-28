@@ -90,7 +90,7 @@ bool MainScene::init()
     node->setPosition(Vec2(0, -(sceneHeight - winSize.height)));
     this->addChild(node);
     
-    auto cue = ADX2::Cue::getInstance()->loadWithCueFile("adx2/cookie/cookie_crush.acf", "adx2/cookie/cookie_main.acb");
+    auto cue = ADX2::Cue::create("adx2/cookie/cookie_crush.acf", "adx2/cookie/cookie_main.acb");
     this->setCue(cue);
     
     this->setStage(Node::create());

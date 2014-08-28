@@ -15,7 +15,7 @@
 #include "cocostudio/CCActionManagerEx.h"
 
 #include "Cookie.h"
-#include "Cue.h"
+#include "ADX2Manager.h"
 
 typedef cocos2d::Vector<Cookie *> CookieVector;
 

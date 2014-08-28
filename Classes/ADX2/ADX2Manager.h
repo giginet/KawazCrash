@@ -10,7 +10,9 @@
 #define __CcAdx2Basic__ADX2Manager__
 
 #include <iostream>
+#include "cocos2d.h"
 #include "cri_adx2le.h"
+#include "Cue.h"
 
 namespace ADX2 {
     
@@ -27,17 +29,16 @@ namespace ADX2 {
         ADX2Manager(CriAtomExPlayerConfig playerConfig,
                     CriAtomExStandardVoicePoolConfig voicePoolConfig);
      public:
+        friend Cue;
+        
         virtual ~ADX2Manager();
         
         static ADX2Manager* initialize();
-        static ADX2Manager* initialize(CriAtomExPlayerConfig playerConfig,
-                                       CriAtomExStandardVoicePoolConfig voicePoolConfig);
+        static ADX2Manager* initialize(CriAtomExPlayerConfig playerConfig, CriAtomExStandardVoicePoolConfig voicePoolConfig);
         static ADX2Manager* getInstance();
-        
-        CriAtomExPlayerHn getDefaultPlayer() {
+        CriAtomExPlayerHn getPlayer() {
             return _player;
         }
-        
         void update();
         void stopAll();
         int getVoiceNum();
