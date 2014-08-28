@@ -1,3 +1,6 @@
 [submodule "adx2"]
 	path = adx2
 	url = git@gitlab.kawaz.org:giginet/adx2-for-cocos2d-x.git
+[submodule "Classes/ADX2Manager"]
+	path = Classes/ADX2Manager
+	url = git@gitlab.kawaz.org:cocos-book/ccadx2manager.git

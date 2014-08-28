@@ -51,7 +51,7 @@ MainScene::MainScene()
     pf_config.max_path_strings = 1;
     pf_config.max_path = 256;
     
-    ADX2::ADX2Manager::initialize(pf_config, vp_config);
+    ADX2::Manager::initialize(pf_config, vp_config);
 }
 
 MainScene::~MainScene()
@@ -62,7 +62,7 @@ MainScene::~MainScene()
     CC_SAFE_RELEASE_NULL(_scoreLabel);
     CC_SAFE_RELEASE_NULL(_secondLabel);
     // ADX2を終了します
-    ADX2::ADX2Manager::finalize();
+    ADX2::Manager::finalize();
 }
 
 Scene* MainScene::createScene()
@@ -190,7 +190,7 @@ void MainScene::onEnterTransitionDidFinish()
 void MainScene::update(float dt)
 {
     // ADX2を更新する
-    ADX2::ADX2Manager::getInstance()->update();
+    ADX2::Manager::getInstance()->update();
     
     // 全クッキーに対して落下を判定する
     for (auto cookie : _cookies) {
