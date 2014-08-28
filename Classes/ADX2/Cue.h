@@ -16,25 +16,29 @@
 namespace ADX2 {
     
     class Cue :public cocos2d::Ref {
-     private:
+    private:
         /// 波形データバンクのハンドル
         CriAtomExAcbHn _acb;
-     
-     CC_CONSTRUCTOR_ACCESS:
+        static Cue* _instance;
+        
+    CC_CONSTRUCTOR_ACCESS:
         
         Cue();
-        
-        /**
-         *  ファイルからCueSheetを初期化します
-         *  @param acfのファイル名
-         *  @param acbのファイル名
-         *  @param awbのファイル名
-         */
-        bool initWithFile(const char* acf, const char* acb, const char* awb);
-    
         virtual ~Cue();
         
-     public:
+    public:
+        
+        static Cue * getInstance();
+        static void destroyInstance();
+        
+        /**
+         * CueSheetをファイルから初期化します
+         * @param acf ACFファイル
+         * @param acb ACBファイル
+         * @param awb AWBファイル
+         */
+        Cue* loadWithCueFile(const char* acf, const char* acb, const char* awb);
+        Cue* loadWithCueFile(const char* acf, const char* acb);
         
         /**
          *  CueSheet内の指定IDの音声データを鳴らします
@@ -42,10 +46,6 @@ namespace ADX2 {
          *  @return 再生されたサウンドのPlaybackID
          */
         CriAtomExPlaybackId playCueByID(CriAtomExCueId cueID);
-    
-        static Cue* create(const char* acf, const char* acb, const char* awb);
-        
-        static Cue* create(const char* acf, const char* acb);
         
         /**
          *  指定したPlaybackIDのサウンドを停止します

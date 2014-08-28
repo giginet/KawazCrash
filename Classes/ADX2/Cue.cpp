@@ -11,50 +11,51 @@
 
 namespace ADX2 {
     
-    Cue::Cue() : _acb(nullptr)
-    {
-    }
+    Cue * Cue::_instance = nullptr;
     
-    Cue* Cue::create(const char *acf, const char *acb)
+    Cue * Cue::getInstance()
     {
-        return Cue::create(acf, acb, nullptr);
-    }
-    
-    Cue* Cue::create(const char *acf, const char *acb, const char *awb)
-    {
-        auto cue = new Cue();
-        if (cue && cue->initWithFile(acf, acb, awb)) {
-            cue->autorelease();
-            return cue;
+        if (!_instance) {
+            _instance = new Cue();
         }
-        CC_SAFE_DELETE(cue);
-        return nullptr;
+        return _instance;
     }
     
-    bool Cue::initWithFile(const char* acf, const char* acb, const char* awb)
+    void Cue::destroyInstance()
     {
+        CC_SAFE_RELEASE_NULL(_instance);
+    }
+    
+    Cue::Cue()
+    : _acb(nullptr)
+    {
+    }
+    
+    Cue * Cue::loadWithCueFile(const char *acf, const char *acb)
+    {
+        return this->loadWithCueFile(acf, acb, "");
+    }
+    
+    Cue * Cue::loadWithCueFile(const char *acf, const char *acb, const char *awb)
+    {
+        if (_acb) {
+            criAtomExAcb_Release(_acb);
+        }
         
-        auto fp = [](const char* filename)
-        {
-            return cocos2d::FileUtils::getInstance()->fullPathForFilename(filename);
-        };
+        auto util = cocos2d::FileUtils::getInstance();
         
-        auto acfPath = fp(acf);
-        auto acbPath = fp(acb);
+        auto acfPath = util->fullPathForFilename(acf);
+        auto acbPath = util->fullPathForFilename(acb);
         
         criAtomEx_RegisterAcfFile(NULL, acfPath.c_str(), NULL, 0);
         if (awb) {
-            auto awbPath = fp(awb);
+            auto awbPath = util->fullPathForFilename(awb);
             _acb = criAtomExAcb_LoadAcbFile(NULL, acbPath.c_str(), NULL, awbPath.c_str(), NULL, 0);
         } else {
             _acb = criAtomExAcb_LoadAcbFile(NULL, acbPath.c_str(), NULL, NULL, NULL, 0);
         }
         
-        if (_acb == nullptr) {
-            return false;
-        }
-        
-        return true;
+        return this;
     }
     
     Cue::~Cue()
@@ -64,7 +65,7 @@ namespace ADX2 {
     
     CriAtomExPlaybackId Cue::playCueByID(CriAtomExCueId cueID)
     {
-        auto player = ADX2Manager::getInstance()->_player;
+        auto player = ADX2Manager::getInstance()->getDefaultPlayer();
         criAtomExPlayer_SetCueId(player, _acb, cueID);
         
         int64_t playbackID = criAtomExPlayer_Start(player);

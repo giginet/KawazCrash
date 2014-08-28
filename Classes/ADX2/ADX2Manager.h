@@ -29,16 +29,17 @@ namespace ADX2 {
         ADX2Manager(CriAtomExPlayerConfig playerConfig,
                     CriAtomExStandardVoicePoolConfig voicePoolConfig);
      public:
-        friend Cue;
-        
         virtual ~ADX2Manager();
         
         static ADX2Manager* initialize();
-        static ADX2Manager* initialize(CriAtomExPlayerConfig playerConfig, CriAtomExStandardVoicePoolConfig voicePoolConfig);
+        static ADX2Manager* initialize(CriAtomExPlayerConfig playerConfig,
+                                       CriAtomExStandardVoicePoolConfig voicePoolConfig);
         static ADX2Manager* getInstance();
-        CriAtomExPlayerHn getPlayer() {
+        
+        CriAtomExPlayerHn getDefaultPlayer() {
             return _player;
         }
+        
         void update();
         void stopAll();
         int getVoiceNum();
