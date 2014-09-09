@@ -58,11 +58,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
             }
             searchResolutionOrder.push_back("images/retina");
         } else { // non-Retina 3.5インチ
-            glview->setDesignResolutionSize(320, 480, ResolutionPolicy::NO_BORDER);
+            glview->setDesignResolutionSize(320, 480, ResolutionPolicy::SHOW_ALL);
         }
     } else if (platform == Platform::OS_ANDROID) {
         // Android端末のとき
-        glview->setDesignResolutionSize(320, 480, ResolutionPolicy::NO_BORDER);
+        glview->setDesignResolutionSize(320, 480, ResolutionPolicy::SHOW_ALL);
     }
     searchResolutionOrder.push_back("images/nonretina");
     // 画像の読み込み順を設定する
@@ -83,6 +83,11 @@ void AppDelegate::applicationDidEnterBackground() {
     
     // if you use SimpleAudioEngine, it must be pause
     // SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    // サスペンド時は音声を一時停止
+    criAtomEx_StopSound_ANDROID();
+#endif
 }
 
 // this function will be called when the app is active again
@@ -91,4 +96,9 @@ void AppDelegate::applicationWillEnterForeground() {
     
     // if you use SimpleAudioEngine, it must resume here
     // SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    // リジューム時は音声を再開
+    criAtomEx_StartSound_ANDROID();
+#endif
 }
