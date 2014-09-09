@@ -253,6 +253,7 @@ void MainScene::update(float dt)
                                                   RemoveSelf::create(),
                                                   NULL));
             this->addChild(gamestart, 2);
+            _secondLabel->setString("0");
         }
     }
 }
