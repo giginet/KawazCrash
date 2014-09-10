@@ -4,3 +4,6 @@
 [submodule "Classes/ADX2Manager"]
 	path = Classes/ADX2Manager
 	url = git@gitlab.kawaz.org:cocos-book/ccadx2manager.git
+[submodule "Classes/external/SpriteStudio"]
+	path = Classes/external/SpriteStudio
+	url = https://github.com/giginet/SpriteStudio5-SDK.git

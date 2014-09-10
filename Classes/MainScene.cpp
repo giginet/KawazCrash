@@ -8,6 +8,7 @@
 
 #include "MainScene.h"
 #include "Cookie.h"
+#include "SS5Player.h"
 #include <algorithm>
 #include "Cocostudio/cocostudio.h"
 
@@ -165,6 +166,16 @@ bool MainScene::init()
     
     auto scoreLabel = node->getChildByTag(2000)->getChildren().at(0)->getChildByName<ui::TextAtlas *>("AtlasLabel_5");
     this->setScoreLabel(dynamic_cast<ui::TextAtlas *>(scoreLabel));
+    
+    // アニメーションの作成
+    auto kawaztan = ss::ResourceManager::getInstance();
+    kawaztan->addData("kawaz.ssbp");
+    
+    auto player = ss::Player::create();
+    player->setData("kawaz");        // ssbpファイル名（拡張子不要）
+    player->play("walking");       // アニメーション名を指定(ssae名/アニメーション名も可能、詳しくは後述)
+    player->setPosition(200, 200);
+    this->addChild(player, 100);
     
     return true;
 }
