@@ -130,7 +130,7 @@ private:
     CC_SYNTHESIZE(State, _state, State);
     CC_SYNTHESIZE_RETAIN(cocos2d::Node*, _stage, Stage);
     CC_SYNTHESIZE_RETAIN(Cookie *, _currentCookie, CurrentCookie);
-    CC_SYNTHESIZE_RETAIN(ADX2::Cue *, _cue, Cue);
+    CC_SYNTHESIZE_RETAIN(ADX2::CueSheet *, _cueSheet, CueSheet);
     CC_SYNTHESIZE_RETAIN(cocos2d::ui::TextAtlas *, _scoreLabel, ScoreLabel);
     CC_SYNTHESIZE_RETAIN(cocos2d::ui::TextAtlas *, _secondLabel, SecondLabel);
 };

@@ -35,7 +35,7 @@ MainScene::MainScene()
 ,_chainCount(0)
 ,_stage(nullptr)
 , _currentCookie(nullptr)
-,_cue(nullptr)
+,_cueSheet(nullptr)
 ,_scoreLabel(nullptr)
 ,_secondLabel(nullptr)
 {
@@ -51,18 +51,18 @@ MainScene::MainScene()
     pf_config.max_path_strings = 1;
     pf_config.max_path = 256;
     
-    ADX2::ADX2Manager::initialize(pf_config, vp_config);
+    ADX2::Manager::initialize(pf_config, vp_config);
 }
 
 MainScene::~MainScene()
 {
     CC_SAFE_RELEASE_NULL(_stage);
     CC_SAFE_RELEASE_NULL(_currentCookie);
-    CC_SAFE_RELEASE_NULL(_cue);
+    CC_SAFE_RELEASE_NULL(_cueSheet);
     CC_SAFE_RELEASE_NULL(_scoreLabel);
     CC_SAFE_RELEASE_NULL(_secondLabel);
     // ADX2を終了します
-    ADX2::ADX2Manager::finalize();
+    ADX2::Manager::finalize();
 }
 
 Scene* MainScene::createScene()
@@ -90,8 +90,8 @@ bool MainScene::init()
     node->setPosition(Vec2(0, -(sceneHeight - winSize.height)));
     this->addChild(node);
     
-    auto cue = ADX2::Cue::create("adx2/cookie/cookie_crush.acf", "adx2/cookie/cookie_main.acb");
-    this->setCue(cue);
+    auto cueSheet = ADX2::CueSheet::create("adx2/cookie/cookie_crush.acf", "adx2/cookie/cookie_main.acb");
+    this->setCueSheet(cueSheet);
     
     this->setStage(Node::create());
     
@@ -172,7 +172,7 @@ bool MainScene::init()
 void MainScene::onEnterTransitionDidFinish()
 {
     Layer::onEnterTransitionDidFinish();
-    _cue->playCueByID(CRI_COOKIE_MAIN_BGM);
+    _cueSheet->playCueByID(CRI_COOKIE_MAIN_BGM);
     
     auto gamestart = Sprite::create("gamestart.png");
     auto winSize = Director::getInstance()->getWinSize();
@@ -190,7 +190,7 @@ void MainScene::onEnterTransitionDidFinish()
 void MainScene::update(float dt)
 {
     // ADX2を更新する
-    ADX2::ADX2Manager::getInstance()->update();
+    ADX2::Manager::getInstance()->update();
     
     // 全クッキーに対して落下を判定する
     for (auto cookie : _cookies) {
@@ -211,7 +211,7 @@ void MainScene::update(float dt)
                 float gameVariable = _chainCount * 0.125;
                 gameVariable = MIN(1.0, gameVariable);
                 criAtomEx_SetGameVariableByName("ComboCount", gameVariable);
-                _cue->playCueByID(CRI_COOKIE_MAIN_VANISH);
+                _cueSheet->playCueByID(CRI_COOKIE_MAIN_VANISH);
             }
             
             auto canVanish = false;
@@ -298,7 +298,7 @@ bool MainScene::swapCookies(Cookie *cookie0, Cookie *cookie1)
     _chainCount = 0;
     
     // 効果音を鳴らす
-    _cue->playCueByID(CRI_COOKIE_MAIN_SWIPE);
+    _cueSheet->playCueByID(CRI_COOKIE_MAIN_SWIPE);
     
     // 画面上の位置を取得しておく
     auto position0 = cookie0->getPosition();
