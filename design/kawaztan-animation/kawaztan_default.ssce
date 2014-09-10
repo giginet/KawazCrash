@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<SpriteStudioCellMap version="1.00.01">
+	<name>kawaztan_default</name>
+	<exportPath></exportPath>
+	<generator>SpriteStudio</generator>
+	<packed>0</packed>
+	<imagePath>kawaztan_default.png</imagePath>
+	<pixelSize>1024 1024</pixelSize>
+	<overrideTexSettings>0</overrideTexSettings>
+	<wrapMode>clamp</wrapMode>
+	<filterMode>linear</filterMode>
+	<imagePathAtImport>/Users/uedamaiko/Desktop/kawaztan-animation/kawaztan_default.png</imagePathAtImport>
+	<packInfoFilePath></packInfoFilePath>
+	<texPackSettings>
+		<maxSize>4096 4096</maxSize>
+		<forcePo2>1</forcePo2>
+		<forceSquare>0</forceSquare>
+		<margin>0</margin>
+		<padding>1</padding>
+	</texPackSettings>
+	<cells>
+		<cell>
+			<name>right-hair</name>
+			<pos>223 0</pos>
+			<size>164 321</size>
+			<pivot>0.158536583185196 0.219626173377037</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>left-hair</name>
+			<pos>0 0</pos>
+			<size>162 321</size>
+			<pivot>-0.185185179114342 0.219626173377037</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>maegami</name>
+			<pos>0 405</pos>
+			<size>271 205</size>
+			<pivot>0.0018450184725225 0.00243902439251542</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>face</name>
+			<pos>343 406</pos>
+			<size>283 321</size>
+			<pivot>0.00176678446587175 0.00155763234943151</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>eye</name>
+			<pos>252 803</pos>
+			<size>169 93</size>
+			<pivot>0.0029585799202323 0.00537634408101439</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>mouth</name>
+			<pos>249 970</pos>
+			<size>69 43</size>
+			<pivot>0.00724637694656849 0.0116279069334269</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>body</name>
+			<pos>499 803</pos>
+			<size>154 211</size>
+			<pivot>0 0.00236966833472252</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>hip</name>
+			<pos>735 656</pos>
+			<size>130 87</size>
+			<pivot>0 0.00574712641537189</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>left-arm</name>
+			<pos>708 326</pos>
+			<size>178 246</size>
+			<pivot>0 0</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>right-arm</name>
+			<pos>687 0</pos>
+			<size>179 261</size>
+			<pivot>0.00279329600743949 0.00191570876631886</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>leg</name>
+			<pos>458 0</pos>
+			<size>160 288</size>
+			<pivot>0.00331125827506185 0.00173010386060923</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+	</cells>
+</SpriteStudioCellMap>
