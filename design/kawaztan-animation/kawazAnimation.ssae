@@ -96,7 +96,7 @@
 				<expandChildren>1</expandChildren>
 			</value>
 			<value>
-				<name>hip</name>
+				<name>arm3</name>
 				<arrayIndex>4</arrayIndex>
 				<parentIndex>0</parentIndex>
 				<type>normal</type>
@@ -116,9 +116,9 @@
 				<expandChildren>1</expandChildren>
 			</value>
 			<value>
-				<name>leg-right</name>
+				<name>arm4</name>
 				<arrayIndex>5</arrayIndex>
-				<parentIndex>0</parentIndex>
+				<parentIndex>4</parentIndex>
 				<type>normal</type>
 				<boundsType>none</boundsType>
 				<inheritType>parent</inheritType>
@@ -136,7 +136,7 @@
 				<expandChildren>1</expandChildren>
 			</value>
 			<value>
-				<name>leg-left</name>
+				<name>hip</name>
 				<arrayIndex>6</arrayIndex>
 				<parentIndex>0</parentIndex>
 				<type>normal</type>
@@ -156,7 +156,7 @@
 				<expandChildren>1</expandChildren>
 			</value>
 			<value>
-				<name>body</name>
+				<name>leg-right</name>
 				<arrayIndex>7</arrayIndex>
 				<parentIndex>0</parentIndex>
 				<type>normal</type>
@@ -176,7 +176,7 @@
 				<expandChildren>1</expandChildren>
 			</value>
 			<value>
-				<name>face</name>
+				<name>leg-left</name>
 				<arrayIndex>8</arrayIndex>
 				<parentIndex>0</parentIndex>
 				<type>normal</type>
@@ -196,9 +196,49 @@
 				<expandChildren>1</expandChildren>
 			</value>
 			<value>
-				<name>maegami</name>
+				<name>body</name>
 				<arrayIndex>9</arrayIndex>
-				<parentIndex>8</parentIndex>
+				<parentIndex>0</parentIndex>
+				<type>normal</type>
+				<boundsType>none</boundsType>
+				<inheritType>parent</inheritType>
+				<ineheritRates>
+					<FLPH>0</FLPH>
+					<FLPV>0</FLPV>
+					<HIDE>0</HIDE>
+					<IFLH>0</IFLH>
+					<IFLV>0</IFLV>
+				</ineheritRates>
+				<alphaBlendType>mix</alphaBlendType>
+				<show>1</show>
+				<locked>0</locked>
+				<expandAttribute>0</expandAttribute>
+				<expandChildren>1</expandChildren>
+			</value>
+			<value>
+				<name>face</name>
+				<arrayIndex>10</arrayIndex>
+				<parentIndex>0</parentIndex>
+				<type>normal</type>
+				<boundsType>none</boundsType>
+				<inheritType>parent</inheritType>
+				<ineheritRates>
+					<FLPH>0</FLPH>
+					<FLPV>0</FLPV>
+					<HIDE>0</HIDE>
+					<IFLH>0</IFLH>
+					<IFLV>0</IFLV>
+				</ineheritRates>
+				<alphaBlendType>mix</alphaBlendType>
+				<show>1</show>
+				<locked>0</locked>
+				<expandAttribute>0</expandAttribute>
+				<expandChildren>1</expandChildren>
+			</value>
+			<value>
+				<name>maegami</name>
+				<arrayIndex>11</arrayIndex>
+				<parentIndex>10</parentIndex>
 				<type>normal</type>
 				<boundsType>none</boundsType>
 				<inheritType>parent</inheritType>
@@ -217,8 +257,8 @@
 			</value>
 			<value>
 				<name>eye</name>
-				<arrayIndex>10</arrayIndex>
-				<parentIndex>8</parentIndex>
+				<arrayIndex>12</arrayIndex>
+				<parentIndex>10</parentIndex>
 				<type>normal</type>
 				<boundsType>none</boundsType>
 				<inheritType>parent</inheritType>
@@ -237,8 +277,8 @@
 			</value>
 			<value>
 				<name>mouth</name>
-				<arrayIndex>11</arrayIndex>
-				<parentIndex>8</parentIndex>
+				<arrayIndex>13</arrayIndex>
+				<parentIndex>10</parentIndex>
 				<type>normal</type>
 				<boundsType>none</boundsType>
 				<inheritType>parent</inheritType>
@@ -257,7 +297,7 @@
 			</value>
 			<value>
 				<name>left-arm</name>
-				<arrayIndex>12</arrayIndex>
+				<arrayIndex>14</arrayIndex>
 				<parentIndex>0</parentIndex>
 				<type>normal</type>
 				<boundsType>none</boundsType>
@@ -279,6 +319,7 @@
 	</Model>
 	<cellmapNames>
 		<value>kawaztan_default.ssce</value>
+		<value>kawaztan_default2.ssce</value>
 	</cellmapNames>
 	<animeList>
 		<anime>
@@ -323,6 +364,12 @@
 									<name>right-hair</name>
 								</value>
 							</key>
+							<key time="23">
+								<value>
+									<mapId>0</mapId>
+									<name>right-hair</name>
+								</value>
+							</key>
 						</attribute>
 						<attribute tag="POSX">
 							<key time="0" ipType="linear">
@@ -339,6 +386,18 @@
 							</key>
 							<key time="19" ipType="linear">
 								<value>-130.194442749023</value>
+							</key>
+							<key time="23" ipType="linear">
+								<value>-122</value>
+							</key>
+							<key time="33" ipType="linear">
+								<value>-122</value>
+							</key>
+							<key time="34" ipType="linear">
+								<value>-122</value>
+							</key>
+							<key time="39" ipType="linear">
+								<value>-122</value>
 							</key>
 						</attribute>
 						<attribute tag="POSY">
@@ -357,6 +416,18 @@
 							<key time="19" ipType="linear">
 								<value>234.527770996094</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>229</value>
+							</key>
+							<key time="33" ipType="linear">
+								<value>229</value>
+							</key>
+							<key time="34" ipType="linear">
+								<value>235</value>
+							</key>
+							<key time="39" ipType="linear">
+								<value>229</value>
+							</key>
 						</attribute>
 						<attribute tag="ROTZ">
 							<key time="0" ipType="linear">
@@ -373,6 +444,18 @@
 							</key>
 							<key time="19" ipType="linear">
 								<value>-5.53164482116699</value>
+							</key>
+							<key time="23" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="33" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="34" ipType="linear">
+								<value>-5.11134195327759</value>
+							</key>
+							<key time="39" ipType="linear">
+								<value>0</value>
 							</key>
 						</attribute>
 						<attribute tag="HIDE">
@@ -391,6 +474,18 @@
 							<key time="19">
 								<value>0</value>
 							</key>
+							<key time="23">
+								<value>0</value>
+							</key>
+							<key time="33">
+								<value>0</value>
+							</key>
+							<key time="34">
+								<value>0</value>
+							</key>
+							<key time="39">
+								<value>0</value>
+							</key>
 						</attribute>
 					</attributes>
 				</partAnime>
@@ -405,6 +500,12 @@
 								</value>
 							</key>
 							<key time="8">
+								<value>
+									<mapId>0</mapId>
+									<name>left-hair</name>
+								</value>
+							</key>
+							<key time="23">
 								<value>
 									<mapId>0</mapId>
 									<name>left-hair</name>
@@ -427,6 +528,18 @@
 							<key time="19" ipType="linear">
 								<value>147.66667175293</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>148</value>
+							</key>
+							<key time="33" ipType="linear">
+								<value>148</value>
+							</key>
+							<key time="34" ipType="linear">
+								<value>148</value>
+							</key>
+							<key time="39" ipType="linear">
+								<value>148</value>
+							</key>
 						</attribute>
 						<attribute tag="POSY">
 							<key time="0" ipType="linear">
@@ -443,6 +556,18 @@
 							</key>
 							<key time="19" ipType="linear">
 								<value>230.5</value>
+							</key>
+							<key time="23" ipType="linear">
+								<value>228</value>
+							</key>
+							<key time="33" ipType="linear">
+								<value>228</value>
+							</key>
+							<key time="34" ipType="linear">
+								<value>228</value>
+							</key>
+							<key time="39" ipType="linear">
+								<value>228</value>
 							</key>
 						</attribute>
 						<attribute tag="ROTZ">
@@ -461,6 +586,18 @@
 							<key time="19" ipType="linear">
 								<value>1.75506818294525</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="33" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="34" ipType="linear">
+								<value>4.75961875915527</value>
+							</key>
+							<key time="39" ipType="linear">
+								<value>0</value>
+							</key>
 						</attribute>
 						<attribute tag="HIDE">
 							<key time="0">
@@ -476,6 +613,18 @@
 								<value>0</value>
 							</key>
 							<key time="19">
+								<value>0</value>
+							</key>
+							<key time="23">
+								<value>0</value>
+							</key>
+							<key time="33">
+								<value>0</value>
+							</key>
+							<key time="34">
+								<value>0</value>
+							</key>
+							<key time="39">
 								<value>0</value>
 							</key>
 						</attribute>
@@ -520,6 +669,9 @@
 							<key time="19" ipType="linear">
 								<value>-77.2666702270508</value>
 							</key>
+							<key time="27" ipType="linear">
+								<value>-134.266662597656</value>
+							</key>
 						</attribute>
 						<attribute tag="POSY">
 							<key time="0" ipType="linear">
@@ -542,6 +694,9 @@
 							</key>
 							<key time="19" ipType="linear">
 								<value>-47.2666664123535</value>
+							</key>
+							<key time="27" ipType="linear">
+								<value>-4.26666641235352</value>
 							</key>
 						</attribute>
 						<attribute tag="ROTZ">
@@ -566,6 +721,9 @@
 							<key time="19" ipType="linear">
 								<value>8.03474998474121</value>
 							</key>
+							<key time="27" ipType="linear">
+								<value>-24.7196788787842</value>
+							</key>
 						</attribute>
 						<attribute tag="HIDE">
 							<key time="0">
@@ -589,6 +747,126 @@
 							<key time="19">
 								<value>0</value>
 							</key>
+							<key time="21">
+								<value>0</value>
+							</key>
+							<key time="27">
+								<value>1</value>
+							</key>
+						</attribute>
+					</attributes>
+				</partAnime>
+				<partAnime>
+					<partName>arm3</partName>
+					<attributes>
+						<attribute tag="CELL">
+							<key time="27">
+								<value>
+									<mapId>1</mapId>
+									<name>arm3</name>
+								</value>
+							</key>
+						</attribute>
+						<attribute tag="POSX">
+							<key time="27" ipType="linear">
+								<value>-59.2823944091797</value>
+							</key>
+							<key time="30" ipType="linear">
+								<value>-60.2823944091797</value>
+							</key>
+							<key time="34" ipType="linear">
+								<value>-59.2823944091797</value>
+							</key>
+						</attribute>
+						<attribute tag="POSY">
+							<key time="27" ipType="linear">
+								<value>54.4487762451172</value>
+							</key>
+							<key time="30" ipType="linear">
+								<value>64.4487762451172</value>
+							</key>
+							<key time="34" ipType="linear">
+								<value>54.4487762451172</value>
+							</key>
+						</attribute>
+						<attribute tag="ROTZ">
+							<key time="27" ipType="linear">
+								<value>-435.993530273438</value>
+							</key>
+							<key time="30" ipType="linear">
+								<value>-474.745483398438</value>
+							</key>
+							<key time="34" ipType="linear">
+								<value>-436.171173095703</value>
+							</key>
+						</attribute>
+						<attribute tag="HIDE">
+							<key time="27">
+								<value>0</value>
+							</key>
+							<key time="30">
+								<value>0</value>
+							</key>
+							<key time="34">
+								<value>0</value>
+							</key>
+						</attribute>
+					</attributes>
+				</partAnime>
+				<partAnime>
+					<partName>arm4</partName>
+					<attributes>
+						<attribute tag="CELL">
+							<key time="27">
+								<value>
+									<mapId>1</mapId>
+									<name>arm4</name>
+								</value>
+							</key>
+						</attribute>
+						<attribute tag="POSX">
+							<key time="27" ipType="linear">
+								<value>38.1262397766113</value>
+							</key>
+							<key time="30" ipType="linear">
+								<value>52.3095512390137</value>
+							</key>
+							<key time="34" ipType="linear">
+								<value>60.4142990112305</value>
+							</key>
+						</attribute>
+						<attribute tag="POSY">
+							<key time="27" ipType="linear">
+								<value>-92.0520706176758</value>
+							</key>
+							<key time="30" ipType="linear">
+								<value>-69.3819580078125</value>
+							</key>
+							<key time="34" ipType="linear">
+								<value>-56.4276123046875</value>
+							</key>
+						</attribute>
+						<attribute tag="ROTZ">
+							<key time="27" ipType="linear">
+								<value>-6.95638561248779</value>
+							</key>
+							<key time="30" ipType="linear">
+								<value>47.2356300354004</value>
+							</key>
+							<key time="34" ipType="linear">
+								<value>78.2024993896484</value>
+							</key>
+						</attribute>
+						<attribute tag="HIDE">
+							<key time="27">
+								<value>0</value>
+							</key>
+							<key time="30">
+								<value>0</value>
+							</key>
+							<key time="34">
+								<value>0</value>
+							</key>
 						</attribute>
 					</attributes>
 				</partAnime>
@@ -608,6 +886,12 @@
 									<name>hip</name>
 								</value>
 							</key>
+							<key time="23">
+								<value>
+									<mapId>0</mapId>
+									<name>hip</name>
+								</value>
+							</key>
 						</attribute>
 						<attribute tag="POSX">
 							<key time="0" ipType="linear">
@@ -620,6 +904,9 @@
 								<value>-4.33333396911621</value>
 							</key>
 							<key time="19" ipType="linear">
+								<value>-4.33333396911621</value>
+							</key>
+							<key time="23" ipType="linear">
 								<value>-4.33333396911621</value>
 							</key>
 						</attribute>
@@ -636,6 +923,9 @@
 							<key time="19" ipType="linear">
 								<value>-88</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>-88</value>
+							</key>
 						</attribute>
 						<attribute tag="ROTZ">
 							<key time="0" ipType="linear">
@@ -645,6 +935,9 @@
 								<value>0</value>
 							</key>
 							<key time="19" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="23" ipType="linear">
 								<value>0</value>
 							</key>
 						</attribute>
@@ -658,6 +951,9 @@
 							<key time="14" ipType="linear">
 								<value>0.702564179897308</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>0.702564179897308</value>
+							</key>
 						</attribute>
 						<attribute tag="SCLY">
 							<key time="0" ipType="linear">
@@ -669,6 +965,9 @@
 							<key time="14" ipType="linear">
 								<value>0.702564179897308</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>0.702564179897308</value>
+							</key>
 						</attribute>
 						<attribute tag="HIDE">
 							<key time="0">
@@ -678,6 +977,9 @@
 								<value>0</value>
 							</key>
 							<key time="19">
+								<value>0</value>
+							</key>
+							<key time="23">
 								<value>0</value>
 							</key>
 						</attribute>
@@ -694,6 +996,12 @@
 								</value>
 							</key>
 							<key time="8">
+								<value>
+									<mapId>0</mapId>
+									<name>leg</name>
+								</value>
+							</key>
+							<key time="23">
 								<value>
 									<mapId>0</mapId>
 									<name>leg</name>
@@ -716,6 +1024,9 @@
 							<key time="19" ipType="linear">
 								<value>-44.1666679382324</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>-39</value>
+							</key>
 						</attribute>
 						<attribute tag="POSY">
 							<key time="0" ipType="linear">
@@ -732,6 +1043,9 @@
 							</key>
 							<key time="19" ipType="linear">
 								<value>-184.33332824707</value>
+							</key>
+							<key time="23" ipType="linear">
+								<value>-188</value>
 							</key>
 						</attribute>
 						<attribute tag="ROTZ">
@@ -750,6 +1064,9 @@
 							<key time="19" ipType="linear">
 								<value>-4.29337692260742</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>0</value>
+							</key>
 						</attribute>
 						<attribute tag="SCLX">
 							<key time="0" ipType="linear">
@@ -758,12 +1075,18 @@
 							<key time="8" ipType="linear">
 								<value>0.916215240955353</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>0.916215240955353</value>
+							</key>
 						</attribute>
 						<attribute tag="SCLY">
 							<key time="0" ipType="linear">
 								<value>0.916215240955353</value>
 							</key>
 							<key time="8" ipType="linear">
+								<value>0.916215240955353</value>
+							</key>
+							<key time="23" ipType="linear">
 								<value>0.916215240955353</value>
 							</key>
 						</attribute>
@@ -783,6 +1106,9 @@
 							<key time="19">
 								<value>0</value>
 							</key>
+							<key time="23">
+								<value>0</value>
+							</key>
 						</attribute>
 					</attributes>
 				</partAnime>
@@ -797,6 +1123,12 @@
 								</value>
 							</key>
 							<key time="8">
+								<value>
+									<mapId>0</mapId>
+									<name>leg</name>
+								</value>
+							</key>
+							<key time="23">
 								<value>
 									<mapId>0</mapId>
 									<name>leg</name>
@@ -822,6 +1154,18 @@
 							<key time="19" ipType="linear">
 								<value>36.2888832092285</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>31.9555473327637</value>
+							</key>
+							<key time="36" ipType="linear">
+								<value>31.9555473327637</value>
+							</key>
+							<key time="38" ipType="linear">
+								<value>40.9555473327637</value>
+							</key>
+							<key time="39" ipType="linear">
+								<value>31.9555473327637</value>
+							</key>
 						</attribute>
 						<attribute tag="POSY">
 							<key time="0" ipType="linear">
@@ -842,6 +1186,18 @@
 							<key time="19" ipType="linear">
 								<value>-184.94921875</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>-187.28254699707</value>
+							</key>
+							<key time="36" ipType="linear">
+								<value>-187.28254699707</value>
+							</key>
+							<key time="38" ipType="linear">
+								<value>-188.28254699707</value>
+							</key>
+							<key time="39" ipType="linear">
+								<value>-187.28254699707</value>
+							</key>
 						</attribute>
 						<attribute tag="ROTZ">
 							<key time="0" ipType="linear">
@@ -858,6 +1214,18 @@
 							</key>
 							<key time="19" ipType="linear">
 								<value>8.6245641708374</value>
+							</key>
+							<key time="23" ipType="linear">
+								<value>5.41854572296143</value>
+							</key>
+							<key time="36" ipType="linear">
+								<value>5.41854572296143</value>
+							</key>
+							<key time="38" ipType="linear">
+								<value>8.8744478225708</value>
+							</key>
+							<key time="39" ipType="linear">
+								<value>5.41854572296143</value>
 							</key>
 						</attribute>
 						<attribute tag="HIDE">
@@ -876,6 +1244,18 @@
 							<key time="19">
 								<value>0</value>
 							</key>
+							<key time="23">
+								<value>0</value>
+							</key>
+							<key time="36">
+								<value>0</value>
+							</key>
+							<key time="38">
+								<value>0</value>
+							</key>
+							<key time="39">
+								<value>0</value>
+							</key>
 						</attribute>
 					</attributes>
 				</partAnime>
@@ -890,6 +1270,18 @@
 								</value>
 							</key>
 							<key time="8">
+								<value>
+									<mapId>0</mapId>
+									<name>body</name>
+								</value>
+							</key>
+							<key time="23">
+								<value>
+									<mapId>0</mapId>
+									<name>body</name>
+								</value>
+							</key>
+							<key time="34">
 								<value>
 									<mapId>0</mapId>
 									<name>body</name>
@@ -912,6 +1304,18 @@
 							<key time="19" ipType="linear">
 								<value>0</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="34" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="37" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="39" ipType="linear">
+								<value>0</value>
+							</key>
 						</attribute>
 						<attribute tag="POSY">
 							<key time="0" ipType="linear">
@@ -929,6 +1333,18 @@
 							<key time="19" ipType="linear">
 								<value>1.50000023841858</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="34" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="37" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="39" ipType="linear">
+								<value>0</value>
+							</key>
 						</attribute>
 						<attribute tag="ROTZ">
 							<key time="0" ipType="linear">
@@ -944,6 +1360,18 @@
 								<value>-3.68081617355347</value>
 							</key>
 							<key time="19" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="23" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="34" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="37" ipType="linear">
+								<value>4.47264003753662</value>
+							</key>
+							<key time="39" ipType="linear">
 								<value>0</value>
 							</key>
 						</attribute>
@@ -963,6 +1391,18 @@
 							<key time="19">
 								<value>0</value>
 							</key>
+							<key time="23">
+								<value>0</value>
+							</key>
+							<key time="34">
+								<value>0</value>
+							</key>
+							<key time="37">
+								<value>0</value>
+							</key>
+							<key time="39">
+								<value>0</value>
+							</key>
 						</attribute>
 					</attributes>
 				</partAnime>
@@ -977,6 +1417,12 @@
 								</value>
 							</key>
 							<key time="8">
+								<value>
+									<mapId>0</mapId>
+									<name>face</name>
+								</value>
+							</key>
+							<key time="23">
 								<value>
 									<mapId>0</mapId>
 									<name>face</name>
@@ -999,6 +1445,18 @@
 							<key time="19" ipType="linear">
 								<value>14</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>14</value>
+							</key>
+							<key time="35" ipType="linear">
+								<value>14</value>
+							</key>
+							<key time="37" ipType="linear">
+								<value>14</value>
+							</key>
+							<key time="39" ipType="linear">
+								<value>14</value>
+							</key>
 						</attribute>
 						<attribute tag="POSY">
 							<key time="0" ipType="linear">
@@ -1015,6 +1473,18 @@
 							</key>
 							<key time="19" ipType="linear">
 								<value>215.33332824707</value>
+							</key>
+							<key time="23" ipType="linear">
+								<value>214</value>
+							</key>
+							<key time="35" ipType="linear">
+								<value>214</value>
+							</key>
+							<key time="37" ipType="linear">
+								<value>214</value>
+							</key>
+							<key time="39" ipType="linear">
+								<value>214</value>
 							</key>
 						</attribute>
 						<attribute tag="ROTZ">
@@ -1033,6 +1503,18 @@
 							<key time="19" ipType="linear">
 								<value>0</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="35" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="37" ipType="linear">
+								<value>2.40363502502441</value>
+							</key>
+							<key time="39" ipType="linear">
+								<value>0</value>
+							</key>
 						</attribute>
 						<attribute tag="SCLX">
 							<key time="0" ipType="linear">
@@ -1041,12 +1523,18 @@
 							<key time="8" ipType="linear">
 								<value>0.922509908676147</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>0.922509908676147</value>
+							</key>
 						</attribute>
 						<attribute tag="SCLY">
 							<key time="0" ipType="linear">
 								<value>0.922509908676147</value>
 							</key>
 							<key time="8" ipType="linear">
+								<value>0.922509908676147</value>
+							</key>
+							<key time="23" ipType="linear">
 								<value>0.922509908676147</value>
 							</key>
 						</attribute>
@@ -1064,6 +1552,18 @@
 								<value>0</value>
 							</key>
 							<key time="19">
+								<value>0</value>
+							</key>
+							<key time="23">
+								<value>0</value>
+							</key>
+							<key time="35">
+								<value>0</value>
+							</key>
+							<key time="37">
+								<value>0</value>
+							</key>
+							<key time="39">
 								<value>0</value>
 							</key>
 						</attribute>
@@ -1091,6 +1591,12 @@
 									<name>maegami</name>
 								</value>
 							</key>
+							<key time="23">
+								<value>
+									<mapId>0</mapId>
+									<name>maegami</name>
+								</value>
+							</key>
 						</attribute>
 						<attribute tag="POSX">
 							<key time="0" ipType="linear">
@@ -1108,6 +1614,9 @@
 							<key time="19" ipType="linear">
 								<value>-36</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>-36</value>
+							</key>
 						</attribute>
 						<attribute tag="POSY">
 							<key time="0" ipType="linear">
@@ -1123,6 +1632,9 @@
 								<value>20</value>
 							</key>
 							<key time="19" ipType="linear">
+								<value>20</value>
+							</key>
+							<key time="23" ipType="linear">
 								<value>20</value>
 							</key>
 						</attribute>
@@ -1142,6 +1654,9 @@
 							<key time="19" ipType="linear">
 								<value>0</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>0</value>
+							</key>
 						</attribute>
 						<attribute tag="SCLX">
 							<key time="0" ipType="linear">
@@ -1153,6 +1668,9 @@
 							<key time="19" ipType="linear">
 								<value>0.909863173961639</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>0.909863173961639</value>
+							</key>
 						</attribute>
 						<attribute tag="SCLY">
 							<key time="0" ipType="linear">
@@ -1162,6 +1680,9 @@
 								<value>0.909863173961639</value>
 							</key>
 							<key time="19" ipType="linear">
+								<value>0.909863173961639</value>
+							</key>
+							<key time="23" ipType="linear">
 								<value>0.909863173961639</value>
 							</key>
 						</attribute>
@@ -1181,6 +1702,9 @@
 							<key time="19">
 								<value>0</value>
 							</key>
+							<key time="23">
+								<value>0</value>
+							</key>
 						</attribute>
 					</attributes>
 				</partAnime>
@@ -1194,9 +1718,18 @@
 									<name>eye</name>
 								</value>
 							</key>
+							<key time="23">
+								<value>
+									<mapId>0</mapId>
+									<name>eye</name>
+								</value>
+							</key>
 						</attribute>
 						<attribute tag="POSX">
 							<key time="0" ipType="linear">
+								<value>-20</value>
+							</key>
+							<key time="23" ipType="linear">
 								<value>-20</value>
 							</key>
 						</attribute>
@@ -1204,9 +1737,15 @@
 							<key time="0" ipType="linear">
 								<value>-11</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>-11</value>
+							</key>
 						</attribute>
 						<attribute tag="ROTZ">
 							<key time="0" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="23" ipType="linear">
 								<value>0</value>
 							</key>
 						</attribute>
@@ -1214,14 +1753,23 @@
 							<key time="0" ipType="linear">
 								<value>0.928994059562683</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>0.928994059562683</value>
+							</key>
 						</attribute>
 						<attribute tag="SCLY">
 							<key time="0" ipType="linear">
 								<value>0.928994059562683</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>0.928994059562683</value>
+							</key>
 						</attribute>
 						<attribute tag="HIDE">
 							<key time="0">
+								<value>0</value>
+							</key>
+							<key time="23">
 								<value>0</value>
 							</key>
 						</attribute>
@@ -1237,9 +1785,18 @@
 									<name>mouth</name>
 								</value>
 							</key>
+							<key time="23">
+								<value>
+									<mapId>0</mapId>
+									<name>mouth</name>
+								</value>
+							</key>
 						</attribute>
 						<attribute tag="POSX">
 							<key time="0" ipType="linear">
+								<value>-15</value>
+							</key>
+							<key time="23" ipType="linear">
 								<value>-15</value>
 							</key>
 						</attribute>
@@ -1247,9 +1804,15 @@
 							<key time="0" ipType="linear">
 								<value>-80.3333282470703</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>-80.3333282470703</value>
+							</key>
 						</attribute>
 						<attribute tag="ROTZ">
 							<key time="0" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="23" ipType="linear">
 								<value>0</value>
 							</key>
 						</attribute>
@@ -1257,14 +1820,23 @@
 							<key time="0" ipType="linear">
 								<value>0.909682750701904</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>0.909682750701904</value>
+							</key>
 						</attribute>
 						<attribute tag="SCLY">
 							<key time="0" ipType="linear">
 								<value>0.909682750701904</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>0.909682750701904</value>
+							</key>
 						</attribute>
 						<attribute tag="HIDE">
 							<key time="0">
+								<value>0</value>
+							</key>
+							<key time="23">
 								<value>0</value>
 							</key>
 						</attribute>
@@ -1281,6 +1853,12 @@
 								</value>
 							</key>
 							<key time="8">
+								<value>
+									<mapId>0</mapId>
+									<name>left-arm</name>
+								</value>
+							</key>
+							<key time="23">
 								<value>
 									<mapId>0</mapId>
 									<name>left-arm</name>
@@ -1309,6 +1887,18 @@
 							<key time="19" ipType="linear">
 								<value>109.333335876465</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>128</value>
+							</key>
+							<key time="33" ipType="linear">
+								<value>121</value>
+							</key>
+							<key time="35" ipType="linear">
+								<value>126.5</value>
+							</key>
+							<key time="38" ipType="linear">
+								<value>121</value>
+							</key>
 						</attribute>
 						<attribute tag="POSY">
 							<key time="0" ipType="linear">
@@ -1331,6 +1921,18 @@
 							</key>
 							<key time="19" ipType="linear">
 								<value>-38.2666664123535</value>
+							</key>
+							<key time="23" ipType="linear">
+								<value>-32</value>
+							</key>
+							<key time="33" ipType="linear">
+								<value>-28</value>
+							</key>
+							<key time="35" ipType="linear">
+								<value>-23</value>
+							</key>
+							<key time="38" ipType="linear">
+								<value>-28</value>
 							</key>
 						</attribute>
 						<attribute tag="ROTZ">
@@ -1355,6 +1957,18 @@
 							<key time="19" ipType="linear">
 								<value>-8.75693225860596</value>
 							</key>
+							<key time="23" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="33" ipType="linear">
+								<value>0</value>
+							</key>
+							<key time="35" ipType="linear">
+								<value>2.17988967895508</value>
+							</key>
+							<key time="38" ipType="linear">
+								<value>0</value>
+							</key>
 						</attribute>
 						<attribute tag="HIDE">
 							<key time="0">
@@ -1376,6 +1990,15 @@
 								<value>0</value>
 							</key>
 							<key time="19">
+								<value>0</value>
+							</key>
+							<key time="23">
+								<value>0</value>
+							</key>
+							<key time="33">
+								<value>0</value>
+							</key>
+							<key time="38">
 								<value>0</value>
 							</key>
 						</attribute>

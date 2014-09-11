@@ -6,7 +6,7 @@
 		<animeBaseDirectory></animeBaseDirectory>
 		<cellMapBaseDirectory></cellMapBaseDirectory>
 		<imageBaseDirectory></imageBaseDirectory>
-		<exportBaseDirectory>..</exportBaseDirectory>
+		<exportBaseDirectory>../../Resources/animations</exportBaseDirectory>
 		<queryExportBaseDirectory>1</queryExportBaseDirectory>
 		<ssaxImport>
 			<convertImageOffsetToCellAnime>1</convertImageOffsetToCellAnime>
@@ -87,12 +87,13 @@
 	</texPackSettings>
 	<cellmapNames>
 		<value>kawaztan_default.ssce</value>
+		<value>kawaztan_default2.ssce</value>
 	</cellmapNames>
 	<animepackNames>
 		<value>kawazAnimation.ssae</value>
 	</animepackNames>
-	<lastAnimeFile>../kawazAnimation.ssae</lastAnimeFile>
-	<lastAnimeName>anime_1</lastAnimeName>
-	<lastCellMapFile>kawaztan_default.ssce</lastCellMapFile>
-	<lastCell>right-hair</lastCell>
+	<lastAnimeFile>kawazAnimation.ssae</lastAnimeFile>
+	<lastAnimeName>walking</lastAnimeName>
+	<lastCellMapFile>kawaztan_default2.ssce</lastCellMapFile>
+	<lastCell>arm4</lastCell>
 </SpriteStudioProject>
