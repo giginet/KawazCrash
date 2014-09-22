@@ -13,20 +13,16 @@
 		072319AB19531B7300B0103D /* MainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 072319A619531B7300B0103D /* MainScene.cpp */; };
 		072319B41953238500B0103D /* images in Resources */ = {isa = PBXBuildFile; fileRef = 072319B31953238500B0103D /* images */; };
 		072319B51953238500B0103D /* images in Resources */ = {isa = PBXBuildFile; fileRef = 072319B31953238500B0103D /* images */; };
-		07254955195D05740099BCFE /* libcri_atom_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548C7195D05740099BCFE /* libcri_atom_ios.a */; };
-		07254956195D05740099BCFE /* libcri_atom_iosD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548C8195D05740099BCFE /* libcri_atom_iosD.a */; };
-		07254957195D05740099BCFE /* libcri_base_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548C9195D05740099BCFE /* libcri_base_ios.a */; };
-		07254958195D05740099BCFE /* libcri_base_iosD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548CA195D05740099BCFE /* libcri_base_iosD.a */; };
-		07254959195D05740099BCFE /* libcri_file_system_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548CB195D05740099BCFE /* libcri_file_system_ios.a */; };
-		0725495A195D05740099BCFE /* libcri_file_system_iosD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548CC195D05740099BCFE /* libcri_file_system_iosD.a */; };
-		0725495B195D05740099BCFE /* libcri_file_system_net_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548CD195D05740099BCFE /* libcri_file_system_net_ios.a */; };
-		0725495C195D05740099BCFE /* libcri_file_system_net_iosD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548CE195D05740099BCFE /* libcri_file_system_net_iosD.a */; };
 		07254A07195D20050099BCFE /* adx2 in Resources */ = {isa = PBXBuildFile; fileRef = 07254A06195D20050099BCFE /* adx2 */; };
 		07254A08195D20050099BCFE /* adx2 in Resources */ = {isa = PBXBuildFile; fileRef = 07254A06195D20050099BCFE /* adx2 */; };
 		0763E3A019C050E8008E1202 /* SS5Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0763E39B19C050E8008E1202 /* SS5Player.cpp */; };
 		0763E3AB19C05B5B008E1202 /* animations in Resources */ = {isa = PBXBuildFile; fileRef = 0763E3AA19C05B5B008E1202 /* animations */; };
 		07A3973419AF0B5200A02C7E /* CueSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07A3973019AF0B5200A02C7E /* CueSheet.cpp */; };
 		07A3973519AF0B5200A02C7E /* Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07A3973219AF0B5200A02C7E /* Manager.cpp */; };
+		07FF166819C2672100FF360B /* libcri_atom_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548C7195D05740099BCFE /* libcri_atom_ios.a */; };
+		07FF166919C2672300FF360B /* libcri_base_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548C9195D05740099BCFE /* libcri_base_ios.a */; };
+		07FF166A19C2672600FF360B /* libcri_file_system_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548CB195D05740099BCFE /* libcri_file_system_ios.a */; };
+		07FF166B19C2672900FF360B /* libcri_file_system_net_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548CD195D05740099BCFE /* libcri_file_system_net_ios.a */; };
 		1AC6FB1F180E996B004C840B /* libbox2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAFF180E9839004C840B /* libbox2d Mac.a */; };
 		1AC6FB20180E996B004C840B /* libchipmunk Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAFD180E9839004C840B /* libchipmunk Mac.a */; };
 		1AC6FB21180E996B004C840B /* libcocos2dx Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2dx Mac.a */; };
@@ -324,26 +320,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07FF166819C2672100FF360B /* libcri_atom_ios.a in Frameworks */,
+				07FF166919C2672300FF360B /* libcri_base_ios.a in Frameworks */,
+				07FF166A19C2672600FF360B /* libcri_file_system_ios.a in Frameworks */,
+				07FF166B19C2672900FF360B /* libcri_file_system_net_ios.a in Frameworks */,
 				1AC6FB2E180E99EB004C840B /* libbox2d iOS.a in Frameworks */,
-				0725495A195D05740099BCFE /* libcri_file_system_iosD.a in Frameworks */,
-				07254956195D05740099BCFE /* libcri_atom_iosD.a in Frameworks */,
 				1AC6FB2F180E99EB004C840B /* libchipmunk iOS.a in Frameworks */,
 				1AC6FB30180E99EB004C840B /* libcocos2dx iOS.a in Frameworks */,
-				07254959195D05740099BCFE /* libcri_file_system_ios.a in Frameworks */,
 				1AC6FB31180E99EB004C840B /* libcocos2dx-extensions iOS.a in Frameworks */,
 				1AC6FB32180E99EB004C840B /* libCocosDenshion iOS.a in Frameworks */,
-				07254957195D05740099BCFE /* libcri_base_ios.a in Frameworks */,
 				D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */,
-				0725495B195D05740099BCFE /* libcri_file_system_net_ios.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */,
 				BF1712471292920000B8313A /* libz.dylib in Frameworks */,
-				0725495C195D05740099BCFE /* libcri_file_system_net_iosD.a in Frameworks */,
 				BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */,
-				07254958195D05740099BCFE /* libcri_base_iosD.a in Frameworks */,
-				07254955195D05740099BCFE /* libcri_atom_ios.a in Frameworks */,
 				D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */,
 				D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */,
 				D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */,
@@ -960,7 +952,10 @@
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../adx2/cocos2dx/libs/ios";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/../adx2/cocos2dx/libs/ios",
+					/Users/giginet/Desktop/KawazCrash/adx2/cocos2dx/libs/ios,
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -995,7 +990,10 @@
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../adx2/cocos2dx/libs/ios";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/../adx2/cocos2dx/libs/ios",
+					/Users/giginet/Desktop/KawazCrash/adx2/cocos2dx/libs/ios,
+				);
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

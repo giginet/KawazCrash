@@ -172,10 +172,24 @@ bool MainScene::init()
     kawaztan->addData("kawaz.ssbp");
     
     auto player = ss::Player::create();
-    player->setData("kawaz");        // ssbpファイル名（拡張子不要）
-    player->play("walking");       // アニメーション名を指定(ssae名/アニメーション名も可能、詳しくは後述)
-    player->setPosition(200, 200);
-    this->addChild(player, 100);
+    // ssbpファイル名（拡張子不要）
+    player->setData("kawaz");
+    // アニメーション名を指定
+    player->play("walking");
+    auto baseScale = 0.1;
+    auto duration = 10;
+    auto positionY = winSize.height - 70;
+    player->setScale(baseScale);
+    auto left = Vec2(0, positionY);
+    auto right = Vec2(winSize.width, positionY);
+    player->setPosition(right);
+    auto walking = Sequence::create(MoveTo::create(duration, left),
+                                    ScaleTo::create(0, -baseScale, baseScale),
+                                    MoveTo::create(duration, right),
+                                    ScaleTo::create(0, baseScale), NULL);
+    player->runAction(RepeatForever::create(walking));
+    player->setName("kawaztan");
+    this->addChild(player, 10);
     
     return true;
 }
@@ -200,6 +214,8 @@ void MainScene::onEnterTransitionDidFinish()
 
 void MainScene::update(float dt)
 {
+    auto kawaztan = this->getChildByName<ss::Player *>("kawaztan");
+    log("%d", kawaztan->getFrameNo());
     // ADX2を更新する
     ADX2::Manager::getInstance()->update();
     
