@@ -8,6 +8,7 @@
 
 #include "MainScene.h"
 #include "Cookie.h"
+#include "SS5Player.h"
 #include <algorithm>
 #include "Cocostudio/cocostudio.h"
 
@@ -166,6 +167,30 @@ bool MainScene::init()
     auto scoreLabel = node->getChildByTag(2000)->getChildren().at(0)->getChildByName<ui::TextAtlas *>("AtlasLabel_5");
     this->setScoreLabel(dynamic_cast<ui::TextAtlas *>(scoreLabel));
     
+    // アニメーションの作成
+    auto kawaztan = ss::ResourceManager::getInstance();
+    kawaztan->addData("kawaz.ssbp");
+    
+    auto player = ss::Player::create();
+    // ssbpファイル名（拡張子不要）
+    player->setData("kawaz");
+    // アニメーション名を指定
+    player->play("walking");
+    auto baseScale = 0.1;
+    auto duration = 10;
+    auto positionY = winSize.height - 70;
+    player->setScale(baseScale);
+    auto left = Vec2(0, positionY);
+    auto right = Vec2(winSize.width, positionY);
+    player->setPosition(right);
+    auto walking = Sequence::create(MoveTo::create(duration, left),
+                                    ScaleTo::create(0, -baseScale, baseScale),
+                                    MoveTo::create(duration, right),
+                                    ScaleTo::create(0, baseScale), NULL);
+    player->runAction(RepeatForever::create(walking));
+    player->setName("kawaztan");
+    this->addChild(player, 10);
+    
     return true;
 }
 
@@ -189,6 +214,8 @@ void MainScene::onEnterTransitionDidFinish()
 
 void MainScene::update(float dt)
 {
+    auto kawaztan = this->getChildByName<ss::Player *>("kawaztan");
+    log("%d", kawaztan->getFrameNo());
     // ADX2を更新する
     ADX2::Manager::getInstance()->update();
     
