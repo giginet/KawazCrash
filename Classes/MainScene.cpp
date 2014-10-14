@@ -15,6 +15,7 @@
 #include "cookie_main.h"
 #include "cookie_crush_acf.h"
 
+#include "TitleScene.h"
 
 #include "ADX2Manager.h"
 
@@ -28,10 +29,12 @@ const int VERTICAL_COUNT = 8;
 const int VANISH_COUNT = 4;
 /// Stage用のNodeのタグ
 const int FRAME_TAG = 1000;
+/// 初期残り時間
+const int LIMIT_TIME = 60;
 
 MainScene::MainScene()
 : _state(State::Ready)
-,_second(60)
+,_second(LIMIT_TIME)
 ,_score(0)
 ,_chainCount(0)
 ,_stage(nullptr)
@@ -184,23 +187,26 @@ void MainScene::onEnterTransitionDidFinish()
     Layer::onEnterTransitionDidFinish();
     _cueSheet->playCueByID(CRI_COOKIE_MAIN_BGM);
     
-    auto gamestart = Sprite::create("gamestart.png");
-    auto winSize = Director::getInstance()->getWinSize();
-    gamestart->setPosition(Vec2(winSize.width / 2.0, winSize.height / 1.5));
-    gamestart->setScale(0);
-    gamestart->runAction(Sequence::create(EaseElasticIn::create(ScaleTo::create(0.5, 1.0)),
-                                          DelayTime::create(1.5),
-                                          MoveBy::create(0.5, Vec2(0, winSize.height / 2.0)),
-                                          RemoveSelf::create(),
-                                          NULL));
-    this->addChild(gamestart, 2);
-    setState(State::Main);
+    this->runAction(Sequence::create(DelayTime::create(2.0f),
+                                     CallFunc::create([this]() {
+        auto gamestart = Sprite::create("gamestart.png");
+        auto winSize = Director::getInstance()->getWinSize();
+        gamestart->setPosition(Vec2(winSize.width / 2.0, winSize.height / 1.5));
+        gamestart->setScale(0);
+        gamestart->runAction(Sequence::create(EaseElasticIn::create(ScaleTo::create(0.5, 1.0)),
+                                              DelayTime::create(1.5),
+                                              MoveBy::create(0.5, Vec2(0, winSize.height / 2.0)),
+                                              RemoveSelf::create(),
+                                              NULL));
+        _cueSheet->playCueByID(CRI_COOKIE_MAIN_START);
+        this->addChild(gamestart, 2);
+        setState(State::Main);
+    }),
+                                     NULL));
 }
 
 void MainScene::update(float dt)
 {
-    auto kawaztan = this->getChildByName<ss::Player *>("kawaztan");
-    log("%d", kawaztan->getFrameNo());
     // ADX2を更新する
     ADX2::Manager::getInstance()->update();
     
@@ -251,7 +257,6 @@ void MainScene::update(float dt)
         
         // 残り時間の更新
         _second -= dt;
-        _secondLabel->setString(StringUtils::toString(floor(_second)));
         
         if (_second <= 0) {
             setState(State::Result);
@@ -266,8 +271,32 @@ void MainScene::update(float dt)
                                                   NULL));
             this->addChild(gamestart, 2);
             _secondLabel->setString("0");
+            _cueSheet->playCueByID(CRI_COOKIE_MAIN_END);
+        
+            // 終了時にメニューを表示する
+            this->runAction(Sequence::create(DelayTime::create(1.0),
+                                             CallFunc::create([this]() {
+                auto winSize = Director::getInstance()->getWinSize();
+                auto title = MenuItemImage::create("return.png", "return.png", [this](Ref* ref) {
+                    auto scene = TitleScene::createScene();
+                    auto transition = TransitionCrossFade::create(1.0, scene);
+                    Director::getInstance()->replaceScene(transition);
+                });
+                auto replay = MenuItemImage::create("retry.png", "retry.png", [this](Ref* ref) {
+                    auto scene = MainScene::createScene();
+                    auto transition = TransitionFade::create(1.0, scene);
+                    Director::getInstance()->replaceScene(transition);
+                });
+                auto menu = Menu::create(replay, title, NULL);
+                menu->setPosition(winSize.width / 2.0, winSize.height / 2.0);
+                menu->alignItemsVertically();
+                this->addChild(menu, 10000);
+            }),
+                                             NULL));
+            
         }
     }
+    _secondLabel->setString(StringUtils::toString(floor(_second)));
 }
 
 Cookie* MainScene::getCookieAt(const cocos2d::Vec2& position)

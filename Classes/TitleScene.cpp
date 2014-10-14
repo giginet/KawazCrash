@@ -21,6 +21,7 @@ Scene* TitleScene::createScene()
 }
 
 TitleScene::TitleScene()
+: _cueSheet(NULL)
 {
 }
 
@@ -29,9 +30,13 @@ TitleScene::~TitleScene()
     CC_SAFE_RELEASE_NULL(_cueSheet);
 }
 
-void TitleScene::onEnter()
+void TitleScene::onEnterTransitionDidFinish()
 {
     Layer::onEnter();
+    
+    auto cueSheet = ADX2::CueSheet::create("adx2/cookie/cookie_crush.acf", "adx2/cookie/cookie_title.acb");
+    this->setCueSheet(cueSheet);
+    
     _cueSheet->playCueByID(CRI_COOKIE_TITLE_TITLE);
 }
 
@@ -40,10 +45,6 @@ bool TitleScene::init()
     if (!Layer::init()) {
         return false;
     }
-    
-    auto cueSheet = ADX2::CueSheet::create("adx2/cookie/cookie_crush.acf", "adx2/cookie/cookie_title.acb");
-    this->setCueSheet(cueSheet);
-    
     auto winSize = Director::getInstance()->getWinSize();
     auto title = Sprite::create("title.png");
     
