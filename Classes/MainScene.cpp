@@ -84,14 +84,6 @@ bool MainScene::init()
     
     this->setStage(Node::create());
     
-    for (int x = 0; x < HORIZONTAL_COUNT; ++x) {
-        for (int y = 0; y < VERTICAL_COUNT; ++y) {
-            auto cookie = Cookie::create();
-            cookie->setCookiePosition(Vec2(x, y));
-            this->addCookie(cookie);
-        }
-    }
-    
     auto frame = node->getChildByTag(FRAME_TAG);
     _stage->setPosition(-Vec2(Cookie::getSize() * HORIZONTAL_COUNT / 2,
                               Cookie::getSize() * VERTICAL_COUNT / 2));
@@ -252,13 +244,11 @@ void MainScene::update(float dt)
             }
         }
         
-        // スコアの更新
-        _scoreLabel->setString(StringUtils::toString(_score));
-        
         // 残り時間の更新
         _second -= dt;
         
         if (_second <= 0) {
+            _second = 0;
             setState(State::Result);
             auto gamestart = Sprite::create("timeup.png");
             auto winSize = Director::getInstance()->getWinSize();
@@ -276,13 +266,25 @@ void MainScene::update(float dt)
             // 終了時にメニューを表示する
             this->runAction(Sequence::create(DelayTime::create(1.0),
                                              CallFunc::create([this]() {
+                
                 auto winSize = Director::getInstance()->getWinSize();
-                auto title = MenuItemImage::create("return.png", "return.png", [this](Ref* ref) {
+                auto layer = Layer::create();
+                auto result = Sprite::create("result.png");
+                result->setPosition(winSize.width / 2.0, winSize.height - 100);
+                layer->addChild(result);
+                
+                auto resultScore = Label::createWithCharMap("result_number.png", 20, 27, '0');
+                resultScore->setString(StringUtils::toString(_score));
+                layer->addChild(resultScore);
+                resultScore->setPosition(winSize.width / 2.0, winSize.height - 130);
+                
+                
+                auto title = MenuItemImage::create("return.png", "return_pressed.png", [this](Ref* ref) {
                     auto scene = TitleScene::createScene();
                     auto transition = TransitionCrossFade::create(1.0, scene);
                     Director::getInstance()->replaceScene(transition);
                 });
-                auto replay = MenuItemImage::create("retry.png", "retry.png", [this](Ref* ref) {
+                auto replay = MenuItemImage::create("retry.png", "retry_pressed.png", [this](Ref* ref) {
                     auto scene = MainScene::createScene();
                     auto transition = TransitionFade::create(1.0, scene);
                     Director::getInstance()->replaceScene(transition);
@@ -290,13 +292,19 @@ void MainScene::update(float dt)
                 auto menu = Menu::create(replay, title, NULL);
                 menu->setPosition(winSize.width / 2.0, winSize.height / 2.0);
                 menu->alignItemsVertically();
-                this->addChild(menu, 10000);
+                
+                layer->addChild(menu);
+                
+                this->addChild(layer, 10000);
             }),
                                              NULL));
             
         }
     }
     _secondLabel->setString(StringUtils::toString(floor(_second)));
+    
+    // スコアの更新
+    _scoreLabel->setString(StringUtils::toString(_score));
 }
 
 Cookie* MainScene::getCookieAt(const cocos2d::Vec2& position)
