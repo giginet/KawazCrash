@@ -21,6 +21,7 @@
 		07DB619E19EC8F6F00AFAD93 /* TitleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07DB619C19EC8F6F00AFAD93 /* TitleScene.cpp */; };
 		07DB61A419ECCC4700AFAD93 /* LicenseScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07DB61A219ECCC4700AFAD93 /* LicenseScene.cpp */; };
 		07DB61A919EE722400AFAD93 /* SS5Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07DB61A519EE722400AFAD93 /* SS5Player.cpp */; };
+		07DB61AB19EE783400AFAD93 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07DB61AA19EE783400AFAD93 /* Images.xcassets */; };
 		07FF166819C2672100FF360B /* libcri_atom_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548C7195D05740099BCFE /* libcri_atom_ios.a */; };
 		07FF166919C2672300FF360B /* libcri_base_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548C9195D05740099BCFE /* libcri_base_ios.a */; };
 		07FF166A19C2672600FF360B /* libcri_file_system_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548CB195D05740099BCFE /* libcri_file_system_ios.a */; };
@@ -268,6 +269,7 @@
 		07DB61A619EE722400AFAD93 /* SS5Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SS5Player.h; sourceTree = "<group>"; };
 		07DB61A719EE722400AFAD93 /* SS5PlayerData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SS5PlayerData.h; sourceTree = "<group>"; };
 		07DB61A819EE722400AFAD93 /* ssShader_frag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ssShader_frag.h; sourceTree = "<group>"; };
+		07DB61AA19EE783400AFAD93 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "KawazCrash iOS/Images.xcassets"; sourceTree = SOURCE_ROOT; };
 		07E9711C19654D4100A76699 /* cookie_crush_acf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cookie_crush_acf.h; path = ../Classes/cookie_crush_acf.h; sourceTree = "<group>"; };
 		07E9712019656B6300A76699 /* cookie_main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cookie_main.h; path = ../Classes/cookie_main.h; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
@@ -621,6 +623,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				07DB61AA19EE783400AFAD93 /* Images.xcassets */,
 				0763E3AA19C05B5B008E1202 /* animations */,
 				072319B31953238500B0103D /* images */,
 				1AFAF8B916D35E4900DB1158 /* CloseNormal.png */,
@@ -798,6 +801,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				072319B41953238500B0103D /* images in Resources */,
+				07DB61AB19EE783400AFAD93 /* Images.xcassets in Resources */,
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
@@ -944,6 +948,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
@@ -984,6 +990,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
