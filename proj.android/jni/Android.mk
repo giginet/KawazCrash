@@ -9,14 +9,18 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
+                   ../../Classes/LicenseScene.cpp \
+                   ../../Classes/TitleScene.cpp \
                    ../../Classes/Cookie.cpp \
                    ../../Classes/MainScene.cpp \
                    ../../Classes/ADX2Manager/ADX2Manager/Manager.cpp \
-                   ../../Classes/ADX2Manager/ADX2Manager/CueSheet.cpp
+                   ../../Classes/ADX2Manager/ADX2Manager/CueSheet.cpp \
+                   ../../Classes/external/SpriteStudio/Players/Cocos2d-x_v3/SS5Player.cpp \
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
                     $(ADX2_PATH)/cocos2dx/include/android \
-                    $(LOCAL_PATH)/../../Classes/ADX2Manager/ADX2Manager
+                    $(LOCAL_PATH)/../../Classes/ADX2Manager/ADX2Manager \
+                    $(LOCAL_PATH)/../../Classes/external/SpriteStudio/Players/Cocos2d-x_v3
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
