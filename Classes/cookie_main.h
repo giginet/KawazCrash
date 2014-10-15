@@ -4,14 +4,14 @@
  *  Tool Ver.        : CRI Atom Craft LE Ver.1.32.00
  *  File Path        : F:/music tools/cri/projects/cookie/Public/cookie_main.acb
  *  File Name        : cookie_main.acb
- *  File Size        : 4,488,960 bytes
- *  Date Time        : 2014/10/15 20:52
+ *  File Size        : 5,330,144 bytes
+ *  Date Time        : 2014/10/15 21:20
  *  Target           : Public
- *  Cues             : 6
+ *  Cues             : 8
  *  CueSheet Comment : 
  *===========================================================================*/
 
-#define CRI_COOKIE_MAIN_CUENUM (6)
+#define CRI_COOKIE_MAIN_CUENUM (8)
 
 /* AISAC Control List (AISAC Control ID) */
 // No AISAC Control
@@ -24,6 +24,8 @@
 #define CRI_COOKIE_MAIN_START   ( 3) /*   */
 #define CRI_COOKIE_MAIN_END     ( 4) /*   */
 #define CRI_COOKIE_MAIN_RETURN  ( 5) /*   */
+#define CRI_COOKIE_MAIN_TITLE   ( 6) /*   */
+#define CRI_COOKIE_MAIN_CHOICE  ( 7) /*   */
 
 /* Block List (Block Index) */
 
