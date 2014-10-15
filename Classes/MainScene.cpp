@@ -19,7 +19,11 @@
 
 #include "ADX2Manager.h"
 
+#include "SharedCueSheet.h"
+
 USING_NS_CC;
+
+CriAtomExPlaybackId MainScene::_musicId = 0;
 
 /// ステージの横のクッキーの数
 const int HORIZONTAL_COUNT = 6;
@@ -39,7 +43,6 @@ MainScene::MainScene()
 ,_chainCount(0)
 ,_stage(nullptr)
 , _currentCookie(nullptr)
-,_cueSheet(nullptr)
 ,_scoreLabel(nullptr)
 ,_secondLabel(nullptr)
 {
@@ -49,7 +52,6 @@ MainScene::~MainScene()
 {
     CC_SAFE_RELEASE_NULL(_stage);
     CC_SAFE_RELEASE_NULL(_currentCookie);
-    CC_SAFE_RELEASE_NULL(_cueSheet);
     CC_SAFE_RELEASE_NULL(_scoreLabel);
     CC_SAFE_RELEASE_NULL(_secondLabel);
 }
@@ -78,9 +80,6 @@ bool MainScene::init()
     // 3.5インチ環境で下の部分を隠すために画面の高さによって位置を変えている
     node->setPosition(Vec2(0, -(sceneHeight - winSize.height)));
     this->addChild(node);
-    
-    auto cueSheet = ADX2::CueSheet::create("adx2/cookie/cookie_crush.acf", "adx2/cookie/cookie_main.acb");
-    this->setCueSheet(cueSheet);
     
     this->setStage(Node::create());
     
@@ -177,7 +176,10 @@ bool MainScene::init()
 void MainScene::onEnterTransitionDidFinish()
 {
     Layer::onEnterTransitionDidFinish();
-    _cueSheet->playCueByID(CRI_COOKIE_MAIN_BGM);
+    
+    if (_musicId == 0) {
+        _musicId = SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_BGM);
+    }
     
     this->runAction(Sequence::create(DelayTime::create(2.0f),
                                      CallFunc::create([this]() {
@@ -190,7 +192,7 @@ void MainScene::onEnterTransitionDidFinish()
                                               MoveBy::create(0.5, Vec2(0, winSize.height / 2.0)),
                                               RemoveSelf::create(),
                                               NULL));
-        _cueSheet->playCueByID(CRI_COOKIE_MAIN_START);
+        SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_START);
         this->addChild(gamestart, 2);
         setState(State::Main);
     }),
@@ -221,7 +223,7 @@ void MainScene::update(float dt)
                 float gameVariable = _chainCount * 0.125;
                 gameVariable = MIN(1.0, gameVariable);
                 criAtomEx_SetGameVariableByName("ComboCount", gameVariable);
-                _cueSheet->playCueByID(CRI_COOKIE_MAIN_VANISH);
+                SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_VANISH);
             }
             
             auto canVanish = false;
@@ -261,7 +263,7 @@ void MainScene::update(float dt)
                                                   NULL));
             this->addChild(gamestart, 2);
             _secondLabel->setString("0");
-            _cueSheet->playCueByID(CRI_COOKIE_MAIN_END);
+            SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_END);
         
             // 終了時にメニューを表示する
             this->runAction(Sequence::create(DelayTime::create(1.0),
@@ -280,11 +282,15 @@ void MainScene::update(float dt)
                 
                 
                 auto title = MenuItemImage::create("return.png", "return_pressed.png", [this](Ref* ref) {
+                    SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_CHOICE);
                     auto scene = TitleScene::createScene();
                     auto transition = TransitionCrossFade::create(1.0, scene);
                     Director::getInstance()->replaceScene(transition);
+                    SharedCueSheet::getInstance()->getCueSheet()->stop(_musicId);
+                    _musicId = 0;
                 });
                 auto replay = MenuItemImage::create("retry.png", "retry_pressed.png", [this](Ref* ref) {
+                    SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_CHOICE);
                     auto scene = MainScene::createScene();
                     auto transition = TransitionFade::create(1.0, scene);
                     Director::getInstance()->replaceScene(transition);
@@ -348,7 +354,7 @@ bool MainScene::swapCookies(Cookie *cookie0, Cookie *cookie1)
     _chainCount = 0;
     
     // 効果音を鳴らす
-    _cueSheet->playCueByID(CRI_COOKIE_MAIN_SWIPE);
+    SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_SWIPE);
     
     // 画面上の位置を取得しておく
     auto position0 = cookie0->getPosition();

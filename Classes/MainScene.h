@@ -122,6 +122,8 @@ private:
      */
     void showChainCount(Cookie *cookie, int chainCount);
     
+    static CriAtomExPlaybackId _musicId;
+    
     CREATE_FUNC(MainScene);
     CC_SYNTHESIZE(float, _second, Second);
     CC_SYNTHESIZE(int, _chainCount, ChainCount);
@@ -130,7 +132,6 @@ private:
     CC_SYNTHESIZE(State, _state, State);
     CC_SYNTHESIZE_RETAIN(cocos2d::Node*, _stage, Stage);
     CC_SYNTHESIZE_RETAIN(Cookie *, _currentCookie, CurrentCookie);
-    CC_SYNTHESIZE_RETAIN(ADX2::CueSheet *, _cueSheet, CueSheet);
     CC_SYNTHESIZE_RETAIN(cocos2d::ui::TextAtlas *, _scoreLabel, ScoreLabel);
     CC_SYNTHESIZE_RETAIN(cocos2d::ui::TextAtlas *, _secondLabel, SecondLabel);
 };

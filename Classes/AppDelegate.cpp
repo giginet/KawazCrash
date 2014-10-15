@@ -1,6 +1,7 @@
 #include "AppDelegate.h"
 #include "LicenseScene.h"
 #include "ADX2Manager.h"
+#include "SharedCueSheet.h"
 
 USING_NS_CC;
 
@@ -34,6 +35,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
     pf_config.max_path = 256;
     
     ADX2::Manager::initialize(pf_config, vp_config);
+    
+    SharedCueSheet::getInstance()->initialize("adx2/cookie/cookie_crush.acf",
+                                              "adx2/cookie/cookie_main.acb");
     
     // turn on display FPS
     director->setDisplayStats(false);
@@ -82,6 +86,23 @@ bool AppDelegate::applicationDidFinishLaunching() {
     searchResolutionOrder.push_back("images/nonretina");
     // 画像の読み込み順を設定する
     FileUtils::getInstance()->setSearchResolutionsOrder(searchResolutionOrder);
+    
+    // ADX2の設定
+    auto fp = [](const char* filename)
+    {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+        return cocos2d::FileUtils::getInstance()->fullPathForFilename(filename);
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) || (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+        /* assetsへのアクセスパスは、必ずassets以下からの相対パスでファイルを指定する
+         * パスの先頭に'/'文字が入ってはダメ */
+        return std::string(filename);
+#endif
+    };
+    
+    auto acfPath = fp("adx2/cookie/cookie_crush.acf");
+    auto acbPath = fp("adx2/cookie/cookie_main.acb");
+    
+    criAtomEx_RegisterAcfFile(NULL, acfPath.c_str(), NULL, 0);
     
     // create a scene. it's an autorelease object
     auto scene = LicenseScene::createScene();

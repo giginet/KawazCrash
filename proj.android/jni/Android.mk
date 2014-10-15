@@ -11,6 +11,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
                    ../../Classes/LicenseScene.cpp \
                    ../../Classes/TitleScene.cpp \
+                   ../../Classes/SharedCueSheet.cpp \
                    ../../Classes/Cookie.cpp \
                    ../../Classes/MainScene.cpp \
                    ../../Classes/ADX2Manager/ADX2Manager/Manager.cpp \

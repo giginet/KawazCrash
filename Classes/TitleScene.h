@@ -23,7 +23,6 @@ class TitleScene : cocos2d::Layer
     
     void onEnterTransitionDidFinish() override;
     
-    CC_SYNTHESIZE_RETAIN(ADX2::CueSheet *, _cueSheet, CueSheet);
     CREATE_FUNC(TitleScene);
 };
 

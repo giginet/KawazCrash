@@ -8,7 +8,9 @@
 
 #include "TitleScene.h"
 #include "MainScene.h"
-#include "cookie_title.h"
+#include "SharedCueSheet.h"
+
+#include "cookie_main.h"
 
 USING_NS_CC;
 
@@ -21,23 +23,32 @@ Scene* TitleScene::createScene()
 }
 
 TitleScene::TitleScene()
-: _cueSheet(NULL)
 {
 }
 
 TitleScene::~TitleScene()
 {
-    CC_SAFE_RELEASE_NULL(_cueSheet);
 }
 
 void TitleScene::onEnterTransitionDidFinish()
 {
     Layer::onEnterTransitionDidFinish();
     
-    auto cueSheet = ADX2::CueSheet::create("adx2/cookie/cookie_crush.acf", "adx2/cookie/cookie_title.acb");
-    this->setCueSheet(cueSheet);
+    auto id = SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_TITLE);
     
-    _cueSheet->playCueByID(CRI_COOKIE_TITLE_TITLE);
+    auto touchListener = EventListenerTouchOneByOne::create();
+    touchListener->onTouchBegan = [this, id](Touch * touch, Event * event) {
+        auto scene = MainScene::createScene();
+        auto transition = TransitionCrossFade::create(0.5, scene);
+        Director::getInstance()->replaceScene(transition);
+        
+        SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_CHOICE);
+        SharedCueSheet::getInstance()->getCueSheet()->stop(id);
+        
+        return true;
+    };
+    
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 }
 
 bool TitleScene::init()
@@ -51,16 +62,6 @@ bool TitleScene::init()
     title->setPosition(winSize.width / 2.0, winSize.height / 2.0);
     
     this->addChild(title);
-    
-    auto touchListener = EventListenerTouchOneByOne::create();
-    touchListener->onTouchBegan = [](Touch * touch, Event * event) {
-        auto scene = MainScene::createScene();
-        auto transition = TransitionCrossFade::create(0.5, scene);
-        Director::getInstance()->replaceScene(transition);
-        return true;
-    };
-    
-    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
     
     return true;
 }
