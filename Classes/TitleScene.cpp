@@ -32,7 +32,7 @@ TitleScene::~TitleScene()
 
 void TitleScene::onEnterTransitionDidFinish()
 {
-    Layer::onEnter();
+    Layer::onEnterTransitionDidFinish();
     
     auto cueSheet = ADX2::CueSheet::create("adx2/cookie/cookie_crush.acf", "adx2/cookie/cookie_title.acb");
     this->setCueSheet(cueSheet);

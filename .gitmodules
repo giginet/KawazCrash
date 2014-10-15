@@ -6,4 +6,4 @@
 	url = git@gitlab.kawaz.org:cocos-book/ccadx2manager.git
 [submodule "Classes/external/SpriteStudio"]
 	path = Classes/external/SpriteStudio
-	url = https://github.com/giginet/SpriteStudio5-SDK.git
+	url = https://github.com/SpriteStudio/SpriteStudio5-SDK.git

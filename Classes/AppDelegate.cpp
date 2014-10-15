@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "TitleScene.h"
+#include "LicenseScene.h"
 #include "ADX2Manager.h"
 
 USING_NS_CC;
@@ -84,7 +84,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     FileUtils::getInstance()->setSearchResolutionsOrder(searchResolutionOrder);
     
     // create a scene. it's an autorelease object
-    auto scene = TitleScene::createScene();
+    auto scene = LicenseScene::createScene();
     
     // run
     director->runWithScene(scene);

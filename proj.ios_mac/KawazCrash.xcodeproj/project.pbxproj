@@ -15,11 +15,12 @@
 		072319B51953238500B0103D /* images in Resources */ = {isa = PBXBuildFile; fileRef = 072319B31953238500B0103D /* images */; };
 		07254A07195D20050099BCFE /* adx2 in Resources */ = {isa = PBXBuildFile; fileRef = 07254A06195D20050099BCFE /* adx2 */; };
 		07254A08195D20050099BCFE /* adx2 in Resources */ = {isa = PBXBuildFile; fileRef = 07254A06195D20050099BCFE /* adx2 */; };
-		0763E3A019C050E8008E1202 /* SS5Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0763E39B19C050E8008E1202 /* SS5Player.cpp */; };
 		0763E3AB19C05B5B008E1202 /* animations in Resources */ = {isa = PBXBuildFile; fileRef = 0763E3AA19C05B5B008E1202 /* animations */; };
 		07A3973419AF0B5200A02C7E /* CueSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07A3973019AF0B5200A02C7E /* CueSheet.cpp */; };
 		07A3973519AF0B5200A02C7E /* Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07A3973219AF0B5200A02C7E /* Manager.cpp */; };
 		07DB619E19EC8F6F00AFAD93 /* TitleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07DB619C19EC8F6F00AFAD93 /* TitleScene.cpp */; };
+		07DB61A419ECCC4700AFAD93 /* LicenseScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07DB61A219ECCC4700AFAD93 /* LicenseScene.cpp */; };
+		07DB61A919EE722400AFAD93 /* SS5Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07DB61A519EE722400AFAD93 /* SS5Player.cpp */; };
 		07FF166819C2672100FF360B /* libcri_atom_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548C7195D05740099BCFE /* libcri_atom_ios.a */; };
 		07FF166919C2672300FF360B /* libcri_base_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548C9195D05740099BCFE /* libcri_base_ios.a */; };
 		07FF166A19C2672600FF360B /* libcri_file_system_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072548CB195D05740099BCFE /* libcri_file_system_ios.a */; };
@@ -252,10 +253,6 @@
 		072548CD195D05740099BCFE /* libcri_file_system_net_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcri_file_system_net_ios.a; sourceTree = "<group>"; };
 		072548CE195D05740099BCFE /* libcri_file_system_net_iosD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcri_file_system_net_iosD.a; sourceTree = "<group>"; };
 		07254A06195D20050099BCFE /* adx2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = adx2; sourceTree = "<group>"; };
-		0763E39B19C050E8008E1202 /* SS5Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SS5Player.cpp; sourceTree = "<group>"; };
-		0763E39C19C050E8008E1202 /* SS5Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SS5Player.h; sourceTree = "<group>"; };
-		0763E39D19C050E8008E1202 /* SS5PlayerData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SS5PlayerData.h; sourceTree = "<group>"; };
-		0763E39E19C050E8008E1202 /* ssShader_frag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ssShader_frag.h; sourceTree = "<group>"; };
 		0763E3AA19C05B5B008E1202 /* animations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = animations; sourceTree = "<group>"; };
 		07A3972F19AF0B5200A02C7E /* ADX2Manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADX2Manager.h; sourceTree = "<group>"; };
 		07A3973019AF0B5200A02C7E /* CueSheet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CueSheet.cpp; sourceTree = "<group>"; };
@@ -265,6 +262,12 @@
 		07DB619C19EC8F6F00AFAD93 /* TitleScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TitleScene.cpp; path = ../Classes/TitleScene.cpp; sourceTree = "<group>"; };
 		07DB619D19EC8F6F00AFAD93 /* TitleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitleScene.h; path = ../Classes/TitleScene.h; sourceTree = "<group>"; };
 		07DB61A119EC99E500AFAD93 /* cookie_title.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cookie_title.h; path = ../Classes/cookie_title.h; sourceTree = "<group>"; };
+		07DB61A219ECCC4700AFAD93 /* LicenseScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LicenseScene.cpp; path = ../Classes/LicenseScene.cpp; sourceTree = "<group>"; };
+		07DB61A319ECCC4700AFAD93 /* LicenseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LicenseScene.h; path = ../Classes/LicenseScene.h; sourceTree = "<group>"; };
+		07DB61A519EE722400AFAD93 /* SS5Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SS5Player.cpp; sourceTree = "<group>"; };
+		07DB61A619EE722400AFAD93 /* SS5Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SS5Player.h; sourceTree = "<group>"; };
+		07DB61A719EE722400AFAD93 /* SS5PlayerData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SS5PlayerData.h; sourceTree = "<group>"; };
+		07DB61A819EE722400AFAD93 /* ssShader_frag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ssShader_frag.h; sourceTree = "<group>"; };
 		07E9711C19654D4100A76699 /* cookie_crush_acf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cookie_crush_acf.h; path = ../Classes/cookie_crush_acf.h; sourceTree = "<group>"; };
 		07E9712019656B6300A76699 /* cookie_main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cookie_main.h; path = ../Classes/cookie_main.h; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
@@ -448,10 +451,10 @@
 		0763E39A19C050E8008E1202 /* Cocos2d-x_v3 */ = {
 			isa = PBXGroup;
 			children = (
-				0763E39B19C050E8008E1202 /* SS5Player.cpp */,
-				0763E39C19C050E8008E1202 /* SS5Player.h */,
-				0763E39D19C050E8008E1202 /* SS5PlayerData.h */,
-				0763E39E19C050E8008E1202 /* ssShader_frag.h */,
+				07DB61A519EE722400AFAD93 /* SS5Player.cpp */,
+				07DB61A619EE722400AFAD93 /* SS5Player.h */,
+				07DB61A719EE722400AFAD93 /* SS5PlayerData.h */,
+				07DB61A819EE722400AFAD93 /* ssShader_frag.h */,
 			);
 			path = "Cocos2d-x_v3";
 			sourceTree = "<group>";
@@ -500,6 +503,8 @@
 				072319A619531B7300B0103D /* MainScene.cpp */,
 				072319A719531B7300B0103D /* MainScene.h */,
 				07A3972E19AF0B5200A02C7E /* ADX2Manager */,
+				07DB61A219ECCC4700AFAD93 /* LicenseScene.cpp */,
+				07DB61A319ECCC4700AFAD93 /* LicenseScene.h */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -857,8 +862,9 @@
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				07A3973419AF0B5200A02C7E /* CueSheet.cpp in Sources */,
 				07DB619E19EC8F6F00AFAD93 /* TitleScene.cpp in Sources */,
+				07DB61A419ECCC4700AFAD93 /* LicenseScene.cpp in Sources */,
+				07DB61A919EE722400AFAD93 /* SS5Player.cpp in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
-				0763E3A019C050E8008E1202 /* SS5Player.cpp in Sources */,
 				072319A819531B7300B0103D /* Cookie.cpp in Sources */,
 				072319AA19531B7300B0103D /* MainScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
