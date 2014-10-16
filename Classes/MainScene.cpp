@@ -34,7 +34,7 @@ const int VANISH_COUNT = 4;
 /// Stage用のNodeのタグ
 const int FRAME_TAG = 1000;
 /// 初期残り時間
-const int LIMIT_TIME = 1;
+const int LIMIT_TIME = 60;
 
 MainScene::MainScene()
 : _state(State::Ready)
@@ -294,7 +294,7 @@ void MainScene::update(float dt)
                     
                     SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_CHOICE);
                     auto scene = TitleScene::createScene();
-                    auto transition = TransitionCrossFade::create(1.0, scene);
+                    auto transition = TransitionFade::create(1.0, scene);
                     Director::getInstance()->replaceScene(transition);
                     SharedCueSheet::getInstance()->getCueSheet()->stop(_musicId);
                     _musicId = 0;
