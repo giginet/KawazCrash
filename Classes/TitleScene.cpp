@@ -59,8 +59,13 @@ bool TitleScene::init()
     this->addChild(tap);
     
     auto touchListener = EventListenerTouchOneByOne::create();
+    static bool isPressed = false;
     touchListener->onTouchBegan = [this, tap](Touch * touch, Event * event) {
+        if (isPressed) return true;
+        
         SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_CHOICE);
+        
+        isPressed = true;
         
         // パーティクルの表示
         auto particle = ParticleSystemQuad::create("particles/button-effect.plist");
