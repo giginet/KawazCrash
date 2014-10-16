@@ -271,6 +271,10 @@ void MainScene::update(float dt)
                 
                 auto winSize = Director::getInstance()->getWinSize();
                 auto layer = Layer::create();
+                
+                auto menuBackground = LayerColor::create(Color4B(0, 0, 0, 127));
+                layer->addChild(menuBackground);
+                
                 auto result = Sprite::create("result.png");
                 result->setPosition(winSize.width / 2.0, winSize.height - 100);
                 layer->addChild(result);
@@ -279,7 +283,6 @@ void MainScene::update(float dt)
                 resultScore->setString(StringUtils::toString(_score));
                 layer->addChild(resultScore);
                 resultScore->setPosition(winSize.width / 2.0, winSize.height - 130);
-                
                 
                 auto title = MenuItemImage::create("return.png", "return_pressed.png", [this](Ref* ref) {
                     SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_CHOICE);
@@ -297,7 +300,7 @@ void MainScene::update(float dt)
                 });
                 auto menu = Menu::create(replay, title, NULL);
                 menu->setPosition(winSize.width / 2.0, winSize.height / 2.0);
-                menu->alignItemsVertically();
+                menu->alignItemsVerticallyWithPadding(20);
                 
                 layer->addChild(menu);
                 
@@ -391,7 +394,7 @@ bool MainScene::swapCookies(Cookie *cookie0, Cookie *cookie1)
     auto addMoveAnimation = [canMove, this](Cookie *cookie, Vec2 toPosition, Vec2 toCookiePosition)
     {
         // 移動アニメーションの実行時間
-        const auto duration = 0.2;
+        const auto duration = 0.08;
         auto fromPosition = cookie->getPosition();
         
         cookie->runAction(Sequence::create(MoveTo::create(duration, toPosition),
