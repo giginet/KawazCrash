@@ -21,7 +21,7 @@
 
 #include "SharedCueSheet.h"
 
-typedef enum ZOrder  {
+enum ZOrder  {
     ZOrderStage,
     ZOrderEffect,
     ZOrderResult,
@@ -41,7 +41,7 @@ const int VANISH_COUNT = 4;
 /// Stage用のNodeのタグ
 const int FRAME_TAG = 1000;
 /// 初期残り時間
-const int LIMIT_TIME = 5;
+const int LIMIT_TIME = 60;
 
 MainScene::MainScene()
 : _state(State::Ready)

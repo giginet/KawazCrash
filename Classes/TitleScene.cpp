@@ -55,7 +55,7 @@ bool TitleScene::init()
     this->addChild(logo);
     
     auto tap = Sprite::create("tapicon.png");
-    tap->setPosition(winSize.width / 2.0, 220);
+    tap->setPosition(winSize.width / 2.0, winSize.height - 348);
     this->addChild(tap);
     
     auto touchListener = EventListenerTouchOneByOne::create();
