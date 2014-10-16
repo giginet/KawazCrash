@@ -21,6 +21,13 @@
 
 #include "SharedCueSheet.h"
 
+enum ZOrder  {
+    ZOrderStage,
+    ZOrderEffect,
+    ZOrderResult,
+    ZOrderUI
+};
+
 USING_NS_CC;
 
 CriAtomExPlaybackId MainScene::_musicId = 0;
@@ -46,6 +53,7 @@ MainScene::MainScene()
 ,_scoreLabel(nullptr)
 ,_secondLabel(nullptr)
 {
+
 }
 
 MainScene::~MainScene()
@@ -70,6 +78,15 @@ bool MainScene::init()
         return false;
     }
     
+    return true;
+}
+
+void MainScene::onEnterTransitionDidFinish()
+{
+    Layer::onEnterTransitionDidFinish();
+    
+    // なぜかinitではなく、遷移後に画面を作らないと_scoreLabelの表示位置が変わる謎バグ
+    
     // 画面サイズの取得
     auto winSize = Director::getInstance()->getWinSize();
     
@@ -86,7 +103,7 @@ bool MainScene::init()
     auto frame = node->getChildByTag(FRAME_TAG);
     _stage->setPosition(-Vec2(Cookie::getSize() * HORIZONTAL_COUNT / 2,
                               Cookie::getSize() * VERTICAL_COUNT / 2));
-    frame->addChild(_stage, 1);
+    frame->addChild(_stage, ZOrderStage);
     
     // タッチイベントの登録
     auto listener = EventListenerTouchOneByOne::create();
@@ -142,6 +159,7 @@ bool MainScene::init()
     
     auto secondLabel = node->getChildByTag(3000)->getChildren().at(0)->getChildByName<ui::TextAtlas *>("AtlasLabel_3");
     this->setSecondLabel(dynamic_cast<ui::TextAtlas *>(secondLabel));
+    secondLabel->setString(StringUtils::toString(LIMIT_TIME));
     
     auto scoreLabel = node->getChildByTag(2000)->getChildren().at(0)->getChildByName<ui::TextAtlas *>("AtlasLabel_5");
     this->setScoreLabel(dynamic_cast<ui::TextAtlas *>(scoreLabel));
@@ -168,14 +186,7 @@ bool MainScene::init()
                                     ScaleTo::create(0, baseScale), NULL);
     player->runAction(RepeatForever::create(walking));
     player->setName("kawaztan");
-    this->addChild(player, 10);
-    
-    return true;
-}
-
-void MainScene::onEnterTransitionDidFinish()
-{
-    Layer::onEnterTransitionDidFinish();
+    this->addChild(player, ZOrderEffect);
     
     if (_musicId == 0) {
         _musicId = SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_BGM);
@@ -193,7 +204,7 @@ void MainScene::onEnterTransitionDidFinish()
                                               RemoveSelf::create(),
                                               NULL));
         SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_START);
-        this->addChild(gamestart, 2);
+        this->addChild(gamestart, ZOrderUI);
         setState(State::Main);
     }),
                                      NULL));
@@ -252,25 +263,32 @@ void MainScene::update(float dt)
         if (_second <= 0) {
             _second = 0;
             setState(State::Result);
-            auto gamestart = Sprite::create("timeup.png");
+            auto timeup = Sprite::create("timeup.png");
             auto winSize = Director::getInstance()->getWinSize();
-            gamestart->setPosition(Vec2(winSize.width / 2.0, winSize.height / 1.5));
-            gamestart->setScale(0);
-            gamestart->runAction(Sequence::create(EaseElasticIn::create(ScaleTo::create(0.5, 1.0)),
+            timeup->setPosition(Vec2(winSize.width / 2.0, winSize.height / 1.5));
+            timeup->setScale(0);
+            timeup->runAction(Sequence::create(EaseElasticIn::create(ScaleTo::create(0.5, 1.0)),
                                                   DelayTime::create(1.5),
                                                   ScaleTo::create(0.5, 0),
                                                   RemoveSelf::create(),
                                                   NULL));
-            this->addChild(gamestart, 2);
+            this->addChild(timeup, ZOrderUI);
+            
+            auto layer = LayerColor::create(Color4B(0, 0, 0, 127));
+            layer->setScale(0);
+            layer->runAction(ScaleTo::create(0.1, 1.0));
+            this->addChild(layer, ZOrderResult);
+            
             _secondLabel->setString("0");
             SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_END);
         
+            
             // 終了時にメニューを表示する
-            this->runAction(Sequence::create(DelayTime::create(1.0),
-                                             CallFunc::create([this]() {
+            this->runAction(Sequence::create(DelayTime::create(2.0),
+                                             CallFunc::create([this, layer]() {
                 
                 auto winSize = Director::getInstance()->getWinSize();
-                auto layer = Layer::create();
+                
                 auto result = Sprite::create("result.png");
                 result->setPosition(winSize.width / 2.0, winSize.height - 100);
                 layer->addChild(result);
@@ -280,16 +298,29 @@ void MainScene::update(float dt)
                 layer->addChild(resultScore);
                 resultScore->setPosition(winSize.width / 2.0, winSize.height - 130);
                 
-                
-                auto title = MenuItemImage::create("return.png", "return_pressed.png", [this](Ref* ref) {
+                auto title = MenuItemImage::create("return.png", "return_pressed.png", [this, layer](Ref* ref) {
+                    // パーティクルの表示
+                    auto button = dynamic_cast<Node *>(ref);
+                    auto position = button->getParent()->convertToWorldSpace(button->getPosition());
+                    auto particle = ParticleSystemQuad::create("particles/button-effect.plist");
+                    particle->setPosition(position);
+                    layer->addChild(particle);
+                    
                     SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_CHOICE);
                     auto scene = TitleScene::createScene();
-                    auto transition = TransitionCrossFade::create(1.0, scene);
+                    auto transition = TransitionFade::create(1.0, scene);
                     Director::getInstance()->replaceScene(transition);
                     SharedCueSheet::getInstance()->getCueSheet()->stop(_musicId);
                     _musicId = 0;
                 });
-                auto replay = MenuItemImage::create("retry.png", "retry_pressed.png", [this](Ref* ref) {
+                auto replay = MenuItemImage::create("retry.png", "retry_pressed.png", [this, layer](Ref* ref) {
+                    // パーティクルの表示
+                    auto button = dynamic_cast<Node *>(ref);
+                    auto position = button->getParent()->convertToWorldSpace(button->getPosition());
+                    auto particle = ParticleSystemQuad::create("particles/button-effect.plist");
+                    particle->setPosition(position);
+                    layer->addChild(particle);
+                    
                     SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_CHOICE);
                     auto scene = MainScene::createScene();
                     auto transition = TransitionFade::create(1.0, scene);
@@ -297,11 +328,10 @@ void MainScene::update(float dt)
                 });
                 auto menu = Menu::create(replay, title, NULL);
                 menu->setPosition(winSize.width / 2.0, winSize.height / 2.0);
-                menu->alignItemsVertically();
+                menu->alignItemsVerticallyWithPadding(20);
                 
                 layer->addChild(menu);
                 
-                this->addChild(layer, 10000);
             }),
                                              NULL));
             
@@ -391,7 +421,7 @@ bool MainScene::swapCookies(Cookie *cookie0, Cookie *cookie1)
     auto addMoveAnimation = [canMove, this](Cookie *cookie, Vec2 toPosition, Vec2 toCookiePosition)
     {
         // 移動アニメーションの実行時間
-        const auto duration = 0.2;
+        const auto duration = 0.08;
         auto fromPosition = cookie->getPosition();
         
         cookie->runAction(Sequence::create(MoveTo::create(duration, toPosition),
@@ -459,6 +489,12 @@ void MainScene::vanishCookie(Cookie *cookie)
     cookie->setState(Cookie::State::DISAPEARING);
     // アニメーションの時間
     const auto duration = 0.2f;
+    
+    // 消去パーティクルを追加する
+    auto particle = ParticleSystemQuad::create("particles/vanish.plist");
+    particle->setPosition(cookie->getPosition());
+    _stage->addChild(particle, ZOrderEffect);
+    
     // 削除アニメーションを追加する
     cookie->runAction(Sequence::create(FadeOut::create(duration),
                                        CallFuncN::create([this](Node* node) {
@@ -638,7 +674,7 @@ void MainScene::showChainCount(Cookie * cookie, int count)
     atlas->setString(StringUtils::toString(count));
     chainCount->setPosition(cookie->getParent()->convertToWorldSpace(cookie->getPosition()));
     chainCount->setScale(0);
-    this->addChild(chainCount, 1000);
+    this->addChild(chainCount, ZOrderEffect);
     
     chainCount->runAction(Sequence::create(ScaleTo::create(0.2, 1.0),
                                            DelayTime::create(1.0),

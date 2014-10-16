@@ -20,11 +20,13 @@ Scene* LicenseScene::createScene()
 }
 
 LicenseScene::LicenseScene()
+: _player(nullptr)
 {
 }
 
 LicenseScene::~LicenseScene()
 {
+    CC_SAFE_RELEASE_NULL(_player);
 }
 
 bool LicenseScene::init()

@@ -23,6 +23,7 @@ class TitleScene : cocos2d::Layer
     
     void onEnterTransitionDidFinish() override;
     
+    CC_SYNTHESIZE(CriAtomExPlaybackId, _jingleId, JingleID);
     CREATE_FUNC(TitleScene);
 };
 

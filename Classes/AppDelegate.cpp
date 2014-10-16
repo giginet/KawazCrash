@@ -45,7 +45,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
     
-    glview->setDesignResolutionSize(320, 568, ResolutionPolicy::EXACT_FIT);
+    glview->setDesignResolutionSize(320, 568, ResolutionPolicy::SHOW_ALL);
     
     // Resourceの探索パスを設定する
     auto addPath = [](const char* path) {
@@ -81,7 +81,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
         }
     } else if (platform == Platform::OS_ANDROID) {
         // Android端末のとき
-        glview->setDesignResolutionSize(320, 480, ResolutionPolicy::SHOW_ALL);
+        director->setContentScaleFactor(2.0f);
+        // iPhone 4inchのとき
+        glview->setDesignResolutionSize(320, 568, ResolutionPolicy::SHOW_ALL);
+        // Resources/4inchフォルダに画像ファイルがあれば、最優先で利用する
+        searchResolutionOrder.push_back("images/retina");
     }
     searchResolutionOrder.push_back("images/nonretina");
     // 画像の読み込み順を設定する
