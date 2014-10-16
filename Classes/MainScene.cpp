@@ -462,6 +462,12 @@ void MainScene::vanishCookie(Cookie *cookie)
     cookie->setState(Cookie::State::DISAPEARING);
     // アニメーションの時間
     const auto duration = 0.2f;
+    
+    // 消去パーティクルを追加する
+    auto particle = ParticleSystemQuad::create("vanish.plist");
+    particle->setPosition(cookie->getPosition());
+    _stage->addChild(particle, 10000);
+    
     // 削除アニメーションを追加する
     cookie->runAction(Sequence::create(FadeOut::create(duration),
                                        CallFuncN::create([this](Node* node) {
