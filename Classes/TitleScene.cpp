@@ -66,6 +66,7 @@ bool TitleScene::init()
         auto particle = ParticleSystemQuad::create("particles/button-effect.plist");
         particle->setPosition(tap->getPosition());
         this->addChild(particle);
+        tap->setTexture(Director::getInstance()->getTextureCache()->addImage("tapicon_pressed.png"));
         
         this->runAction(Sequence::create(DelayTime::create(0.5),
                                          CallFunc::create([tap, this]() {
@@ -73,7 +74,6 @@ bool TitleScene::init()
             auto transition = TransitionFade::create(0.5, scene);
             Director::getInstance()->replaceScene(transition);
             
-            tap->setTexture(Director::getInstance()->getTextureCache()->addImage("tapicon_pressed.png"));
             
             SharedCueSheet::getInstance()->getCueSheet()->stop(_jingleId);
             

@@ -53,6 +53,7 @@ MainScene::MainScene()
 ,_scoreLabel(nullptr)
 ,_secondLabel(nullptr)
 {
+
 }
 
 MainScene::~MainScene()
@@ -76,6 +77,15 @@ bool MainScene::init()
     if (!Layer::init()) {
         return false;
     }
+    
+    return true;
+}
+
+void MainScene::onEnterTransitionDidFinish()
+{
+    Layer::onEnterTransitionDidFinish();
+    
+    // なぜかinitではなく、遷移後に画面を作らないと_scoreLabelの表示位置が変わる謎バグ
     
     // 画面サイズの取得
     auto winSize = Director::getInstance()->getWinSize();
@@ -149,6 +159,7 @@ bool MainScene::init()
     
     auto secondLabel = node->getChildByTag(3000)->getChildren().at(0)->getChildByName<ui::TextAtlas *>("AtlasLabel_3");
     this->setSecondLabel(dynamic_cast<ui::TextAtlas *>(secondLabel));
+    secondLabel->setString(StringUtils::toString(LIMIT_TIME));
     
     auto scoreLabel = node->getChildByTag(2000)->getChildren().at(0)->getChildByName<ui::TextAtlas *>("AtlasLabel_5");
     this->setScoreLabel(dynamic_cast<ui::TextAtlas *>(scoreLabel));
@@ -176,13 +187,6 @@ bool MainScene::init()
     player->runAction(RepeatForever::create(walking));
     player->setName("kawaztan");
     this->addChild(player, ZOrderEffect);
-    
-    return true;
-}
-
-void MainScene::onEnterTransitionDidFinish()
-{
-    Layer::onEnterTransitionDidFinish();
     
     if (_musicId == 0) {
         _musicId = SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_BGM);
