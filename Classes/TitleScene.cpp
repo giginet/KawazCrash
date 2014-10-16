@@ -50,10 +50,6 @@ bool TitleScene::init()
     title->setPosition(winSize.width / 2.0, winSize.height / 2.0);
     this->addChild(title);
     
-    auto logo = Sprite::create("logo.png");
-    logo->setPosition(winSize.width / 2.0, winSize.height - 150);
-    this->addChild(logo);
-    
     auto tap = Sprite::create("tapicon.png");
     tap->setPosition(winSize.width / 2.0, winSize.height - 348);
     this->addChild(tap);
