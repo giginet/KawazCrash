@@ -68,7 +68,7 @@ bool TitleScene::init()
         this->addChild(particle);
         tap->setTexture(Director::getInstance()->getTextureCache()->addImage("tapicon_pressed.png"));
         
-        this->runAction(Sequence::create(DelayTime::create(0.5),
+        this->runAction(Sequence::create(DelayTime::create(0.8),
                                          CallFunc::create([tap, this]() {
             auto scene = MainScene::createScene();
             auto transition = TransitionFade::create(0.5, scene);
@@ -76,6 +76,7 @@ bool TitleScene::init()
             
             
             SharedCueSheet::getInstance()->getCueSheet()->stop(_jingleId);
+            criAtomExPlayer_Stop(ADX2::Manager::getInstance()->getDefaultPlayer());
             
         }),  NULL));
         

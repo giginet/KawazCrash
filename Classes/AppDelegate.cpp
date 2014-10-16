@@ -83,9 +83,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
         // Android端末のとき
         director->setContentScaleFactor(2.0f);
         // iPhone 4inchのとき
-        glview->setDesignResolutionSize(320, 568, ResolutionPolicy::NO_BORDER);
+        glview->setDesignResolutionSize(320, 568, ResolutionPolicy::SHOW_ALL);
         // Resources/4inchフォルダに画像ファイルがあれば、最優先で利用する
-        searchResolutionOrder.push_back("images/4inch");
         searchResolutionOrder.push_back("images/retina");
     }
     searchResolutionOrder.push_back("images/nonretina");
