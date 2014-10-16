@@ -34,7 +34,7 @@ const int VANISH_COUNT = 4;
 /// Stage用のNodeのタグ
 const int FRAME_TAG = 1000;
 /// 初期残り時間
-const int LIMIT_TIME = 60;
+const int LIMIT_TIME = 1;
 
 MainScene::MainScene()
 : _state(State::Ready)
@@ -284,7 +284,14 @@ void MainScene::update(float dt)
                 layer->addChild(resultScore);
                 resultScore->setPosition(winSize.width / 2.0, winSize.height - 130);
                 
-                auto title = MenuItemImage::create("return.png", "return_pressed.png", [this](Ref* ref) {
+                auto title = MenuItemImage::create("return.png", "return_pressed.png", [this, layer](Ref* ref) {
+                    // パーティクルの表示
+                    auto button = dynamic_cast<Node *>(ref);
+                    auto position = button->getParent()->convertToWorldSpace(button->getPosition());
+                    auto particle = ParticleSystemQuad::create("particles/button-effect.plist");
+                    particle->setPosition(position);
+                    layer->addChild(particle);
+                    
                     SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_CHOICE);
                     auto scene = TitleScene::createScene();
                     auto transition = TransitionCrossFade::create(1.0, scene);
@@ -292,7 +299,14 @@ void MainScene::update(float dt)
                     SharedCueSheet::getInstance()->getCueSheet()->stop(_musicId);
                     _musicId = 0;
                 });
-                auto replay = MenuItemImage::create("retry.png", "retry_pressed.png", [this](Ref* ref) {
+                auto replay = MenuItemImage::create("retry.png", "retry_pressed.png", [this, layer](Ref* ref) {
+                    // パーティクルの表示
+                    auto button = dynamic_cast<Node *>(ref);
+                    auto position = button->getParent()->convertToWorldSpace(button->getPosition());
+                    auto particle = ParticleSystemQuad::create("particles/button-effect.plist");
+                    particle->setPosition(position);
+                    layer->addChild(particle);
+                    
                     SharedCueSheet::getInstance()->getCueSheet()->playCueByID(CRI_COOKIE_MAIN_CHOICE);
                     auto scene = MainScene::createScene();
                     auto transition = TransitionFade::create(1.0, scene);
@@ -464,7 +478,7 @@ void MainScene::vanishCookie(Cookie *cookie)
     const auto duration = 0.2f;
     
     // 消去パーティクルを追加する
-    auto particle = ParticleSystemQuad::create("vanish.plist");
+    auto particle = ParticleSystemQuad::create("particles/vanish.plist");
     particle->setPosition(cookie->getPosition());
     _stage->addChild(particle, 10000);
     

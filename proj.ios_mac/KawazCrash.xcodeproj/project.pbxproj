@@ -17,8 +17,7 @@
 		07254A08195D20050099BCFE /* adx2 in Resources */ = {isa = PBXBuildFile; fileRef = 07254A06195D20050099BCFE /* adx2 */; };
 		0763E3AB19C05B5B008E1202 /* animations in Resources */ = {isa = PBXBuildFile; fileRef = 0763E3AA19C05B5B008E1202 /* animations */; };
 		07A21C1919EEA07800A5F3CB /* SharedCueSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07A21C1719EEA07800A5F3CB /* SharedCueSheet.cpp */; };
-		07A21C2B19EFC60300A5F3CB /* button-effect.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07A21C2919EFC60300A5F3CB /* button-effect.plist */; };
-		07A21C2C19EFC60300A5F3CB /* vanish.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07A21C2A19EFC60300A5F3CB /* vanish.plist */; };
+		07A21C2E19EFCDC200A5F3CB /* particles in Resources */ = {isa = PBXBuildFile; fileRef = 07A21C2D19EFCDC200A5F3CB /* particles */; };
 		07A3973419AF0B5200A02C7E /* CueSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07A3973019AF0B5200A02C7E /* CueSheet.cpp */; };
 		07A3973519AF0B5200A02C7E /* Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07A3973219AF0B5200A02C7E /* Manager.cpp */; };
 		07DB619E19EC8F6F00AFAD93 /* TitleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07DB619C19EC8F6F00AFAD93 /* TitleScene.cpp */; };
@@ -260,8 +259,7 @@
 		0763E3AA19C05B5B008E1202 /* animations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = animations; sourceTree = "<group>"; };
 		07A21C1719EEA07800A5F3CB /* SharedCueSheet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SharedCueSheet.cpp; path = ../Classes/SharedCueSheet.cpp; sourceTree = "<group>"; };
 		07A21C1819EEA07800A5F3CB /* SharedCueSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedCueSheet.h; path = ../Classes/SharedCueSheet.h; sourceTree = "<group>"; };
-		07A21C2919EFC60300A5F3CB /* button-effect.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "button-effect.plist"; sourceTree = "<group>"; };
-		07A21C2A19EFC60300A5F3CB /* vanish.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = vanish.plist; sourceTree = "<group>"; };
+		07A21C2D19EFCDC200A5F3CB /* particles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = particles; sourceTree = "<group>"; };
 		07A3972F19AF0B5200A02C7E /* ADX2Manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADX2Manager.h; sourceTree = "<group>"; };
 		07A3973019AF0B5200A02C7E /* CueSheet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CueSheet.cpp; sourceTree = "<group>"; };
 		07A3973119AF0B5200A02C7E /* CueSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CueSheet.h; sourceTree = "<group>"; };
@@ -467,15 +465,6 @@
 			path = "Cocos2d-x_v3";
 			sourceTree = "<group>";
 		};
-		07A21C2819EFC60300A5F3CB /* particles */ = {
-			isa = PBXGroup;
-			children = (
-				07A21C2919EFC60300A5F3CB /* button-effect.plist */,
-				07A21C2A19EFC60300A5F3CB /* vanish.plist */,
-			);
-			path = particles;
-			sourceTree = "<group>";
-		};
 		07A3972E19AF0B5200A02C7E /* ADX2Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -639,8 +628,8 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				07A21C2819EFC60300A5F3CB /* particles */,
 				07DB61AA19EE783400AFAD93 /* Images.xcassets */,
+				07A21C2D19EFCDC200A5F3CB /* particles */,
 				0763E3AA19C05B5B008E1202 /* animations */,
 				072319B31953238500B0103D /* images */,
 				1AFAF8B916D35E4900DB1158 /* CloseNormal.png */,
@@ -825,17 +814,16 @@
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				1AFAF8BC16D35E4900DB1158 /* CloseNormal.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
+				07A21C2E19EFCDC200A5F3CB /* particles in Resources */,
 				07254A07195D20050099BCFE /* adx2 in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
-				07A21C2B19EFC60300A5F3CB /* button-effect.plist in Resources */,
 				1AFAF8BD16D35E4900DB1158 /* CloseSelected.png in Resources */,
 				0763E3AB19C05B5B008E1202 /* animations in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				1AFAF8BE16D35E4900DB1158 /* HelloWorld.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
-				07A21C2C19EFC60300A5F3CB /* vanish.plist in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,

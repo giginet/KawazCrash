@@ -60,6 +60,12 @@ bool TitleScene::init()
     
     auto touchListener = EventListenerTouchOneByOne::create();
     touchListener->onTouchBegan = [this, tap](Touch * touch, Event * event) {
+        
+        // パーティクルの表示
+        auto particle = ParticleSystemQuad::create("particles/button-effect.plist");
+        particle->setPosition(tap->getPosition());
+        this->addChild(particle);
+        
         auto scene = MainScene::createScene();
         auto transition = TransitionCrossFade::create(0.5, scene);
         Director::getInstance()->replaceScene(transition);
