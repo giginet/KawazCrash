@@ -12,11 +12,11 @@
 
 ### iOS
 
-[https://itunes.apple.com/ja/app/kawazutankurasshu!/id930486794?mt=8 かわずたんクラッシュ！ on the App Store on iTunes]
+[https://itunes.apple.com/ja/app/kawazutankurasshu!/id930486794?mt=8](https://itunes.apple.com/ja/app/kawazutankurasshu!/id930486794?mt=8)
 
 ### Android
 
-https://play.google.com/store/apps/details?id=org.kawaz.KawazCrash
+[https://play.google.com/store/apps/details?id=org.kawaz.KawazCrash](https://play.google.com/store/apps/details?id=org.kawaz.KawazCrash)
 
 ## ライセンス
 
